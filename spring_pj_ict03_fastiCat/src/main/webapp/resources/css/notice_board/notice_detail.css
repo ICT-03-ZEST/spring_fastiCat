@@ -1,0 +1,18 @@
+@charset "UTF-8";
+
+/* border: 1px solid black; */
+
+table{
+	border: 1px solid orange;
+	margin-left: 400px;
+}
+table th{
+	border: 1px solid orange;
+}
+table td{
+	border: 1px solid orange;
+}
+inputbutton{
+	width: 100px;
+	height: 40px;
+}
