@@ -21,6 +21,12 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<!-- MultipartResolver 설정 : 이미지 업로드시 사용 -->
+   <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+      <beans:property name="maxUploadSize" value="100000000" />
+      <beans:property name="maxInMemorySize" value="100000000" />
+   </beans:bean>
+   
 	<context:component-scan base-package="com.spring.ict03_fastiCat" />
 	
 	
