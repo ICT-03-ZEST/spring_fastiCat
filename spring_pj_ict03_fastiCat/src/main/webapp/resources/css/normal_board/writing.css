@@ -13,6 +13,7 @@
 	margin: 20px auto;
 	border: 1px solid gainsboro;
 	border-radius: 5px;
+	width: 800px;
 }
 
 .nav_title h3 {
@@ -20,10 +21,12 @@
 	font-size: 25px;
 	margin-top: 50px
 }
-
+.td_title {
+	width: 100px;
+}
 .title {
 	height: 50px;
-	margin: 20px;
+	margin: 30px;
 	font-size: 25px;
 	border: none;
 	border-bottom: 2px solid orange;
@@ -37,11 +40,11 @@
 select {
 	height: 40px;
 	width: 120px;
-	margin: 10px 30px 10px 20px;
 	font-size: 20px;
 	border: 2px solid orange;
 	border-radius: 5px;
 	cursor: pointer;
+	margin-left: 30px;
 }
 
 .btn_upload {
@@ -90,8 +93,8 @@ select {
 }
 
 .hr_between {
-	width: 550px;
-	margin-top: 20px;
+	width: 750px;
+	margin-top: 30px;
 	border: 1px solid gainsboro;
 }
 
@@ -105,7 +108,7 @@ textarea {
 
 /* 버튼 */
 .input_btn {
-	width: 600px;
+	width: 800px;
 	text-align: right;
 	margin: 0 auto;
 }
@@ -141,7 +144,7 @@ textarea {
 	font-size: 18px;
 	color: gray;
 	font-weight: bold;
-	margin-left: 20px;
+	margin-left: 30px;
 }
 
 .btn_choice:hover {
@@ -155,5 +158,5 @@ textarea {
 }
 
 .file_name {
-	margin-top: 10px;
+	margin-left: 20px;
 }

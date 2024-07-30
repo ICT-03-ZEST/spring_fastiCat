@@ -95,15 +95,19 @@ $(function() {
 	        	<input type="hidden" name="hiddenCategory" value="${dto.board_category}">
 	          
 	          <div class="mod_container">
-		          <table class="mod_table" cellspacing="0" cellpadding="0">
+		         <table class="mod_table" cellspacing="0" cellpadding="0">
 		          	<tr>
 		          		<th>제목</th>
 		          		<td><input type="text" name="board_title"  class="board_title" value="${dto.board_title}"></td>
 		          	</tr>
 		          	
 		          	<tr>
-		          		<td align="center" class="td_img">기존 이미지</td>
-		          		<td align="center" class="td_img">변경할 이미지</td>
+		          		<td colspan="2"><hr></td>
+		          	</tr>
+		          	
+		          	<tr>
+		          		<td align="center" class="td_img"><span>기존 이미지</span></td>
+		          		<td align="center" class="td_img"><span>변경할 이미지</span></td>
 		          	</tr>
 		          	<tr> 
 			       		<td class="td_oldImg" align="center">
@@ -121,6 +125,10 @@ $(function() {
 				        	<input type="file" class="input_file" name="board_image" id="board_image" accept="image/*">
 				        	<span class="file_name" id="image_name">파일선택 없음</span>
 				        </td>
+		          	</tr>
+		          	
+		          	<tr>
+		          		<td colspan="2"><hr class="hr_line"></td>
 		          	</tr>
 		          	
 			        <tr>

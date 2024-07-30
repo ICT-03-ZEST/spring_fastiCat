@@ -211,7 +211,14 @@ function newLoad() { //새로고침
                 <ul>
                     <li class="writer"><span>${dto.board_writer}</span>
                         <ul>
-                            <li class="review_catgry">${dto.board_category}</li>
+                            <li class="review_catgry">
+                             <c:if test="${dto.board_category == 'review'}">
+				   	  				공연후기
+					    	</c:if>
+					     	<c:if test="${dto.board_category != 'review'}">
+					   	  			자유
+					   		</c:if>
+                            </li>
                             <li class="regDate">${dto.board_regDate}</li>
                             <li class="views">조회수 ${dto.board_views}</li>
                             <li><i id="board_heart" class="fa-regular fa-heart"></i>${dto.board_heart}</li>
@@ -234,7 +241,7 @@ function newLoad() { //새로고침
          <div class="content_box">
             <ul>
             	<c:if test="${dto.board_image != null}"> 
-            		<li><img src="${dto.board_image}" class="boardImg"></li>
+            		<li><img src="${dto.board_image}" class="boardImg"></li><br>
             	</c:if>
             	
                 <li>
