@@ -44,7 +44,7 @@ public class UpdateImageName {
 		System.out.println("saveDir: " + saveDir);
 			
 		//이미지 추가를 위한 샘플이미지 경로 (upload 폴더 우클릭 > properties > location 정보 복사해서 붙여넣기) 맨뒤 \\추가
-		String realDir = "D:\\dev\\workspace_spring\\spring_ict03_fastiCat\\src\\main\\webapp\\resources\\upload\\";
+		String realDir = "D:\\git\\spring_fastiCat\\spring_pj_ict03_fastiCat\\src\\main\\webapp\\resources\\upload\\";
 		System.out.println("realDir: " + realDir);		
 		
 		FileInputStream fis= null;
