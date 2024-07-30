@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.spring.ict03_fastiCat.service.BoardServiceImpl;
 import com.spring.ict03_fastiCat.service.MainShowServiceImpl;
 
+
 @Controller
 public class BoardController {
 	
