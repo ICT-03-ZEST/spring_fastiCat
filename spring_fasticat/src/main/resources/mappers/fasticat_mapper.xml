@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+	 <mapper namespace="com.spring.fasticat.dao.MyPageDAO">  <!-- namespace="패키지명.인터페이스" -->
+					
+		<select id="idPasswordChk" parameterType="java.util.Map" resultType="int">
+			SELECT COUNT(*) FROM mvc_customer_tbl WHERE userid=#{strId} and password=#{strPwd}
+		</select>
+		
+		<delete id="deleteUser" parameterType="String">
+			DELETE FROM mvc_customer_tbl WHERE userid = #{strId}
+		</delete>
+		
+		<select id="getUserDetail" parameterType="String" resultType="com.spring.fasticat.dto.MyPageDTO">
+			SELECT * FROM mvc_customer_tbl WHERE userid= #{strId}
+		</select>
+		
+		<update id="updateUser" parameterType="com.spring.fasticat.dto.MyPageDTO">
+			UPDATE mvc_customer_tbl 
+				SET password = #{password}, 
+					username = #{username} , 
+					birthday = #{birthday}, 
+					address = #{address}, 
+					hp = #{hp}, 
+					email = #{email} 
+				WHERE userid = #{userid}
+		</update>
+		
+		<select id="myBoardList" parameterType="java.util.Map" resultType="com.spring.fasticat.dto.BoardDTO">
+				SELECT * 
+				FROM ( 
+					SELECT A.*, 
+					rownum as rn 
+						FROM 
+							(SELECT * FROM 
+								(SELECT * FROM 
+									<choose>
+							            <when test="table == 'REVIEWBOARD_TBL'">
+							                REVIEWBOARD_TBL
+							            </when>
+							            <when test="table == 'FREEBOARD_TBL'">
+							                FREEBOARD_TBL
+							            </when>
+							        </choose>
+								) 
+							   	WHERE board_show = 'y' 
+								AND  board_writer = #{strId}
+						        ORDER BY board_num DESC 
+						) A 
+					) 
+				WHERE rn BETWEEN #{start} AND #{end}
+		</select>
+		
+		<select id="myBoardCnt" parameterType="java.util.Map" resultType="int">
+				SELECT COUNT(*) FROM 
+				<choose>
+		            <when test="table == 'REVIEWBOARD_TBL'">
+		                REVIEWBOARD_TBL
+		            </when>
+		            <when test="table == 'FREEBOARD_TBL'">
+		                FREEBOARD_TBL
+		            </when>
+		        </choose>
+				WHERE board_writer = #{strId} 
+		</select>
+		
+		<delete id="boardDelete" parameterType="java.util.Map" >
+			DELETE FROM 
+				<choose>
+		            <when test="category == 'review'">
+		                REVIEWBOARD_TBL
+		            </when>
+		            <when test="category == 'free'">
+		                FREEBOARD_TBL
+		            </when>
+		        </choose>
+				WHERE board_writer = #{strId} 
+				AND board_num IN
+				<foreach item="num" index="index" collection="numList" open="(" separator="," close=")">
+					#{num}
+				</foreach>
+		</delete>
+		
+		<select id="resBoardCnt" parameterType="String" resultType="int">
+			SELECT COUNT(*) FROM SHOW_RESERVATION WHERE userid = #{strId} AND Reservation_check = 'y'
+		</select>
+		
+		<select id="resBoardList" parameterType="java.util.Map" resultType="int">
+		SELECT *  
+	        FROM ( 
+	            SELECT A.*, 
+	                rownum as rn 
+	            FROM ( 
+	                SELECT sr.show_ResId showId, 
+	                        st.showName showName, 
+	                        mc.username userName, 
+	                        sr.totalPrice totalPrice, 
+	                        sr.Reservation_date showDate, 
+	                        sr.Reservation_dateNow resDate
+	                    FROM show_Reservation sr 
+	                    JOIN show_tbl st 
+	                        ON sr.showNum = st.showNum 
+	                    JOIN mvc_customer_tbl mc 
+	                        ON sr.userID = mc.userid 
+	                    WHERE sr.userID = #{strId, jdbcType=VARCHAR} 
+	                    AND sr.Reservation_check = 'y' 
+	                    ORDER BY sr.show_ResId DESC 
+	                ) A 
+	            ) 
+	        WHERE rn BETWEEN #{start, jdbcType=INTEGER} AND #{end, jdbcType=INTEGER}
+		</select>
+		
+		<update id="resDelete" parameterType="java.util.Map">
+			UPDATE SHOW_RESERVATION SET reservation_check = 'n' WHERE show_resid = #{strId} AND userid = #{resNum}
+		</update>
+	 </mapper> 
