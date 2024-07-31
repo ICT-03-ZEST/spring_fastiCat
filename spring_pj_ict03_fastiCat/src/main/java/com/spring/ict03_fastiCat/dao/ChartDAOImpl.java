@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.ict03_fastiCat.dto.BoardDTO;
+import com.spring.ict03_fastiCat.dto.VisitDTO;
 
 @Repository
 public class ChartDAOImpl implements ChartDAO {
@@ -52,6 +53,14 @@ public class ChartDAOImpl implements ChartDAO {
 		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
 		List<BoardDTO> list = dao.popularBoard(); 
 		return list;
+	}
+
+	//일별 방문자수(일주일 단위)
+	@Override
+	public List<VisitDTO> visitCount() {
+		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
+		List<VisitDTO> visit = dao.visitCount(); 
+		return visit;
 	}
 	
 }

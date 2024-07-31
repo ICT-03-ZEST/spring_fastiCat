@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 
 import com.spring.ict03_fastiCat.dao.ChartDAO;
 import com.spring.ict03_fastiCat.dto.BoardDTO;
+import com.spring.ict03_fastiCat.dto.VisitDTO;
 
 @Service
 public class ChartServiceImpl implements ChartService {
@@ -34,11 +35,15 @@ public class ChartServiceImpl implements ChartService {
 		//인기 게시글 목록
 		List<BoardDTO> list = dao.popularBoard();
 		
+		//일별 방문자수(일주일 단위)
+		List<VisitDTO> visit = dao.visitCount();
+		
 		model.addAttribute("userCnt", userCnt);
 		model.addAttribute("showCnt", showCnt);
 		model.addAttribute("regCnt", regCnt);
 		model.addAttribute("bookCnt", bookCnt);
 		model.addAttribute("list", list);
+		model.addAttribute("visit", visit);
 	}
 		
 

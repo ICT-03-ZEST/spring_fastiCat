@@ -114,12 +114,15 @@
 						            <h6 class="m-0 font-weight-bold text-primary">웹사이트 방문자 수 (월별)</h6>
 						        </div>
 						        <div class="card-body">
-						    		<div id="chart_div"></div>
+						        <c:forEach var="dto" items="${visit}">
+						        	<input type="hidden" id="visit_date${dto.visit_date}" value="${dto.visit_date}">
+						        	<input type="hidden" id="visit_count${dto.visit_count}" value="${dto.visit_count}">
+						        </c:forEach>
+						        	<div id="chart_div"></div>
 						    	</div>
 						    </div>
 						</div>
   
-                        
        						<div class="card shadow mb-4">
 			            		<div class="card-header py-3">
 			                		<h6 class="m-0 font-weight-bold text-primary">인기 게시글 목록</h6>
@@ -137,7 +140,7 @@
 			                            <c:forEach var="dto" items="${list}">
 				                            <tr>
 				                                <td>${dto.board_title}</td>
-				                                 <td>${dto.board_writer}</td>
+				                                <td>${dto.board_writer}</td>
 				                                <td>${dto.board_views}</td>
 				                                <td>${dto.board_regDate}</td>
 				                            </tr>
@@ -155,64 +158,28 @@
     		<!-- footer 시작 -->
 			<%@ include file="../ad_common/ad_footer.jsp" %>
 			<!-- footer 끝 -->
-  
-  <script type="text/javascript">
+			
+<script type="text/javascript">
   google.charts.load('current', {packages: ['corechart']});
   google.charts.setOnLoadCallback(drawChart);
-
+ 
   function drawChart() {
-        var data = new google.visualization.arrayToDataTable([
-        	 ['주간', '조회수'],
-             ['1',  4],
-             ['2',  6],
-             ['3',  11],
-             ['4',  15]
-        ]);
-        //data.addColumn('number', 'day');
-        //data.addColumn('number', '조회수');
-        
-       /*  data.addRows([
-          [0,  0], [1, 5],  [2,  20],  [3,  9], [4,  10],  [5, 5], [6, 5], [7, 5]
-        ]);
- */
-       /*  var options = {
-          hAxis: {
-            title: '주간',
-            textStyle: {
-              color: '#01579b',
-              fontSize: 20,
-              fontName: 'Arial',
-              bold: true,
-              italic: true
-            },
-            titleTextStyle: {
-              color: '#01579b',
-              fontSize: 16,
-              fontName: 'Arial',
-              bold: false,
-              italic: true
-            }
-          },
-           vAxis: {
-            title: '조회수',
-            textStyle: {
-              color: '#1a237e',
-              fontSize: 24,
-              bold: true
-            },
-            titleTextStyle: {
-              color: '#1a237e',
-              fontSize: 24,
-              bold: true
-            }
-          } ,
-          colors: ['#a52714', '#097138']
-          
-        }; */
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-        chart.draw(data, options);
+	  let date = Number(document.getElementById('visit_date').value.split("/").pop());
+	  let count = Number(document.getElementById('visit_count').value);
+	  
+      let mViews = new Array();
+      mViews[0] = ['Week', '조회수'];
+      
+      for(let i = 1; i <= 7; i++) {
+        let viewArr = [date, count];
+        mViews[i] = viewArr;
       }
-  </script>
+      
+      let data = google.visualization.arrayToDataTable(mViews);
+      
+      let chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      chart.draw(data); 
+    }
+</script>
 </body>
-
 </html>

@@ -58,4 +58,17 @@
 					WHERE rn <= 5
 		]]>
 	  </select>
+	  
+	  <!-- 일별 방문자수(일주일 단위) -->
+	  <select id="visitCount" resultType="com.spring.ict03_fastiCat.dto.VisitDTO">
+		  	SELECT TRUNC(visit_date) AS visit_date,  
+			COUNT(visit_date) AS visit_count 
+			  FROM visit_tbl
+			GROUP BY
+			    TRUNC(visit_date)
+			ORDER BY
+			    visit_date
+	  </select>
+	  
+	  
 </mapper>

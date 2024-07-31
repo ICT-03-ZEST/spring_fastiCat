@@ -3,6 +3,7 @@ package com.spring.ict03_fastiCat.dao;
 import java.util.List;
 
 import com.spring.ict03_fastiCat.dto.BoardDTO;
+import com.spring.ict03_fastiCat.dto.VisitDTO;
 
 public interface ChartDAO {
 	
@@ -20,4 +21,7 @@ public interface ChartDAO {
 	
 	//인기 게시글 목록
 	public List<BoardDTO> popularBoard();
+
+	//일별 방문자수(일주일 단위)
+	public List<VisitDTO> visitCount();
 }
