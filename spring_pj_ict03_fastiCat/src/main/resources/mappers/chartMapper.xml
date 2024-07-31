@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+<mapper namespace="com.spring.ict03_fastiCat.dao.ChartDAO">
+	  <!-- 전체 회원수 -->
+	  <select id="userCount" resultType="int">
+	  	SELECT COUNT(*) AS cnt FROM mvc_customer_tbl
+	  	 WHERE show='y'
+	  </select>
+	  
+	  <!-- 등록된 공연 및 페스티벌 수 -->
+	  <select id="showCount" resultType="int">
+	  	SELECT SUM(cnt)AS total 
+	      FROM (
+				SELECT COUNT(*) AS cnt FROM show_tbl_fes
+				 WHERE show='y'
+				UNION ALL
+				SELECT COUNT(*) AS cnt FROM show_tbl
+				 WHERE show='y')
+	  </select>
+	  
+	  <!-- 일주일 간 등록된 게시글 수   -->
+	  <select id="regBoardCountforWeek" resultType="int">
+	   		SELECT SUM(cnt) 
+	   		 FROM (
+				SELECT COUNT(*) AS cnt FROM reviewBoard_tbl
+				WHERE board_show = 'y'
+				AND board_regDate BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE
+				UNION ALL
+				SELECT COUNT(*) AS cnt FROM freeBoard_tbl
+				WHERE board_show = 'y'
+				AND board_regDate BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE)
+	  </select>
+	  
+	  <!-- 일주일 간 예매된 수량 -->
+	  <select id="bookingCountforWeek" resultType="int">
+	  		SELECT COUNT(*) AS cnt FROM show_Reservation
+ 			 WHERE Reservation_dateNow BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE
+	  </select>
+	  
+	  <!-- 인기 게시글 목록 -->
+	   <select id="popularBoard" resultType="com.spring.ict03_fastiCat.dto.BoardDTO">
+	  <![CDATA[
+	  		SELECT * 
+	  		  FROM (
+					SELECT A.*, rownum AS rn
+					  FROM (
+					        SELECT * FROM(
+					        SELECT * FROM reviewBoard_tbl
+					         WHERE board_show = 'y'
+					        UNION ALL
+					        SELECT * FROM freeBoard_tbl
+					         WHERE board_show = 'y')
+					        ORDER BY board_views DESC
+					        ) A )
+					WHERE rn <= 5
+		]]>
+	  </select>
+</mapper>

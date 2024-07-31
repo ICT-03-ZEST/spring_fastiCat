@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.ict03_fastiCat.service.BoardServiceImpl;
+import com.spring.ict03_fastiCat.service.ChartServiceImpl;
 import com.spring.ict03_fastiCat.service.MainShowServiceImpl;
 
 
@@ -211,6 +212,17 @@ public class BoardController {
 		show.MainshowInfo(req, model);
 		
 		return  "customer/show_category/showInfo";
+	}	
+	
+	//--------------------------현황조회-------------------------------------
+	@Autowired
+	private ChartServiceImpl chart;
+	@RequestMapping("ad_dashboard.bc")
+	public String ad_dashboard(HttpServletRequest req, Model model)
+			throws ServletException, IOException {
+		logger.info("<< url => ad_dashboard.bc >>");
+		chart.chartCount(req, model);
+		return  "admin/ad_main/ad_dashboard";
 	}	
 
 }
