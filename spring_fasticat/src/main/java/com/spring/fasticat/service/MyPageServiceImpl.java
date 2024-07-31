@@ -10,11 +10,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.spring.fasticat.dao.MyPageDAO;
 import com.spring.fasticat.dao.MyPageDAOImpl;
 import com.spring.fasticat.dto.BoardDTO;
 import com.spring.fasticat.dto.MyPageDTO;
@@ -26,6 +26,9 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		@Autowired
 		private MyPageDAOImpl dao;
+		
+		@Autowired
+		private BCryptPasswordEncoder bCryptPasswordEncoder;// 비밀번호 암호화 클래스
 		
 		// 회원정보 인증처리 및 상세페이지
 		@Override
@@ -106,7 +109,17 @@ public class MyPageServiceImpl implements MyPageService {
 			MyPageDTO dto = new MyPageDTO();
 			 
 			dto.setUserid(strId); //아이디
-			dto.setPassword(request.getParameter("password")); //비밀번호
+			
+			// 시큐리티 - 비밀번호 암호화
+			String password = request.getParameter("password");
+			System.out.println("암호화 전의 비밀번호 : " + password);
+			  
+			String encriptPassword = bCryptPasswordEncoder.encode(password);
+			System.out.println("암호화 후의 비밀번호 : " + encriptPassword);
+			  
+			dto.setPassword(encriptPassword); // 주의 !!! dto.setPassword(암호화된 비밀번호)
+			
+			
 			dto.setUsername(request.getParameter("username")); //이름
 			dto.setBirthday(Date.valueOf(request.getParameter("birthday"))); //생년월일
 			dto.setAddress(request.getParameter("address")); //주소

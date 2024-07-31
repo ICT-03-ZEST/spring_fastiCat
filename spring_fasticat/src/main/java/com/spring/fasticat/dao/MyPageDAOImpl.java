@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.spring.fasticat.dto.BoardDTO;
@@ -17,11 +18,25 @@ public class MyPageDAOImpl implements MyPageDAO{
 	@Autowired
 	private SqlSession sqlSession;
 	
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+	
 	@Override
 	public int idPasswordChk(Map<String, Object> map) {
 		System.out.println("DAO-idPasswordChk");
+		// 암호화된 비밀번호 가져오기(회원가입시 비밀번호 암호화 처리)
+		String strId = (String) map.get("strId");
+		String strPwd = (String) map.get("strPwd");
 		
-		int selectCnt = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.idPasswordChk", map);
+        String encryptPassword = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.userPasswordCheck", strId);
+        System.out.println("화면에서 입력받은 비밀번호 : " + strPwd);
+        System.out.println("암호화된 비밀번호 : " + encryptPassword);
+        
+        int selectCnt = 0;
+        // 로그인시 입력한 비밀번호와 가입된 비밀번호(암호화된 비밀번호)가 일치하는지 여부
+        if(passwordEncoder.matches(strPwd, encryptPassword)) {
+        	selectCnt = 1;
+        }    
 		
 		return selectCnt;
 	}

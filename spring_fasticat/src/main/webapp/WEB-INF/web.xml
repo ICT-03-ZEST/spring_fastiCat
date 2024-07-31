@@ -9,6 +9,7 @@
 		<param-value>
 		            /WEB-INF/spring/root-context.xml
 					classpath:/dataSource-config.xml
+					classpath:/security-context.xml  <!-- 1. 시큐리티 추가-->
 		</param-value>
 	</context-param>
 	

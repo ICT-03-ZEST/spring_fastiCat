@@ -115,4 +115,10 @@
 		<update id="resDelete" parameterType="java.util.Map">
 			UPDATE SHOW_RESERVATION SET reservation_check = 'n' WHERE show_resid = #{strId} AND userid = #{resNum}
 		</update>
+		
+		<select id="userPasswordCheck" parameterType="String" resultType="String">
+			SELECT password FROM mvc_customer_tbl WHERE userid=#{strId}
+		</select>
+		
+		
 	 </mapper> 
