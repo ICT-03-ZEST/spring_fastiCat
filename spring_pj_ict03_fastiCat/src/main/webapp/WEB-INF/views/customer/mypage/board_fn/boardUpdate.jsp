@@ -28,16 +28,16 @@ $(function() {
 			}
 		});		
 		
-        $('#board_thumnail').change(function() {
-            let fileName = $(this).val().split('\\').pop();
-            $('#thumnail_name').text(fileName);
-        });
-
+		//이미지 미리보기
         $('#board_image').change(function() {
-        	let fileName = $(this).val().split('\\').pop(); // '\\'의마지막부분 반환
-            $('#image_name').text(fileName);
+       		let file = this.files[0];
+       		let fileName = $(this).val().split('\\').pop();
+       		
+       		if(file) {
+       			let url = URL.createObjectURL(file);
+       			$('#image_name').html('<img src="' + url + '" alt="' + fileName + '" style="width:200px">');
+       		}
         });
-        
       //닉네임 css
     	if(${dto.board_category == 'review'}) {
     		let style = {"background-image":"url('${path}/resources/images/6574814.jpg')"
@@ -95,7 +95,7 @@ $(function() {
 	        	<input type="hidden" name="hiddenCategory" value="${dto.board_category}">
 	          
 	          <div class="mod_container">
-		         <table class="mod_table" cellspacing="0" cellpadding="0">
+		          <table class="mod_table" cellspacing="0" cellpadding="0">
 		          	<tr>
 		          		<th>제목</th>
 		          		<td><input type="text" name="board_title"  class="board_title" value="${dto.board_title}"></td>
@@ -107,7 +107,7 @@ $(function() {
 		          	
 		          	<tr>
 		          		<td align="center" class="td_img"><span>기존 이미지</span></td>
-		          		<td align="center" class="td_img"><span>변경할 이미지</span></td>
+		          		<td align="center" class="td_img"><label class="btn_choice" for="board_image">파일선택</label></td>
 		          	</tr>
 		          	<tr> 
 			       		<td class="td_oldImg" align="center">
@@ -121,7 +121,6 @@ $(function() {
 			       		</td>
 			       		
 				        <td class="td_newImg" align="center">
-				        	<label class="btn_choice" for="board_image">파일선택</label>
 				        	<input type="file" class="input_file" name="board_image" id="board_image" accept="image/*">
 				        	<span class="file_name" id="image_name">파일선택 없음</span>
 				        </td>

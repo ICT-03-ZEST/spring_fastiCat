@@ -219,7 +219,7 @@ li {
 }
 
 .td_img {
-	padding: 10px;
+	padding: 20px;
 	font-weight: bold;
 }
 .li_category {
@@ -272,17 +272,17 @@ li {
     justify-content: center;
 }
 
-table.mod_table {
-    width: 1000px;
-}
-
 .mod_table {
+	width: 1000px;
 	border-collapse: collapse;
 }
-.mod_table th, td {
-	border-top: 1px solid grey;
-	border-right: 1px solid grey;
-	border-left: 1px solid grey;
+
+.hr_line {
+    margin-top: 50px;
+}
+
+.td_newImg {
+	height: 100px;
 }
 
 .td_bottom{
@@ -346,6 +346,7 @@ textarea#board_content {
 
 .file_name {
 	margin-top: 10px;
+	margin-left: 10px;
 }
 
 .td_newImg div {

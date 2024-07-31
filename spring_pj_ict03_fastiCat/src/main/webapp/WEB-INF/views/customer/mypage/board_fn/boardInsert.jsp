@@ -14,10 +14,17 @@
 	
    $(function() {
 
-       $('#board_image').change(function() {
-       	let fileName = $(this).val().split('\\').pop();
-           $('#image_name').text(fileName);
-       });
+	   $('#board_image').change(function() {
+      		let file = this.files[0];
+      		
+      		let fileName = $(this).val().split('\\').pop();
+      		$('#image_name').text(fileName);
+      		
+      		if(file) {
+      			let url = URL.createObjectURL(file);
+      			$('#preview').html('<img src="' + url + '" alt="' + fileName + '" style="width:100px">');
+      		}
+      });
    });
 </script>
 </head>
@@ -45,16 +52,19 @@
                                 </select>
                             </div>
                        </td>   
-                    
                     </tr>
-
-                    <tr>
-	                    <td align="left" colspan="2">  	<!-- 이미지  -->
-                            <label class="btn_choice" for="board_image">image</label>
-			        		<input type="file" class="input_file" name="board_image" id="board_image" accept="image/*">
-			        		<span class="file_name" id="image_name">파일선택 없음</span>
-                        </td> 
-                    </tr>
+					
+					<tr>
+						<td align="left">
+							<label class="btn_choice" for="board_image">image</label>
+							<input type="file" class="input_file" name="board_image" id="board_image" accept="image/*">
+							<span class="file_name" id="image_name">파일선택 없음</span>
+						</td>
+						
+						<td>
+							<span id="preview"></span>
+						</td>
+					</tr>
 
                     <tr>
                         <td colspan="2"><hr class="hr_between"></td>
