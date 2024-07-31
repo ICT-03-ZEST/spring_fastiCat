@@ -29,14 +29,15 @@ public class NoticeServiceImpl implements NoticeService{
 		System.out.println("서비스- NoticeBoardListAction");
 		
 		//화면에서 입력받은 값을 가져옴
-		String N_pageNum  = request.getParameter("pageNum");	//클릭한 페이지값
+		String N_pageNum = (request.getParameter("pageNum") != null) ? request.getParameter("pageNum") : "1";
+		N_pageNum  = request.getParameter("pageNum");	//클릭한 페이지값
 		
 		//전체 공지글 갯수를 카운트
 		NoticePaging paging = new NoticePaging(N_pageNum);
-//		int total = dao.NoticeBoardCnt();
-//		System.out.println("total" + total);
+		int total = dao.NoticeBoardCnt();
+		System.out.println("total : " + total);
 		
- //    	paging.setTotalCount(total);
+		paging.setTotalCount(total);
 		
 		//전체 공지글 목록 조회
 		int Start = paging.getStartRow();
@@ -119,7 +120,7 @@ public class NoticeServiceImpl implements NoticeService{
 		
 		dao.insertNoticeBoard(dto);
 		
-		request.setAttribute("dto", dto);
+		model.addAttribute("dto", dto);
 	}
 
 }

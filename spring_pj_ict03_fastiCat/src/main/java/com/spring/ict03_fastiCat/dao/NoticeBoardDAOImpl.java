@@ -35,7 +35,9 @@ public class NoticeBoardDAOImpl implements NoticeBoardDAO{
 		int total
 		 = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.NoticeBoardDAO.NoticeBoardCnt");
 
+		System.out.println("DAO TO: " + total);
 			return total;
+			
 		}
 
 	//공지사항 조회수 증가

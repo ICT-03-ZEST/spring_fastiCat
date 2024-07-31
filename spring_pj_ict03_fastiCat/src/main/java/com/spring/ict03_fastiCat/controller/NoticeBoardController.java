@@ -59,6 +59,7 @@ public class NoticeBoardController {
 			logger.info("url -> notice_insertAction");
 			
 			//서비스호출
+			service.NoticeBoard_InsertAction(request, model);
 			viewPage = request.getContextPath()+"/notice_boardList.nb";
 			response.sendRedirect(viewPage);
 			
@@ -74,6 +75,7 @@ public class NoticeBoardController {
 			logger.info("url -> notice_detail");
 			
 			//서비스호출
+			service.NoticeBoardDetail_Action(request, model);
 			return "customer/normal_board/notice_board/notice_detail";
 		}
 		
@@ -86,6 +88,7 @@ public class NoticeBoardController {
 			logger.info("url -> notice_update");
 			
 			//서비스호출
+			service.NoticeBoardDetail_Action(request, model);
 			//상세페이지에 들어간 값들을 가지고 수정을 해야하기 때문에 detailAction을 또 호출해야함.
 			return "customer/normal_board/notice_board/notice_update";
 		}
@@ -100,6 +103,7 @@ public class NoticeBoardController {
 			
 			//서비스호출
 			//실질적으로 처리가 이루어지는 부분이므로 updatAction을 호출
+			service.NoticeBoard_UpdateAction(request, model);
 			return "customer/normal_board/notice_board/notice_updateAction";
 		}
 		
@@ -113,9 +117,9 @@ public class NoticeBoardController {
 			logger.info("url -> notice_deleteAction");
 			
 			//서비스호출
+			service.NoticeBoard_DeleteAction(request, model);
 			viewPage = request.getContextPath()+"/notice_boardList.nb";
 			response.sendRedirect(viewPage);
-			
 			return null;
 		}
 

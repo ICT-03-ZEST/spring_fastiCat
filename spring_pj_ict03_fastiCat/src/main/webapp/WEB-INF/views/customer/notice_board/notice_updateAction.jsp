@@ -8,7 +8,7 @@
 <title>수정 후 저장을 누르면 나오는 페이지</title>
 </head>
 <body>
-	<c:if test="${updateCnt==1}">
+	<c:if test="${updateCnt!=0}">
 		<script type="text/javascript">
 			setTimeout(function() {
 				alert("공지사항 수정 성공");
@@ -17,7 +17,7 @@
 		</script>
 	</c:if>
 
-	<c:if test="${updateCnt!=1}">
+	<c:if test="${updateCnt==0}">
 		<script type="text/javascript">
 			setTimeout(function() {
 				alert("공지사항 수정 실패");
