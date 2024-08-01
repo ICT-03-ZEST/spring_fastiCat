@@ -24,4 +24,7 @@ public interface ChartDAO {
 
 	//일별 방문자수(일주일 단위)
 	public List<VisitDTO> visitCount();
+	
+	//방문자 수 추가
+	public void addVisit();
 }

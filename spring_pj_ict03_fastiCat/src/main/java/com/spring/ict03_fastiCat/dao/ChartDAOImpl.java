@@ -63,4 +63,11 @@ public class ChartDAOImpl implements ChartDAO {
 		return visit;
 	}
 	
+	//방문자 수 추가
+	public void addVisit() {
+		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
+		dao.addVisit(); 
+	}
+	
+	
 }

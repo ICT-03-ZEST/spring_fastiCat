@@ -70,5 +70,10 @@
 			    visit_date
 	  </select>
 	  
+	  <!-- 방문자 수 추가 -->
+	  <insert id="addVisit">
+	  	 INSERT INTO visit_tbl
+         VALUES((SELECT NVL(MAX(visit_num)+1, 1) FROM visit_tbl), sysdate)
+	  </insert>
 	  
 </mapper>

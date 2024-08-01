@@ -93,3 +93,23 @@ CREATE TABLE heart_tbl(
      FOREIGN KEY(board_num) REFERENCES reviewBoard_tbl(board_num)ON DELETE CASCADE,
      FOREIGN KEY(board_num) REFERENCES freeBoard_tbl(board_num)ON DELETE CASCADE
 );
+--<관리자 현황 - 차트>
+--결산 > 방문자 수
+DROP TABLE visit_tbl;
+CREATE TABLE visit_tbl (
+    visit_num NUMBER PRIMARY KEY,
+    visit_date DATE
+);
+--방문자수 데이터
+DECLARE 
+    i NUMBER:=1; 
+BEGIN
+    WHILE i<=55 LOOP
+        INSERT INTO visit_tbl
+        VALUES((SELECT NVL(MAX(visit_num)+1, 1) FROM visit_tbl), '2024-07-25');
+        i:=i+1;
+    END LOOP;
+END;
+/
+
+--===================================================

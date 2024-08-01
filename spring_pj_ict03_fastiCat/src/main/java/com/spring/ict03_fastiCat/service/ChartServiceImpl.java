@@ -45,6 +45,11 @@ public class ChartServiceImpl implements ChartService {
 		model.addAttribute("list", list);
 		model.addAttribute("visit", visit);
 	}
+
+	@Override
+	public void addVisit(HttpServletRequest req, Model model) throws ServletException, IOException {
+		dao.addVisit();
+	}
 		
 
 }
