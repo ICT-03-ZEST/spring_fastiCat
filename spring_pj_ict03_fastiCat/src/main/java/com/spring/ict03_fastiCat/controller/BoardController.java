@@ -27,26 +27,6 @@ public class BoardController {
 	@Autowired
 	private BoardServiceImpl serv;
 	
-//	@RequestMapping("main.do")
-//	public String main(HttpServletRequest req, Model model)
-//			throws ServletException, IOException {
-//		return "common/main";
-//	}
-	
-	@RequestMapping("login.do")
-	public String login(HttpServletRequest req, Model model)
-			throws ServletException, IOException {
-		req.getSession().setAttribute("sessionID", "user3"); // 로그인
-		return "common/main";
-	}
-	
-	@RequestMapping("logout.do")
-	public String logout(HttpServletRequest req, Model model)
-			throws ServletException, IOException {
-		req.getSession().invalidate(); // 로그아윳
-		return "common/main";
-	}
-	
 	// 1.게시판 목록조회
 	@RequestMapping("board.bc")
 	public String board(HttpServletRequest req, Model model)
