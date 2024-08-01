@@ -19,6 +19,9 @@ public interface ChartDAO {
 	// 일주일 간 등록된 게시글 수 
 	public int regBoardCountforWeek(); 
 	
+	//일일 등록 게시글 수 list 
+	public List<BoardDTO> regCountforday();
+	
 	//인기 게시글 목록
 	public List<BoardDTO> popularBoard();
 
@@ -27,4 +30,6 @@ public interface ChartDAO {
 	
 	//방문자 수 추가
 	public void addVisit();
+
+	
 }

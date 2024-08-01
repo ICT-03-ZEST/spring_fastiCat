@@ -40,6 +40,13 @@ public class ChartDAOImpl implements ChartDAO {
 		return regCnt;
 	}
 	
+	//일일 등록 게시글 수 list 
+	public List<BoardDTO> regCountforday() {
+		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
+		List<BoardDTO> list = dao.regCountforday(); 
+		return list;
+	}
+	
 	// 일주일 간 예매된 수량
 	@Override
 	public int bookingCountforWeek() {

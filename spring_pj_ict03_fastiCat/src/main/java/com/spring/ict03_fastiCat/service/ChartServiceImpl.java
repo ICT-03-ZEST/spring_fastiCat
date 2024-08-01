@@ -30,6 +30,10 @@ public class ChartServiceImpl implements ChartService {
 		int showCnt = dao.showCount();
 		// 일주일 간 등록된 게시글 수 
 		int regCnt = dao.regBoardCountforWeek();
+		
+		//일일 등록 게시글 수 list
+		List<BoardDTO> boardCnt = dao.regCountforday();
+		
 		// 일주일 간 예매된 횟수
 		int bookCnt = dao.bookingCountforWeek();
 		//인기 게시글 목록
@@ -41,11 +45,13 @@ public class ChartServiceImpl implements ChartService {
 		model.addAttribute("userCnt", userCnt);
 		model.addAttribute("showCnt", showCnt);
 		model.addAttribute("regCnt", regCnt);
+		model.addAttribute("boardCnt", boardCnt);
 		model.addAttribute("bookCnt", bookCnt);
 		model.addAttribute("list", list);
 		model.addAttribute("visit", visit);
 	}
 
+	//방문자 수 insert
 	@Override
 	public void addVisit(HttpServletRequest req, Model model) throws ServletException, IOException {
 		dao.addVisit();

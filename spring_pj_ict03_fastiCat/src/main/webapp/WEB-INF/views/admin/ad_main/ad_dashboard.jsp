@@ -12,8 +12,10 @@
     <title>관리자 - 현황조회</title>
     <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	<script src="${path}/resources/js/jquery-3.7.1.min.js"></script>
-	<script src="${path}/resources/js/request.js"></script>
+    <script src="${path}/resources/js/chart.js" defer></script>
+    
+
+    
 </head>
 <body id="page-top">
 
@@ -121,9 +123,13 @@
 						        </div>
 						        	
 						        <div class="card-body">
-						        <c:forEach var="dto" items="${visit}">
+						        <c:forEach var="dto" items="${visit}"> <!-- 방문자수 -->
 						        	<input type="hidden" class="visit_date" value="${dto.visit_date}">
 						        	<input type="hidden" class="visit_count" value="${dto.visit_count}">
+						        </c:forEach>
+						        <c:forEach var="dto" items="${boardCnt}"> <!-- 방문자수 -->
+						        	<input type="hidden" class="board_regDate" value="${dto.board_regDate}">
+						        	<input type="hidden" class="board_count" value="${dto.board_count}">
 						        </c:forEach>
 						        	<div id="chart_div"></div>
 						    	</div>
@@ -167,109 +173,82 @@
 			<!-- footer 끝 -->
 			
 <script type="text/javascript">
-  google.charts.load('current', {packages: ['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
+    google.charts.load('current', {packages: ['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+    
+    // 현재 표시할 주의 시작 날짜
+    let currentWeekStart = new Date();
+    let today = new Date();
+    
+    function drawChart() {
+        let dates = document.getElementsByClassName('visit_date');
+        let counts = document.getElementsByClassName('visit_count');
+        
+        let mViews = [['Date', '조회수']];
+        let uniqueDates = []; // 고유한 날짜를 저장할 배열
+        
+        // 현재 주의 시작과 끝 날짜 계산
+        let endOfWeek = new Date(currentWeekStart); 
+        let startOfWeek = new Date(endOfWeek);
+        startOfWeek.setDate(endOfWeek.getDate() - 7);
+        
+        let visitMap = new Map();
+        for (let i = 0; i < dates.length; i++) {
+            let dateStr = dates[i].value;
+            let count = Number(counts[i].value);
+            visitMap.set(dateStr, count);
+        }
+        
+        for (let d = new Date(startOfWeek); d <= endOfWeek; d.setDate(d.getDate() + 1)) {
+            let dateStr = d.toISOString().split('T')[0];
+            let count = visitMap.has(dateStr) ? visitMap.get(dateStr) : 0;
 
-  // 현재 표시할 주의 시작 날짜
-  let currentWeekStart = new Date();
-  let today = new Date();
-  
-  function drawChart() {
-      let dates = document.getElementsByClassName('visit_date');
-      let counts = document.getElementsByClassName('visit_count');
-      
-      let mViews = [['Date', '조회수']];
-      let uniqueDates = []; // 고유한 날짜를 저장할 배열
-      
-      // 현재 주의 시작과 끝 날짜 계산
-      let endOfWeek = new Date(currentWeekStart); 
-      let startOfWeek = new Date(endOfWeek);
-      startOfWeek.setDate(endOfWeek.getDate() - 7);
-      
-      let visitMap = new Map();
-      for (let i = 0; i < dates.length; i++) {
-          let dateStr = dates[i].value;
-          let count = Number(counts[i].value);
-          visitMap.set(dateStr, count);
-      }
-      
-      for (let d = new Date(startOfWeek); d <= endOfWeek; d.setDate(d.getDate() + 1)) {
-          let dateStr = d.toISOString().split('T')[0];
-          let count = visitMap.has(dateStr) ? visitMap.get(dateStr) : 0;
+         	 // 월/일 형식으로 날짜 문자열 생성
+            let month = d.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
+            let day = d.getDate();
+            let formattedDateStr = `${month}/${day}`;
+            
+            mViews.push([new Date(d), count]);
+            
+            // 고유한 날짜를 uniqueDates 배열에 추가
+            if (!uniqueDates.some(date => date.getTime() === d.getTime())) {
+                uniqueDates.push(new Date(d));
+            }
+        }
+        let data = google.visualization.arrayToDataTable(mViews);
+        
+        let options = {
+      		  hAxis: {
+      			    format: 'MM/dd',
+                    gridlines: {count: 7},
+                    ticks: uniqueDates // 고유한 날짜들만 표시
+                },
+                vAxis: {
+                    minValue: 0,
+                },
+            legend: { position: 'none' }
+        };
+        
+        let chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+    }
+    
+    function changeWeek(offset) {
+        
+    	 // 현재 주 시작일을 하루씩 이동
+        let newStart = new Date(currentWeekStart);
+        newStart.setDate(currentWeekStart.getDate() + offset);
 
-       	 // 월/일 형식으로 날짜 문자열 생성
-          let month = d.getMonth() + 1; // 월은 0부터 시작하므로 1을 더합니다.
-          let day = d.getDate();
-          let formattedDateStr = `${month}/${day}`;
-          
-          mViews.push([new Date(d), count]);
-          
-          // 고유한 날짜를 uniqueDates 배열에 추가
-          if (!uniqueDates.some(date => date.getTime() === d.getTime())) {
-              uniqueDates.push(new Date(d));
-          }
-      }
-      
-      /* for(let i = 0; i < dates.length; i++) {
-          let dateStr = dates[i].value;
-          let count = Number(counts[i].value);
-          
-          // 날짜 문자열을 Date 객체로 변환
-          let dateParts = dateStr.split("-");
-          let year = Number(dateParts[0]);
-          let month = Number(dateParts[1]) - 1; // JavaScript에서 월은 0부터 시작
-          let day = Number(dateParts[2]);
-          
-          let date = new Date(year, month, day);
-          mViews.push([date, count]);
-          
-          // 현재 주에 해당하는 날짜만 포함
-          if (date >= startOfWeek && date <= endOfWeek) {
-              mViews.push([date, count]);
-          }
-       	  // 고유한 날짜를 uniqueDates 배열에 추가
-          if (!uniqueDates.some(d => d.getTime() === date.getTime())) {
-              uniqueDates.push(date);
-          }
-      } */
-      
-      let data = google.visualization.arrayToDataTable(mViews);
-      
-      let options = {
-    		  hAxis: {
-    			  format: 'MM/dd',
-                  gridlines: {count: 7},
-                  ticks: uniqueDates // 고유한 날짜들만 표시
-              },
-              vAxis: {
-                  minValue: 0,
-                  title: '조회수'
-              },
-          legend: { position: 'none' }
-      };
-      
-      let chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
-  }
-  
-  function changeWeek(offset) {
-      
-  	 // 현재 주 시작일을 하루씩 이동
-      let newStart = new Date(currentWeekStart);
-      newStart.setDate(currentWeekStart.getDate() + offset);
-
-      // 오늘 날짜 이후로는 이동하지 않도록 제한
-      if (newStart > today) {
-          return;
-      }
-      // 새로운 시작일 설정
-      currentWeekStart = newStart;
-      // 그래프 다시 그리기
-      drawChart();
-  }
-  
+        // 오늘 날짜 이후로는 이동하지 않도록 제한
+        if (newStart > today) {
+            return;
+        }
+        // 새로운 시작일 설정
+        currentWeekStart = newStart;
+        // 그래프 다시 그리기
+        drawChart();
+    }
+    
 </script>
-
-
 </body>
 </html>
