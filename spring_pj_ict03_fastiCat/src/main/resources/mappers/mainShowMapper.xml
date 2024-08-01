@@ -18,29 +18,30 @@
 	  
 	  <!--  show 목록 -->
 	  <select id="showList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.MainShowDTO">
-	  	SELECT *
-	  	  FROM 
-			 ( 
-				SELECT b.*, ROWNUM AS rn
-				  FROM 
-					  	<if test='category == "festival"'>
-					  	( SELECT *
-					  		FROM show_tbl_fes
-					  	   WHERE show = 'y' 
-						   ORDER BY showNum DESC 
-						) b 
-					  	</if>
-					  	<if test='category == "concert"'>
-					  	( SELECT *
-					  		FROM show_tbl
-					  	   WHERE show = 'y' 
-						   ORDER BY showNum DESC 
-						) b 
-					  	</if>
-						  
-				) 
-		 WHERE rn BETWEEN TO_NUMBER(#{start}) AND TO_NUMBER(#{end})
+		    SELECT *
+		    FROM 
+		    (
+		        SELECT showNum, showName, showCategory, showIndate, showPlace, showPrice, showTime, showAge, showBene, curCapacity, maxCapacity, showDay, showImage, show, ROWNUM AS rn
+		        FROM 
+		        (
+		            SELECT showNum, showName, showCategory, showIndate, showPlace, showPrice, showTime, showAge, showBene, curCapacity, maxCapacity, showDay, showImage, show,
+		                   ROW_NUMBER() OVER (PARTITION BY showName ORDER BY showNum DESC) as rn
+		            FROM 
+		            <choose>
+		                <when test='category == "festival"'>
+		                    show_tbl_fes
+		                </when>
+		                <otherwise>
+		                    show_tbl
+		                </otherwise>
+		            </choose>
+		            WHERE show = 'y'
+		        )
+		        WHERE rn = 1
+		    ) 
+		    WHERE rn BETWEEN TO_NUMBER(#{start}) AND TO_NUMBER(#{end})
 	  </select>
+
 	  
 	  <!--  show 상세페이지 -->
 	  <select id="showInfo" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.MainShowDTO">
