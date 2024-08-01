@@ -66,18 +66,6 @@ public class MyPageController {
 	
 	}
 	
-	// 나의 예매 내역 취소 비밀번호 확인
-	@RequestMapping("/resCancelPwdChk.myp")
-	public String resCancelPwdChk(HttpServletRequest request, HttpServletResponse response , Model model)
-    		throws ServletException, IOException {
-		logger.info("<url --> /resCancelPwdChk.myp>");
-			
-		service.resCanPwdChk(request, response, model);
-		
-		return "customer/mypage/myResCancelPopup";
-	
-	}
-	
 	// 나의 예매 내역 취소 처리
 	@RequestMapping("/myReservationCancelAction.myp")
 	public String myReservationCancelAction(HttpServletRequest request, HttpServletResponse response , Model model)
@@ -93,17 +81,6 @@ public class MyPageController {
 	}
 	
 	// [회원수정 ]	
-	// 회원수정 인증
-	@RequestMapping("/modifyPwdChk.myp")
-	public String modifyPwdChk(HttpServletRequest request, HttpServletResponse response , Model model)
-    		throws ServletException, IOException {
-		logger.info("<<< url ==> /modifyDetailAction.myp >>>");
-		
-		service.modifyPwdChk(request, response, model);
-		
-		return "customer/mypage/myModifyPopup";
-	}
-	
 	// 회원수정 처리 페이지
 	@RequestMapping("/modifyUserAction.myp")
 	public String modifyUserAction(HttpServletRequest request, HttpServletResponse response , Model model)
@@ -116,17 +93,7 @@ public class MyPageController {
 	}
 	
 	// [회원탈퇴]
-	// 회원탈퇴 인증
-	@RequestMapping("/deletePwdChk.myp")
-	public String deletePwdChk(HttpServletRequest request, HttpServletResponse response , Model model)
-    		throws ServletException, IOException {
-		logger.info("<<< url ==> /deletePwdChk.myp >>>");
-		
-		service.deletePwdChk(request, response, model);
-		
-		return "customer/mypage/myDeletePopup";
-	}
-	
+
 	// 회원탈퇴 처리 페이지
 	@RequestMapping("/deleteUserAction.myp")
 	public String deleteUserAction(HttpServletRequest request, HttpServletResponse response , Model model)
@@ -139,17 +106,6 @@ public class MyPageController {
 	}
 	
 	// [게시물 삭제]
-	// 게시물 삭제 비밀번호 인증
-	@RequestMapping("/bdDelPwdChk.myp")
-	public String bdDelPwdChk(HttpServletRequest request, HttpServletResponse response , Model model)
-    		throws ServletException, IOException {
-		logger.info("<<< url ==> /bdDelPwdChk.myp >>>");
-		
-		service.bdDelPwdChk(request, response, model);
-		
-		return "customer/mypage/bdDelete";
-	}
-	
 	// 게시물 삭제 처리
 	@RequestMapping("/BoardDeleteAction.myp")
 	public String BoardDeleteAction(HttpServletRequest request, HttpServletResponse response , Model model)
@@ -161,7 +117,35 @@ public class MyPageController {
 		return "customer/mypage/myBoardList";
 	}
 	
-
+	// 비밀번호 확인
 	
-
+	@RequestMapping("/pwdChk.myp")
+	public String bdDelPwdChk(HttpServletRequest request, HttpServletResponse response , Model model)
+    		throws ServletException, IOException {
+		logger.info("<<< url ==> /bdDelPwdChk.myp >>>");
+		
+		service.pwdChk(request, response, model);
+		
+		String page = request.getParameter("page");
+		System.out.println("page : " + page);
+		
+		// 게시물 삭제 비밀번호 인증
+		if("board".equals(page)) {
+		return "customer/mypage/bdDelete";
+		// 나의 예매 내역 취소 비밀번호 확인
+		} else if ("reservation".equals(page)) {
+		return "customer/mypage/myResCancelPopup";
+		// 회원수정 인증
+		} else if ("modify".equals(page)) {
+		
+		return "customer/mypage/myModifyPopup";
+		// 회원탈퇴 인증
+		} else if ("withdraw".equals(page)) {
+		return "customer/mypage/myDeletePopup";
+		} 
+		
+		return "";
+		
+	}
+	
 }

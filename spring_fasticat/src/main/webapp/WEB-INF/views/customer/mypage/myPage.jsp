@@ -16,12 +16,13 @@
 	   
 	   let param = {
 		  "password": $('#up_pwd_chk').val(),
+		  "page": "modify"
 	   };
 	   
 	   $('#up_pwd_chk').val('') // input값 비우기
 	   
 	   $.ajax({
-           url :'${path}/modifyPwdChk.myp' ,         //3.
+           url :'${path}/pwdChk.myp' ,         //3.
            type : 'POST',
            data : param,                  //요청데이터 형식(html,xml,json,text)
            success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
@@ -42,12 +43,13 @@
 		
 	   let param = {
 		  "password": $('#del_pwd_chk').val(),
+		  "page": "withdraw"
 	   };
 	   
 	   $('#del_pwd_chk').val(''); // input값 비우기
 	   
 	   $.ajax({
-           url :'${path}/deletePwdChk.myp' ,         //3.
+           url :'${path}/pwdChk.myp' ,         //3.
            type : 'POST',
            data : param,                  //요청데이터 형식(html,xml,json,text)
            success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
@@ -63,7 +65,7 @@
         });
 	   
    }
-   
+	
 	function updateConfirm() {
 	   if($('#password').val() != $('#repassword').val()){
 		   alert("비밀번호가 일치하지 않습니다!! 다시 입력하세요");

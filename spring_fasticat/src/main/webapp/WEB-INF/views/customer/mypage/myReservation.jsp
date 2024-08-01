@@ -19,13 +19,14 @@
 	function resCancelPwdChk(resNum) {
 		   
 		   let param = {
-			  "password": $('#pwd_chk').val()
+			  "password": $('#pwd_chk').val(),
+			  "page": "reservation"
 		   };
 		   
 		   $('#pwd_chk').val('');
 		   
 		   $.ajax({
-	           url :'${path}/resCancelPwdChk.myp' ,         //3.
+	           url :'${path}/pwdChk.myp' ,         //3.
 	           type : 'POST',
 	           data : param,                  //요청데이터 형식(html,xml,json,text)
 	           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.

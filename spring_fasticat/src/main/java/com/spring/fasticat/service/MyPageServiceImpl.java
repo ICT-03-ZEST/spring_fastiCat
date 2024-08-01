@@ -30,27 +30,6 @@ public class MyPageServiceImpl implements MyPageService {
 		@Autowired
 		private BCryptPasswordEncoder bCryptPasswordEncoder;// 비밀번호 암호화 클래스
 		
-		// 회원정보 인증처리 및 상세페이지
-		@Override
-		public void deletePwdChk(HttpServletRequest request, HttpServletResponse response, Model model)
-				throws ServletException, IOException{
-				System.out.println("서비스 - deletePwdChk()");
-			
-			String strId = (String) request.getSession().getAttribute("sessionID");
-			String strPwd = request.getParameter("password");
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("strId", strId); //아이디
-			map.put("strPwd", strPwd); //비밀번호
-			
-			// 5단계. 중복확인 처리
-			int selectCnt = dao.idPasswordChk(map);
-			System.out.println("selectCnt : " + selectCnt);
-			
-			// 6단계. jsp로 처리결과 전달
-			model.addAttribute("selectCnt", selectCnt);
-		};
-				
 
 		// 회원정보 인증처리 및 탈퇴처리
 		@Override
@@ -70,30 +49,7 @@ public class MyPageServiceImpl implements MyPageService {
 			
 		};
 		
-		// 회원정보 인증처리 및 상세페이지
-		@Override
-		public void modifyPwdChk(HttpServletRequest request, HttpServletResponse response, Model model)
-				throws ServletException, IOException{
-				System.out.println("서비스 - modifyPwdChk()");
-			
-			String strId = (String) request.getSession().getAttribute("sessionID");
-			String strPwd = request.getParameter("password");
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("strId", strId); //아이디
-			map.put("strPwd", strPwd); //비밀번호
-			
-			// 5단계. 중복확인 처리
-			int selectCnt = dao.idPasswordChk(map);
-			
-			// 6단계. jsp로 처리결과 전달
-			model.addAttribute("selectCnt", selectCnt);
-			
-			if(selectCnt == 1) {
-				MyPageDTO dto = dao.getUserDetail(strId);
-				model.addAttribute("dto", dto);
-			}
-		};
+		
 		
 		// 회원정보 수정처리
 		@Override
@@ -215,26 +171,7 @@ public class MyPageServiceImpl implements MyPageService {
 			model.addAttribute("category", category);
 		}
 		
-		// 회원정보 인증처리 및 상세페이지
-		@Override
-		public void bdDelPwdChk(HttpServletRequest request, HttpServletResponse response, Model model)
-				throws ServletException, IOException{
-				System.out.println("서비스 - bdDelPwdChk()");
-			
-			String strId = (String) request.getSession().getAttribute("sessionID");
-			String strPwd = request.getParameter("password");
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("strId", strId); //아이디
-			map.put("strPwd", strPwd); //비밀번호
 
-			// 5단계. 중복확인 처리
-			int selectCnt = dao.idPasswordChk(map);
-			
-			// 6단계. jsp로 처리결과 전달
-			model.addAttribute("selectCnt", selectCnt);
-			
-		};
 		
 		// 게시물 삭제 처리
 		@Override
@@ -299,28 +236,7 @@ public class MyPageServiceImpl implements MyPageService {
 			model.addAttribute("paging", paging);
 		}
 		
-		// 회원정보 인증처리 및 상세페이지
-		@Override
-		public void resCanPwdChk(HttpServletRequest request, HttpServletResponse response, Model model)
-				throws ServletException, IOException{
-				System.out.println("서비스 - resCanPwdChk()");
-			
-			String strId = (String) request.getSession().getAttribute("sessionID");
-			String strPwd = request.getParameter("password");
-			
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("strId", strId); //아이디
-			map.put("strPwd", strPwd); //비밀번호
-			
-			// 5단계. 중복확인 처리
-			int selectCnt = dao.idPasswordChk(map);
-			
-			// 6단계. jsp로 처리결과 전달
-			model.addAttribute("selectCnt", selectCnt);
-			
-		};
-		
-		
+		//예매 취소 처리
 		@Override
 		public void reservationCancelAction(HttpServletRequest request, HttpServletResponse response, Model model)
 				throws ServletException, IOException{
@@ -344,5 +260,32 @@ public class MyPageServiceImpl implements MyPageService {
 			model.addAttribute("deleteCnt", deleteCnt);
 			
 		};
+		
+		// 비밀번호 확인
+		// 회원정보 인증처리 및 상세페이지
+		@Override
+		public void pwdChk(HttpServletRequest request, HttpServletResponse response, Model model)
+				throws ServletException, IOException{
+				System.out.println("서비스 - pwdChk()");
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			String strPwd = request.getParameter("password");
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("strId", strId); //아이디
+			map.put("strPwd", strPwd); //비밀번호
 
+			// 5단계. 중복확인 처리
+			int selectCnt = dao.idPasswordChk(map);
+			System.out.println("selectCnt : " + selectCnt);
+			
+			// 6단계. jsp로 처리결과 전달
+			model.addAttribute("selectCnt", selectCnt);
+			
+			if(selectCnt == 1) {
+				MyPageDTO dto = dao.getUserDetail(strId);
+				model.addAttribute("dto", dto);
+			}
+		};
+		
 }
