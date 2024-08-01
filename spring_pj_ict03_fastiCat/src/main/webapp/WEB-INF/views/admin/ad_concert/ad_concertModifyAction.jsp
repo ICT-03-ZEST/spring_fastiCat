@@ -37,7 +37,7 @@
                   <script type="text/javascript">
                      setTimeout(function() {
                         alert("공연수정 성공!!");
-                        window.location="${path}/ad_concertEdit.con?pageNum=${hiddenPageNum}";
+                        window.location="${path}/ad_showEdit.adshow?showCategory=공연";
                      },1000); 
                   </script>
                </c:if>
@@ -46,7 +46,7 @@
                   <script type="text/javascript">
                      setTimeout(function() {
                         alert("공연수정 실패!!");
-                        window.location="${path}/ad_concertEdit.con?conNo=${hiddenConNo}&pageNum=${hiddenPageNum}";
+                        window.location="${path}/ad_showModify.adshow?showCategory=공연&showNum=${hiddenShowNum}";
                      },1000); 
                   </script>
                </c:if>

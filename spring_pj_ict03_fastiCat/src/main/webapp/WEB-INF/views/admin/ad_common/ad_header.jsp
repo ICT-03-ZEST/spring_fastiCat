@@ -27,7 +27,7 @@
         <!-- Sidebar -->  <!-- 사이드바 색깔 변경 0617 bg-gradient-primary -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <!-- Sidebar - FestiCat 관리자 로고 -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${path}/admin/ad_main/ad_dashboard.jsp">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="${path}/ad_dashboard.ad">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -37,7 +37,7 @@
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - 현황조회 -->
             <li class="nav-item active">
-                <a class="nav-link" href="${path}/ad_dashboard.bc">
+                <a class="nav-link" href="${path}/ad_dashboard.ad">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>현황조회</span></a>
             </li>
@@ -50,7 +50,7 @@
             
             <!-- Nav Item - 메인관리 메뉴 -->
             <li class="nav-item">
-                <a class="nav-link" href="${path}/ad_bannerEdit.ban">
+                <a class="nav-link" href="${path}/ad_bannerEdit.adban">
                     <i class="fas fa-fw fa-cog"></i>
                     <span>배너관리</span></a>
             </li>
@@ -80,7 +80,7 @@
                         <h6 class="collapse-header">게시판관리</h6>
                         <a class="collapse-item" href="${path}/board.adbc?board_category=공연후기">공연후기</a>
                         <a class="collapse-item" href="${path}/board.adbc?board_category=자유">자유게시판</a>
-                        <a class="collapse-item" href="${path}/ad_noticeEdit.not">공지사항</a>
+                        <a class="collapse-item" href="${path}/ad_noticeEdit.adnot">공지사항</a>
                     </div>
                 </div>
             </li>

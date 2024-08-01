@@ -21,9 +21,9 @@ public class AdminBannerDAOImpl implements AdminBannerDAO{
 	public int bannerInsert(AdminBannerDTO dto) {
 		System.out.println("AdminBannerDAOImpl - bannerInsert()");
 		
-		int insertCnt = sqlSession.insert("com.spring.ict03_fastiCat.dao.AdminBannerDAO.bannerInsert", dto);
+		AdminBannerDAO dao = sqlSession.getMapper(AdminBannerDAO.class);
+		int insertCnt = dao.bannerInsert(dto);
 		System.out.println("insertCnt" + insertCnt);
-		
 		return insertCnt;	
 	}
 
@@ -42,7 +42,8 @@ public class AdminBannerDAOImpl implements AdminBannerDAO{
 	@Override
 	public List<AdminBannerDTO> bannerList(Map<String, Object> map) {
 		System.out.println("AdminBannerDAOImpl - bannerList()");
-		List<AdminBannerDTO> list = sqlSession.selectList("com.spring.ict03_fastiCat.dao.AdminBannerDAO.bannerList", map);
+		AdminBannerDAO dao = sqlSession.getMapper(AdminBannerDAO.class);
+		List<AdminBannerDTO> list = dao.bannerList(map);
 		
 		return list;
 	}
@@ -52,7 +53,8 @@ public class AdminBannerDAOImpl implements AdminBannerDAO{
 	public AdminBannerDTO bannerDetail(int bannerNo) {
 		System.out.println("DAO - bannerDetail()");
 		
-		AdminBannerDTO dto = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.AdminBannerDAO.bannerDetail", bannerNo);
+		AdminBannerDAO dao = sqlSession.getMapper(AdminBannerDAO.class);
+		AdminBannerDTO dto = dao.bannerDetail(bannerNo);
 		System.out.println("dto : " + dto);
 		return dto;
 	}
@@ -62,7 +64,8 @@ public class AdminBannerDAOImpl implements AdminBannerDAO{
 	public int bannerUpdate(AdminBannerDTO dto) {
 		System.out.println("AdminConcertDAOImpl - concertUpdate()");
 		
-		int updateCnt = sqlSession.update("com.spring.ict03_fastiCat.dao.AdminBannerDAO.bannerUpdate", dto);
+		AdminBannerDAO dao = sqlSession.getMapper(AdminBannerDAO.class);
+		int updateCnt = dao.bannerUpdate(dto);
 		System.out.println("updateCnt : " + updateCnt);
 		return updateCnt;
 	}
@@ -71,7 +74,8 @@ public class AdminBannerDAOImpl implements AdminBannerDAO{
 	@Override
 	public int bannerDelete(int bannerNo) {
 		System.out.println("DAO - bannerDelete");
-		int deleteCnt = sqlSession.delete("com.spring.ict03_fastiCat.dao.AdminBannerDAO.bannerDelete", bannerNo);
+		AdminBannerDAO dao = sqlSession.getMapper(AdminBannerDAO.class);
+		int deleteCnt = dao.bannerDelete(bannerNo);
 		System.out.println("deleteCnt : " + deleteCnt);
 		return deleteCnt;
 	}
@@ -81,8 +85,8 @@ public class AdminBannerDAOImpl implements AdminBannerDAO{
 	@Override
 	public List<AdminBannerDTO> getBannerList() {
 		System.out.println("AdminBannerDAOImpl - bannerList()");
-		
-		List<AdminBannerDTO> bannerList = sqlSession.selectList("com.spring.ict03_fastiCat.dao.AdminBannerDAO.bannerList");
+		AdminBannerDAO dao = sqlSession.getMapper(AdminBannerDAO.class);
+		List<AdminBannerDTO> bannerList = dao.getBannerList();
 		return bannerList;
 	}
 }

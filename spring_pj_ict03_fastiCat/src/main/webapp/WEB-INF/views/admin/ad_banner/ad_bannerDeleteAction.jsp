@@ -37,7 +37,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('배너삭제 성공!!');
-	                		window.location="${path}/ad_bannerEdit.ban";
+	                		window.location="${path}/ad_bannerEdit.adban";
 	                	}, 1000);
 	                </script>
                 </c:if>
@@ -46,7 +46,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('배너삭제 실패!!');
-	                		window.location="${path}/ad_bannerEdit.ban";
+	                		window.location="${path}/ad_bannerEdit.adban";
 	                	}, 1000);
 	                </script>
                 </c:if>

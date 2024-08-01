@@ -102,7 +102,7 @@
 				                              <td> ${dto.showNum} </td>
 				                              <td> <img src="${dto.showImage}" width="80px" height="100px"> </td>
 				                              <td> ${dto.showName} </td>
-				                              <td> ${dto.showDay} </td>
+				                              <td> ${dto.showDay} </td> 
 				                              <td> ${dto.showTime}분</td>
 				                              <td> ${dto.showPlace} </td>
 				                              <td> ${dto.showAge} </td>
@@ -112,33 +112,13 @@
 				                              <td> ${dto.maxCapacity} </td>
 				                              <td> ${dto.showIndate} </td>
 				                              <td>
-				                              		<button class="btn btn-secondary" id="btnEdit" onclick="window.location='${path}/ad_showModify.adshow?showNum=${dto.showNum}'">수정</button>
+				                              		<button class="btn btn-secondary" id="btnEdit" onclick="window.location='${path}/ad_showModify.adshow?showCategory=페스티벌&showNum=${dto.showNum}'">수정</button>
 				                              		<button class="btn btn-danger" id="btnDelete" href="#" data-toggle="modal" data-target="#DeleteModal"
 				                              		onclick="setShowNum(${dto.showNum})">삭제</button>
 				                           	  </td>
 				                           </tr>
 			                           </c:forEach>
 			                           
-			                         <%-- <tr>
-		                           		<td colspan="12" align="center">
-		                           			<!-- 페이징 처리 -->
-		                           			<!-- 이전 버튼 활성화 -->
-		                           			<c:if test="${paging.startPage > 10}" >
-		                           				<a href="${path}/ad_festivalEdit.fes?pageNum=${paging.prev}">[이전]</a>
-		                           			</c:if>
-		                           			
-		                           			<!-- 페이지 번호 처리 -->
-		                           			<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
-		                           				<a href="${path}/ad_festivalEdit.fes?pageNum=${num}">${num}</a>
-		                           			</c:forEach>
-		                           			
-		                           			<!-- 다음 버튼 활성화 -->
-		                           			<c:if test="${paging.startPage < paging.pageCount}" >
-		                           				<a href="${path}/ad_festivalEdit.fes?pageNum=${paging.next}">[다음]</a>
-		                           			</c:if>
-		                           		</td>
-		                             </tr> --%>
-                                  
                                     </tbody>
                                 </table>
                             </div>

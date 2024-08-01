@@ -16,7 +16,7 @@
 
 <script type="text/javascript">
     function setNoticeNo(N_Board_Num) {
-        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_noticeDeleteAction.not?N_Board_Num=" + N_Board_Num + "'");
+        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_noticeDeleteAction.adnot?N_Board_Num=" + N_Board_Num + "'");
     }
 </script>
 
@@ -39,7 +39,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
    							<h6 class="m-0 font-weight-bold text-primary">공지사항 목록</h6>
-   							<button class="btn btn-primary" id="registerButton" onclick="window.location='ad_noticeAdd.not'">공지사항 등록</button>
+   							<button class="btn btn-primary" id="registerButton" onclick="window.location='ad_noticeAdd.adnot'">공지사항 등록</button>
 						</div>
 
                         <div class="card-body">
@@ -78,7 +78,7 @@
                                             <td>${dto.n_ReadCnt}</td>
                                             <td>${dto.n_WriteDate}</td>
                                             <td>
-                                            <button class="btn btn-secondary" id="btnEdit" onclick="window.location='${path}/ad_noticeModify.not?N_Board_Num=${dto.n_Board_Num}&pageNum=${paging.pageNum}'">수정</button>
+                                            <button class="btn btn-secondary" id="btnEdit" onclick="window.location='${path}/ad_noticeModify.adnot?N_Board_Num=${dto.n_Board_Num}&pageNum=${paging.pageNum}'">수정</button>
 				                              		<button class="btn btn-danger" id="btnDelete" href="#" data-toggle="modal" data-target="#DeleteModal"
 				                              		onclick="setNoticeNo(${dto.n_Board_Num})">삭제</button>
                        						</td>

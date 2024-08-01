@@ -53,7 +53,7 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
-                            	<form name="ad_bannerAdd" action="ad_bannerAddAction.ban" method="post" enctype="multipart/form-data">
+                            	<form name="ad_bannerAdd" action="ad_bannerAddAction.adban" method="post" enctype="multipart/form-data">
 	                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                                    <tr>
 				                            <th> * 배너분류 </th>
@@ -93,7 +93,7 @@
 			                                 	<span>* 이미 등록된 메인배너는 새로 등록할 수 없습니다.(수정 또는 삭제만 가능)</span>
 			                                   <div style="display: flex; gap: 10px;">
 			                                    <input class="btn btn-primary inputButton" type="submit" value="배너등록">
-			                                    <input class="btn btn-secondary inputButton" type="button" value="배너목록" onclick="window.location='ad_bannerEdit.ban'">
+			                                    <input class="btn btn-secondary inputButton" type="button" value="배너목록" onclick="window.location='ad_bannerEdit.adban'">
 			                                 	</div>
 			                                 </div>
 			                              </td>

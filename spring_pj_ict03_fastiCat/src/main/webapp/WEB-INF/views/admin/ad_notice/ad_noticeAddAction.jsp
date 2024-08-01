@@ -36,7 +36,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('공지사항 등록 성공!!');
-	                		window.location="${path}/ad_noticeEdit.not";
+	                		window.location="${path}/ad_noticeEdit.adnot";
 	                	}, 1000);
 	                </script>
                 </c:if>
@@ -45,7 +45,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('공지사항 등록 실패!!');
-	                		window.location="${path}/ad_noticeAdd.not";
+	                		window.location="${path}/ad_noticeAdd.adnot";
 	                	}, 1000);
 	                </script>
                 </c:if>

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="../ad_common/ad_setting.jsp" %> 
 <!DOCTYPE html>
@@ -41,13 +40,13 @@
 						</div>
 
                         <div class="card-body">
-	                     <form name="ad_concertAdd" action="ad_concertAddAction.con" method="post" enctype="multipart/form-data">
+	                     <form name="ad_concertAdd" action="ad_showAddAction.adshow?showCategory=공연" method="post" enctype="multipart/form-data">
 	                        <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                      	  <tr>
 	                              <th> * 공연 카테고리 </th>
 	                              <td>                                 
-	                                 <select class="input" name="conCategory" id="conCategory" required>
+	                                 <select class="input" name="showCategory" id="showCategory" required>
 	                                    <option value="케이팝">케이팝</option>
 	                                    <option value="트로트">트로트</option>
 	                                    <option value="인디음악">인디음악</option>
@@ -57,72 +56,74 @@
 	                           <tr>
 	                              <th> * 공연명 </th>
 	                              <td>
-	                                 <input type="text" class="input" name="conName" id="conName" size="40" placeholder="공연명 작성" required autofocus>
+	                                 <input type="text" class="input" name="showName" id="showName" size="40" placeholder="페스티벌명 작성" required autofocus>
 	                              </td>
 	                           </tr>
 	                           <tr>
-	                              <th> * 관람등급 </th>
+	                              <th> * 페스티벌 이미지 </th>
 	                              <td>
-	                                 <input type="text" class="input" name="conGrade" id="conGrade" size="40" placeholder="관람등급 작성" required>
+	                                 <input type="file" class="input" name="showImage" id="showImage" accept="image/*">
 	                              </td>
 	                           </tr>
 	                           <tr>
-	                              <th> * 공연날짜/시간 </th>
+	                              <th> * 날짜 </th>
 	                              <td>
-	                              	<textarea rows="3" cols="43" name="conTime" id="conTime" placeholder="공연날짜/시간 작성" required></textarea>
+	                                 <input type="text" class="input" name="showDay" id="showDay" size="40" placeholder="날짜 작성(YYYY-MM-DD, YYYY-MM-DD, YYYY-MM-DD)" required>
 	                              </td>
 	                           </tr>
 	                           <tr>
-	                              <th> * 공연장소 </th>
+	                              <th> * 공연시간 </th>
 	                              <td>
-	                                 <input type="text" class="input" name="conPlace" id="conPlace" size="40" placeholder="공연장소 작성" required>
+	                                 <input type="number" class="input" name="showTime" id="showTime" size="5" placeholder="공연시간 작성" required>분
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 장소 </th>
+	                              <td>
+	                                 <input type="text" class="input" name="showPlace" id="showPlace" size="40" placeholder="장소 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 관람연령 </th>
+	                              <td>
+	                                 <input type="text" class="input" name="showAge" id="showAge" size="20" placeholder="관람연령 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 1매당 가격 </th>
+	                              <td>
+	                                 <input type="number" class="input" name="showPrice" id="showPrice" size="40" placeholder="1매당 가격 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 혜택 </th>
+	                              <td>
+	                                 <input type="text" class="input" name="showBene" id="showBene" size="40" placeholder="혜택 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 현수용인원 </th>
+	                              <td>
+	                                 <input type="number" class="input" name="curCapacity" id="curCapacity" size="20" placeholder="현수용인원 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 최대수용인원 </th>
+	                              <td>
+	                                 <input type="number" class="input" name="maxCapacity" id="maxCapacity" size="20" placeholder="최대수용인원 작성" required>
 	                              </td>
 	                           </tr>
 	                           
-	                           <tr>
-	                              <th> * 공연 이미지 </th>
-	                              <td>
-	                                 <input type="file" class="input" name="conImg" id="conImg" accept="image/*">
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 공연 예매처 </th>
-	                              <td>
-	                                 <input type="text" class="input" name="conBuy" id="conBuy" size="40" placeholder="공연 예매처 작성" required>
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 티켓가격 </th>
-	                              <td>
-	                                 <input type="number" class="input" name="conPrice" id="conPrice" size="40" placeholder="티켓가격 작성" required>
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 공연상태 </th>
-	                              <td>                                 
-	                                 <select class="input" name="conStatus" id="conStatus" required>
-	                                    <option value="판매중">판매중</option>
-	                                    <option value="품절">품절</option>
-	                                 </select>
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> 공연 설명 </th>
-	                              <td>
-	                                 <textarea rows="5" cols="77" name="conContent" id="conContent" placeholder="공연 설명 작성"></textarea>
-	                              </td>
-	                           </tr>
-	                           
-	                           <tr>
-	                              <td colspan="2">
-	                                 <br>
-	                                 <div align="right">
-	                                    <input class="btn btn-primary inputButton" type="submit" value="공연등록">
-	                                    <input class="btn btn-danger inputButton" type="reset" value="초기화">
-	                                    <input class="btn btn-secondary inputButton" type="button" value="공연목록" onclick="window.location='ad_concertEdit.con'">
-	                                 </div>
-	                              </td>
-	                           </tr>
+		                           <tr>
+		                              <td colspan="2">
+		                                 <br>
+		                                 <div align="right">
+		                                    <input class="btn btn-primary inputButton" type="submit" value="공연등록">
+		                                    <input class="btn btn-danger inputButton" type="reset" value="초기화">
+		                                    <input class="btn btn-secondary inputButton" type="button" value="공연목록" onclick="window.location='ad_showEdit.adshow?showCategory=공연'">
+		                                 </div>
+		                              </td>
+		                           </tr>
 	                        </table>
 	                         </div>
 	                      </form>

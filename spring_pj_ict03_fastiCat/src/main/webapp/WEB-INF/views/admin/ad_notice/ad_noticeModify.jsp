@@ -39,7 +39,7 @@
 						</div>
 
                         <div class="card-body">
-                          <form name="ad_noticeModify" action="ad_noticeModifyAction.not" method="post">
+                          <form name="ad_noticeModify" action="ad_noticeModifyAction.adnot" method="post">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                   <!-- hidden : 직접 input 태그에서 입력받지 못한 값들을 전달할 때 사용 -->
@@ -74,7 +74,7 @@
 		                                 <div align="right">
 		                                    <input type="submit" class="btn btn-primary inputButton"  value="수정등록">
 		                                    <input type="reset" class="btn btn-danger inputButton"  value="초기화">
-		                                    <input type="button" class="btn btn-secondary inputButton"  value="공지사항 목록" onclick="window.location='ad_noticeEdit.not'">
+		                                    <input type="button" class="btn btn-secondary inputButton"  value="공지사항 목록" onclick="window.location='ad_noticeEdit.adnot'">
 		                                 </div>
 		                              </td>
 		                           </tr>

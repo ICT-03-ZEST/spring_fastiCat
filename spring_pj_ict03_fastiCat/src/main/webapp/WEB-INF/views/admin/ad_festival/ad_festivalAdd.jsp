@@ -15,15 +15,6 @@
 
     <title>국내페스티벌 등록</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="${path}/admin/startbootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="${path}/resources/css/admin/sb-admin-2.css" rel="stylesheet">
-
 </head>
 
 <body id="page-top">
@@ -51,7 +42,14 @@
 		                     <form name="ad_festivalAdd" action="ad_showAddAction.adshow?showCategory=페스티벌" method="post" enctype="multipart/form-data">
 		                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                      	  
-		                            
+		                       <tr>
+	                              <th> * 공연 카테고리 </th>
+	                              <td>                                 
+	                                 <select class="input" name="showCategory" id="showCategory" required>
+	                                    <option value="페스티벌">페스티벌</option>
+	                                 </select>
+	                              </td>
+	                           </tr>     
 	                           <tr>
 	                              <th> * 페스티벌명 </th>
 	                              <td>
@@ -67,7 +65,7 @@
 	                           <tr>
 	                              <th> * 날짜 </th>
 	                              <td>
-	                                 <input type="text" class="input" name="showDay" id="showDay" size="40" placeholder="날짜 작성(YYYY-MM-DD)" required>
+	                                 <input type="text" class="input" name="showDay" id="showDay" size="40" placeholder="날짜 작성(YYYY-MM-DD, YYYY-MM-DD, YYYY-MM-DD)" required>
 	                              </td>
 	                           </tr>
 	                           <tr>
@@ -119,7 +117,7 @@
 		                                 <div align="right">
 		                                    <input class="btn btn-primary inputButton" type="submit" value="페스티벌등록">
 		                                    <input class="btn btn-danger inputButton" type="reset" value="초기화">
-		                                    <input class="btn btn-secondary inputButton" type="button" value="페스티벌목록" onclick="window.location='ad_festivalEdit.fes'">
+		                                    <input class="btn btn-secondary inputButton" type="button" value="페스티벌목록" onclick="window.location='ad_showEdit.adshow?showCategory=페스티벌'">
 		                                 </div>
 		                              </td>
 		                           </tr>

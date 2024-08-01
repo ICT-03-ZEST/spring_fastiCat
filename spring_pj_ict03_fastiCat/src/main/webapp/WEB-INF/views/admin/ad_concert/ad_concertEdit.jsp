@@ -16,8 +16,8 @@
     <title>국내공연 관리</title>
 
 <script type="text/javascript">
-    function setConNo(conNo) {
-        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_concertDeleteAction.con?conNo=" + conNo + "'");
+    function setShowNum(showNum) {
+        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_showDeleteAction.adshow?showCategory=공연&showNum=" + showNum + "'");
     }
 </script>
 
@@ -44,78 +44,70 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
    							<h6 class="m-0 font-weight-bold text-primary">국내공연 목록</h6>
-   							<button class="btn btn-primary" id="btnInsert" onclick="window.location='ad_concertAdd.con'">공연등록</button>
+   							<button class="btn btn-primary" id="btnInsert" onclick="window.location='ad_showAdd.adshow?showCategory=공연'">공연등록</button>
 						</div>
 
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                                            <thead>
                                         <tr>
                                         	<th style="width:5%">번호</th>
-                                            <th style="width:5%">이미지</th>
-                                            <th style="width:7%">카테고리</th>
-                                            <th style="width:13%">공연명</th>
-                                            <th style="width:15%">공연일/시간</th>
-                                            <th style="width:15%">공연장소</th>
-                                            <th style="width:10%">공연상태</th>
-                                            <th style="width:15%">등록일</th>
-                                            <th style="width:15%">공연관리</th>
+                                            <th>이미지</th>
+                                            <th>공연명</th>
+                                            <th>날짜</th>
+                                            <th>공연시간</th>
+                                            <th>장소</th>
+                                            <th>관람연령</th>
+                                            <th>가격</th>
+                                            <th>혜택</th>
+                                            <th>현수용인원</th>
+                                            <th>최대수용인원</th>
+                                            <th>등록일</th>
+                                            <th>관리</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                         	<th>번호</th>
-                                            <th>이미지</th>
-                                            <th>카테고리</th>
+                                        	<th>이미지</th>
                                             <th>공연명</th>
-                                            <th>공연일/시간</th>
-                                            <th>공연장소</th>
-                                            <th>공연상태</th>
+                                            <th>날짜</th>
+                                            <th>공연시간</th>
+                                            <th>장소</th>
+                                            <th>관람연령</th>
+                                            <th>가격</th>
+                                            <th>혜택</th>
+                                            <th>현수용인원</th>
+                                            <th>최대수용인원</th>
                                             <th>등록일</th>
-                                            <th>공연관리</th>
+                                            <th>관리</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     	<!-- 상품이 있으면 -->
 			                           <c:forEach var="dto" items="${list}">
 				                           <tr>
-				                              <td> ${dto.conNo} </td>
-				                              <td> <img src="${dto.conImg}" width="80px" height="100px"> </td>
-				                              <td> ${dto.conCategory} </td>
-				                              <td> ${dto.conName} </td>
-				                              <td> ${dto.conTime} </td>
-				                              <td> ${dto.conPlace} </td>
-				                              <td> ${dto.conStatus} </td>
-				                              <td> ${dto.conIndate} </td>
+				                              <td> ${dto.showNum} </td>
+				                              <td> <img src="${dto.showImage}" width="80px" height="100px"> </td>
+				                              <td> ${dto.showName} </td>
+				                              <td> ${dto.showDay} </td>
+				                              <td> ${dto.showTime}분</td>
+				                              <td> ${dto.showPlace} </td>
+				                              <td> ${dto.showAge} </td>
+				                              <td> ${dto.showPrice} </td>
+				                              <td> ${dto.showBene} </td>
+				                              <td> ${dto.curCapacity} </td>
+				                              <td> ${dto.maxCapacity} </td>
+				                              <td> ${dto.showIndate} </td>
 				                              <td>
-				                              		<button class="btn btn-secondary" id="btnEdit" onclick="window.location='${path}/ad_concertModify.con?conNo=${dto.conNo}&pageNum=${paging.pageNum}'">수정</button>
+				                              		<button class="btn btn-secondary" id="btnEdit" onclick="window.location='${path}/ad_showModify.adshow?showCategory=공연&showNum=${dto.showNum}'">수정</button>
 				                              		<button class="btn btn-danger" id="btnDelete" href="#" data-toggle="modal" data-target="#DeleteModal"
-				                              		onclick="setConNo(${dto.conNo})">삭제</button>
+				                              		onclick="setShowNum(${dto.showNum})">삭제</button>
 				                           	  </td>
 				                           </tr>
 			                           </c:forEach>
-                                    
-                                    <%-- <tr>
-		                           		<td colspan="12" align="center">
-		                           			<!-- 페이징 처리 -->
-		                           			<!-- 이전 버튼 활성화 -->
-		                           			<c:if test="${paging.startPage > 10}" >
-		                           				<a href="${path}/ad_concertEdit.con?pageNum=${paging.prev}">[이전]</a>
-		                           			</c:if>
-		                           			
-		                           			<!-- 페이지 번호 처리 -->
-		                           			<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
-		                           				<a href="${path}/ad_concertEdit.con?pageNum=${num}">${num}</a>
-		                           			</c:forEach>
-		                           			
-		                           			<!-- 다음 버튼 활성화 -->
-		                           			<c:if test="${paging.startPage < paging.pageCount}" >
-		                           				<a href="${path}/ad_concertEdit.con?pageNum=${paging.next}">[다음]</a>
-		                           			</c:if>
-		                           		</td>
-		                           </tr> --%>
-                                    
+			                           
                                     </tbody>
                                 </table>
                             </div>

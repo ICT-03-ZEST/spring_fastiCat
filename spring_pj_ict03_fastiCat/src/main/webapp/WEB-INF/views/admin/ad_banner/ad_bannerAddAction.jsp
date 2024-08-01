@@ -39,7 +39,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('배너등록 성공!!');
-	                		window.location="${path}/ad_bannerEdit.ban";
+	                		window.location="${path}/ad_bannerEdit.adban";
 	                	}, 1000);
 	                </script>
                 </c:if>
@@ -48,7 +48,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('배너등록 실패!!\n(이미 등록된 메인배너는 등록할 수 없습니다. 수정, 삭제만 가능)');
-	                		window.location="${path}/ad_bannerAdd.ban";
+	                		window.location="${path}/ad_bannerAdd.adban";
 	                	}, 1000);
 	                </script>
                 </c:if>

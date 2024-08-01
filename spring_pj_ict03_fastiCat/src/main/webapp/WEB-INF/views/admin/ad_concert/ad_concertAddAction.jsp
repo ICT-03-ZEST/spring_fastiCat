@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ include file="../ad_common/ad_setting.jsp" %> 
 <!DOCTYPE html>
@@ -35,20 +34,20 @@
                     </div>
 
     			<!-- 공연등록 성공 alert창 -->
-                <c:if test="${insertCnt == 1}">
+                <c:if test="${insertCnt != 0}">
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('공연등록 성공!!');
-	                		window.location="${path}/ad_concertEdit.con";
+	                		window.location="${path}/ad_showEdit.adshow?showCategory=공연";
 	                	}, 1000);
 	                </script>
                 </c:if>
                 
-                <c:if test="${insertCnt != 1}">
+                <c:if test="${insertCnt == 0}">
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('공연등록 실패!!');
-	                		window.location="${path}/ad_concertAdd.con";
+	                		window.location="${path}/ad_showAdd.adshow?showCategory=공연";
 	                	}, 1000);
 	                </script>
                 </c:if>

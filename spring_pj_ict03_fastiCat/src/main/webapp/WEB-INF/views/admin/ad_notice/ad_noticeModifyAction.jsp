@@ -36,7 +36,7 @@
                   <script type="text/javascript">
                      setTimeout(function() {
                         alert("공지사항 수정 성공!!");
-                        window.location="${path}/ad_noticeEdit.not?pageNum=${hiddenPageNum}";
+                        window.location="${path}/ad_noticeEdit.adnot?pageNum=${hiddenPageNum}";
                      },1000); 
                   </script>
                </c:if>
@@ -45,7 +45,7 @@
                   <script type="text/javascript">
                      setTimeout(function() {
                         alert("공지사항 수정 실패!!");
-                        window.location="${path}/ad_noticeEdit.not?N_Board_Num=${hidden_num}&pageNum=${hiddenPageNum}";
+                        window.location="${path}/ad_noticeEdit.adnot?N_Board_Num=${hidden_num}&pageNum=${hiddenPageNum}";
                      },1000); 
                   </script>
                </c:if>

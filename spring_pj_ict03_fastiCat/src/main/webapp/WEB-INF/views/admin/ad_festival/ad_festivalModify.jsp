@@ -15,14 +15,16 @@
 
     <title>국내페스티벌 수정</title>
 
-    <!-- Custom fonts for this template-->
-    <link href="${path}/admin/startbootstrap-admin/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-
-    <!-- Custom styles for this template-->
-    <link href="${path}/resources/css/admin/sb-admin-2.css" rel="stylesheet">
+<script> /* 이미지 미리보기 */
+        function previewImage(event) {
+            var reader = new FileReader();
+            reader.onload = function() {
+                var output = document.getElementById('imgPreview');
+                output.src = reader.result;
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
+</script>
 
 </head>
 
@@ -48,74 +50,99 @@
 					 
 					 <div class="card-body">
 		                  <div class="table_div">
-		                     <form name="ad_festivalModify" action="ad_festivalModifyAction.fes" method="post" enctype="multipart/form-data">
+		                     <form name="ad_festivalModify" action="ad_showModifyAction.adshow?showCategory=페스티벌" method="post" enctype="multipart/form-data">
 		                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                        <!-- hidden : 직접 input 태그에서 입력받지 못한 값들을 전달할 때 사용 -->
 	                           <input type="hidden" name="hiddenPageNum" value="${pageNum}">
-	                           <input type="hidden" name="hiddenFesNo" value="${dto.fesNo}">
-	                           <input type="hidden" name="hiddenFesImg" value="${dto.fesImg}">  <!-- 기존 상품이미지 -->
+	                           <input type="hidden" name="hiddenShowNum" value="${dto.showNum}">
+	                           <input type="hidden" name="hiddenShowImage" value="${dto.showImage}">  <!-- 기존 상품이미지 -->
 		                       <tr>
-		                       		<th> * 페스티벌번호 </th>
-									<td> 
-										${dto.fesNo}
-									</td>
+		                       		<th> * 페스티벌 번호 </th>
+		                       		<td>${dto.showNum}</td>
 		                       </tr>
+		                       
+		                       
 		                       <tr>
-	                              <th> * 페스티벌명 </th>
-	                              <td>
-	                                 <input type="text" class="input" name="fesName" value="${dto.fesName}" id="fesName" size="40" placeholder="페스티벌명 작성" required autofocus>
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 관람등급 </th>
-	                              <td>
-	                                 <input type="text" class="input" name="fesGrade" id="fesGrade" value="${dto.fesGrade}" size="40" placeholder="관람등급 작성" required>
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 페스티벌 날짜/시간 </th>
-	                              <td>
-	                              	<textarea rows="3" cols="43" name="fesTime" id="fesTime" placeholder="페스티벌날짜/시간 작성" required>${dto.fesTime}</textarea>
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 페스티벌 장소 </th>
-	                              <td>
-	                                 <input type="text" class="input" name="fesPlace" id="fesPlace" value="${dto.fesPlace}" size="40" placeholder="페스티벌장소 작성" required>
-	                              </td>
-	                           </tr>
-	                           
-	                           <tr>
-	                              <th> * 페스티벌 이미지 </th>
-	                              <td>
-	                                 <input type="file" class="input" name="fesImg" id="fesImg" value="${dto.fesImg}" accept="image/*">
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 페스티벌 예매처 </th>
-	                              <td>
-	                                 <input type="text" class="input" name="fesBuy" id="fesBuy" value="${dto.fesBuy}" size="40"  placeholder="페스티벌 예매처 작성" required>
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 티켓 가격 </th>
-	                              <td>
-	                                 <input type="number" class="input" name="fesPrice" id="fesPrice" value="${dto.fesPrice}" size="40" placeholder="티켓가격 작성" required>
-	                              </td>
-	                           </tr>
-	                           <tr>
-	                              <th> * 페스티벌 상태 </th>
+	                              <th> * 공연 카테고리 </th>
 	                              <td>                                 
-	                                 <select class="input" name="fesStatus" id="fesStatus" required>
-	                                    <option <c:if test="${dto.fesStatus == '판매중'}">selected</c:if> value="판매중">판매중</option>
-	                                    <option <c:if test="${dto.fesStatus == '품절'}">selected</c:if> value="품절">품절</option>
+	                                 <select class="input" name="showCategory" id="showCategory" required>
+	                                    <option <c:if test="${dto.showCategory == '페스티벌'}">selected</c:if> value="페스티벌">페스티벌</option>
 	                                 </select>
 	                              </td>
+	                           </tr>     
+	                           <tr>
+	                              <th> * 페스티벌명 </th>
+	                              <td>
+	                                 <input type="text" class="input" name="showName" id="showName" value="${dto.showName}" size="40" placeholder="페스티벌명 작성" required autofocus>
+	                              </td>
 	                           </tr>
 	                           <tr>
-	                              <th> 페스티벌 설명 </th>
+								    <th> * 이미지 등록  </th>
+								    <td>
+								        <div style="display: flex; align-items: center;">
+								            <!-- 기존 이미지 미리보기 -->
+								            <div style="margin-right: 20px;">
+								             	   기존이미지: <br>
+								                <img src="${dto.showImage}" alt="현재 이미지" style="max-width: 200px; max-height: 200px;"/>
+								            </div>
+								            <!-- 파일 입력 및 변경할 이미지 미리보기 -->
+								            <div>
+								                <input type="file" class="input" name="showImage" id="showImage" accept="image/*" onchange="previewImage(event)">
+								            </div>
+								            <div>
+								                	변경 이미지 : <br>
+								                <img src="#" style="max-width: 200px; max-height: 200px;" id="imgPreview" class="img-preview" alt="이미지 미리보기">
+								            </div>
+								        </div>
+								    </td>
+							   </tr>
+
+	                           <tr>
+	                              <th> * 날짜 </th>
 	                              <td>
-	                                 <textarea rows="5" cols="77" name="fesContent" id="fesContent" placeholder="페스티벌 설명 작성"></textarea>
+	                                 <input type="text" class="input" name="showDay" id="showDay" value="${dto.showDay}" size="40" placeholder="날짜 작성(YYYY-MM-DD)" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 공연시간 </th>
+	                              <td>
+	                                 <input type="number" class="input" name="showTime" id="showTime" value="${dto.showTime}" size="5" placeholder="공연시간 작성" required>분
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 장소 </th>
+	                              <td>
+	                                 <input type="text" class="input" name="showPlace" id="showPlace" value="${dto.showPlace}" size="40" placeholder="장소 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 관람연령 </th>
+	                              <td>
+	                                 <input type="text" class="input" name="showAge" id="showAge" value="${dto.showAge}" size="20" placeholder="관람연령 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 1매당 가격 </th>
+	                              <td>
+	                                 <input type="number" class="input" name="showPrice" id="showPrice" value="${dto.showPrice}" size="40" placeholder="1매당 가격 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 혜택 </th>
+	                              <td>
+	                                 <input type="text" class="input" name="showBene" id="showBene" value="${dto.showBene}" size="40" placeholder="혜택 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 현수용인원 </th>
+	                              <td>
+	                                 <input type="number" class="input" name="curCapacity" id="curCapacity" value="${dto.curCapacity}" size="20" placeholder="현수용인원 작성" required>
+	                              </td>
+	                           </tr>
+	                           <tr>
+	                              <th> * 최대수용인원 </th>
+	                              <td>
+	                                 <input type="number" class="input" name="maxCapacity" id="maxCapacity" value="${dto.maxCapacity}" size="20" placeholder="최대수용인원 작성" required>
 	                              </td>
 	                           </tr>
 		                           
@@ -125,7 +152,7 @@
 		                                 <div align="right">
 		                                    <input class="btn btn-primary inputButton" type="submit" value="페스티벌수정">
 		                                    <input class="btn btn-danger inputButton" type="reset" value="초기화">
-		                                    <input class="btn btn-secondary inputButton" type="button" value="페스티벌목록" onclick="window.location='ad_festivalEdit.fes'">
+		                                    <input class="btn btn-secondary inputButton" type="button" value="페스티벌목록" onclick="window.location='ad_showEdit.adshow?showCategory=페스티벌'">
 		                                 </div>
 		                              </td>
 		                           </tr>

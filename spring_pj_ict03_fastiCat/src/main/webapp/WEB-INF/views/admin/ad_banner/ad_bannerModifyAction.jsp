@@ -38,7 +38,7 @@
                   <script type="text/javascript">
                      setTimeout(function() {
                         alert("배너수정 성공!!");
-                        window.location="${path}/ad_bannerEdit.ban?pageNum=${hiddenPageNum}";
+                        window.location="${path}/ad_bannerEdit.adban?pageNum=${hiddenPageNum}";
                      },1000); 
                   </script>
                </c:if>
@@ -47,7 +47,7 @@
                   <script type="text/javascript">
                      setTimeout(function() {
                         alert("배너수정 실패!!");
-                        window.location="${path}/ad_bannerEdit.ban?bannerNo=${hiddenBannerNo}&pageNum=${hiddenPageNum}";
+                        window.location="${path}/ad_bannerEdit.adban?bannerNo=${hiddenBannerNo}&pageNum=${hiddenPageNum}";
                      },1000); 
                   </script>
                </c:if>

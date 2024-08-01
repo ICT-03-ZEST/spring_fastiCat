@@ -54,7 +54,7 @@
 
                         <div class="card-body">
                             <div class="table-responsive">
-                            	<form name="ad_bannerModify" action="ad_bannerModifyAction.ban" method="post" enctype="multipart/form-data">
+                            	<form name="ad_bannerModify" action="ad_bannerModifyAction.adban" method="post" enctype="multipart/form-data">
 	                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                                    <!-- hidden : 직접 input 태그에서 입력받지 못한 값들을 전달할 때 사용 -->
 			                           <input type="hidden" name="hiddenPageNum" value="${pageNum}">
@@ -85,25 +85,33 @@
 						                        <label><input type="radio" name="bannerStatus" value="사용안함"> 사용안함</label>
 						                    </td>
 		                           		<tr>
-				                             <th> * 이미지 등록 (1160*586 권장) </th>
-				                             <td>
-				                             	기존이미지 : <img src="${dto.bannerImg}" width="80px">
-				                                <input type="file" class="input" name="bannerImg" id="bannerImg" accept="image/*" onchange="previewImage(event)">
-				                             </td>
-			                            </tr>
-			                            <tr>
-						                    <th> 변경할 이미지 미리보기 </th>
-						                    <td>
-						                        <img src="#" width="200px" height="100px" id="imgPreview" class="img-preview" alt="이미지 미리보기">
-						                    </td>
-						                </tr>
+										    <th> * 이미지 등록 (1160*586 권장) </th>
+										    <td>
+										        <div style="display: flex; align-items: center;">
+										            <!-- 기존 이미지 미리보기 -->
+										            <div style="margin-right: 20px;">
+										                	기존이미지: <br>
+										                <img src="${dto.bannerImg}" width="200px" height="100px" alt="현재 이미지">
+										            </div>
+										            <!-- 파일 입력 및 변경할 이미지 미리보기 -->
+										            <div>
+										                <input type="file" class="input" name="bannerImg" id="bannerImg" accept="image/*" onchange="previewImage(event)">
+										            </div>
+										            <div>
+										                	변경 이미지 : <br>
+										                <img src="#" width="200px" height="100px" id="imgPreview" class="img-preview" alt="이미지 미리보기">
+										            </div>
+										        </div>
+										    </td>
+										</tr>
+
 			                           
 			                            <tr>
 			                              <td colspan="2">
 			                                 <br>
 			                                 <div align="right">
 			                                    <input class="btn btn-primary inputButton" type="submit" value="배너수정">
-			                                    <input class="btn btn-secondary inputButton" type="button" value="배너목록" onclick="window.location='ad_bannerEdit.ban'">
+			                                    <input class="btn btn-secondary inputButton" type="button" value="배너목록" onclick="window.location='ad_bannerEdit.adban'">
 			                                 </div>
 			                              </td>
 			                           </tr>

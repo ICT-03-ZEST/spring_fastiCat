@@ -14,7 +14,7 @@
  
 <script type="text/javascript">
     function setBannerNo(bannerNo) {
-        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_bannerDeleteAction.ban?bannerNo=" + bannerNo + "'");
+        document.getElementById('deleteButton').setAttribute('onclick', "window.location='${path}/ad_bannerDeleteAction.adban?bannerNo=" + bannerNo + "'");
     }
 </script>    
     
@@ -41,7 +41,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-header py-3 d-flex justify-content-between align-items-center">
    							<h6 class="m-0 font-weight-bold text-primary">배너 목록</h6>
-   							<button class="btn btn-primary" id="registerButton" onclick="window.location='ad_bannerAdd.ban'">배너 등록</button>
+   							<button class="btn btn-primary" id="registerButton" onclick="window.location='ad_bannerAdd.adban'">배너 등록</button>
 						</div>
 
                         <div class="card-body">
@@ -68,7 +68,7 @@
 					                  <td>${dto.bannerStatus}</td>
 					                  <td>${dto.bannerIndate}</td>
 					                  <td> <!-- 배너삭제 모달 -->
-					                  	<button class="btn btn-outline-danger btn-sm btn-custom" id="btnEdit" onclick="window.location='${path}/ad_bannerModify.ban?bannerNo=${dto.bannerNo}&pageNum=${paging.pageNum}'">수정</button>
+					                  	<button class="btn btn-outline-danger btn-sm btn-custom" id="btnEdit" onclick="window.location='${path}/ad_bannerModify.adban?bannerNo=${dto.bannerNo}&pageNum=${paging.pageNum}'">수정</button>
 					    				<button class="btn btn-outline-danger btn-sm btn-custom" id="btnDelete" href="#" data-toggle="modal" data-target="#DeleteModal" onclick="setBannerNo(${dto.bannerNo})">삭제</button>
 					                  </td>
 					                </tr>

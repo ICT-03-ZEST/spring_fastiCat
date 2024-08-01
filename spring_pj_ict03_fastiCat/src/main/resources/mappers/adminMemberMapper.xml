@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.ict03_fastiCat.dao.CustomerDAO">
+	
+	
+	<!-- 관리자 - 회원 목록 -->
+	<select id="memberList" resultType="com.spring.ict03_fastiCat.dto.CustomerDTO">
+		SELECT * FROM mvc_customer_tbl WHERE show = 'y' ORDER BY userid
+	</select>
+	
+	<!-- 관리자 - 회원수  -->
+	<select id="memberCnt" resultType="int">
+		SELECT COUNT(*) as cnt FROM mvc_customer_tbl WHERE show = 'y'
+	</select>
+	
+	<!--  관리자 - 회원 삭제  -->
+	<update id="deleteMember" parameterType="String">
+		UPDATE mvc_customer_tbl
+		SET show='n'
+		WHERE userid=#{userid}
+	</update>
+	
+	<!-- 관리자 - 탈퇴 회원목록 조회 -->
+	<select id="dropMemberList" resultType="com.spring.ict03_fastiCat.dto.CustomerDTO">
+		SELECT * FROM mvc_customer_tbl WHERE show = 'n' ORDER BY userid
+	</select>
+	
+	<!-- 관리자 - 탈퇴 회원 수  -->
+	<select id="dropMemberCnt" resultType="int">
+		SELECT COUNT(*) as cnt FROM mvc_customer_tbl WHERE show = 'n'
+	</select>
+	
+	<!--  관리자 - 탈퇴회원 복구  -->
+	<update id="dropMemberRestore" parameterType="String">
+		UPDATE mvc_customer_tbl
+		SET show='y'
+		WHERE userid=#{userid}
+	</update>
+	
+	
+	
+</mapper>

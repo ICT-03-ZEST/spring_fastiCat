@@ -36,7 +36,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('공연삭제 성공!!');
-	                		window.location="${path}/ad_concertEdit.con";
+	                		window.location="${path}/ad_showEdit.adshow?showCategory=공연";
 	                	}, 1000);
 	                </script>
                 </c:if>
@@ -45,7 +45,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('공연삭제 실패!!');
-	                		window.location="${path}/ad_concertEdit.con";
+	                		window.location="${path}/ad_showEdit.adshow?showCategory=공연";
 	                	}, 1000);
 	                </script>
                 </c:if>

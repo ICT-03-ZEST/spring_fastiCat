@@ -37,7 +37,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('공연삭제 성공!!');
-	                		window.location="${path}/ad_noticeEdit.not";
+	                		window.location="${path}/ad_noticeEdit.adnot";
 	                	}, 1000);
 	                </script>
                 </c:if>
@@ -46,7 +46,7 @@
 	                <script type="text/javascript">
 	                	setTimeout(function(){
 	                		alert('공연삭제 실패!!');
-	                		window.location="${path}/ad_noticeEdit.not";
+	                		window.location="${path}/ad_noticeEdit.adnot";
 	                	}, 1000);
 	                </script>
                 </c:if>

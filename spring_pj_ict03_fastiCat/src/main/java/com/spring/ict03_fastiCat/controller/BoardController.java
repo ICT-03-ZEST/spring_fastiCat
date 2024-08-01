@@ -27,11 +27,11 @@ public class BoardController {
 	@Autowired
 	private BoardServiceImpl serv;
 	
-	@RequestMapping("main.do")
-	public String main(HttpServletRequest req, Model model)
-			throws ServletException, IOException {
-		return "common/main";
-	}
+//	@RequestMapping("main.do")
+//	public String main(HttpServletRequest req, Model model)
+//			throws ServletException, IOException {
+//		return "common/main";
+//	}
 	
 	@RequestMapping("login.do")
 	public String login(HttpServletRequest req, Model model)

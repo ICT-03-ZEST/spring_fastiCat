@@ -19,7 +19,8 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 	@Override
 	public int noticeInsert(NoticeDTO dto) {
 		System.out.println("AdminNoticeDAOImpl - noticeInsert()");
-		int insertCnt = sqlSession.insert("com.spring.ict03_fastiCat.dao.AdminNoticeDAO.noticeInsert", dto);
+		AdminNoticeDAO dao = sqlSession.getMapper(AdminNoticeDAO.class);
+		int insertCnt = dao.noticeInsert(dto);
 		System.out.println("insertCnt: " + insertCnt);
 		return insertCnt;
 	}
@@ -28,7 +29,8 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 	@Override
 	public int noticeCnt() {
 		System.out.println("AdminNoticeDAOImpl - noticeCnt()");
-		int total = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.AdminNoticeDAO.noticeCnt");
+		AdminNoticeDAO dao = sqlSession.getMapper(AdminNoticeDAO.class);
+		int total = dao.noticeCnt();
 		System.out.println("total: " + total);
 		return total;
 	}
@@ -37,8 +39,8 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 	@Override
 	public List<NoticeDTO> noticeList() {
 		System.out.println("AdminNoticeDAOImpl - noticeList() ");
-		
-		List<NoticeDTO> list = sqlSession.selectList("com.spring.ict03_fastiCat.dao.AdminNoticeDAO.noticeList");
+		AdminNoticeDAO dao = sqlSession.getMapper(AdminNoticeDAO.class);
+		List<NoticeDTO> list = dao.noticeList();
 		return list;
 	}
 
@@ -47,8 +49,9 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 	public NoticeDTO getBoardDetail(int N_Board_Num) {
 		System.out.println("DAO - getBoardDetail()");
 		
+		AdminNoticeDAO dao = sqlSession.getMapper(AdminNoticeDAO.class);
 		// DTO 생성
-		NoticeDTO dto = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.AdminNoticeDAO.getBoardDetail", N_Board_Num);
+		NoticeDTO dto = dao.getBoardDetail(N_Board_Num);
 	
 		return dto;
 	}
@@ -57,7 +60,8 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 	@Override
 	public int updateNotice(NoticeDTO dto) {
 		System.out.println("DAO - updateNotice");
-		int updateCnt = sqlSession.update("com.spring.ict03_fastiCat.dao.AdminNoticeDAO.updateNotice", dto);
+		AdminNoticeDAO dao = sqlSession.getMapper(AdminNoticeDAO.class);
+		int updateCnt = dao.updateNotice(dto);
 		System.out.println("updateCnt" + updateCnt);
 		return updateCnt;
 	}
@@ -66,7 +70,8 @@ public class AdminNoticeDAOImpl implements AdminNoticeDAO{
 	@Override
 	public int deleteNotice(int N_Board_Num) {
 		System.out.println("DAO - deleteNotice ");
-		int deleteCnt = sqlSession.update("com.spring.ict03_fastiCat.dao.AdminNoticeDAO.deleteNotice", N_Board_Num);
+		AdminNoticeDAO dao = sqlSession.getMapper(AdminNoticeDAO.class);
+		int deleteCnt = dao.deleteNotice(N_Board_Num);
 		System.out.println("deleteCnt" + deleteCnt);
 		return deleteCnt;
 	}

@@ -19,8 +19,8 @@ public class AdminBoardDAOImpl implements AdminBoardDAO{
 	public List<AdminBoardDTO> boardList(Map<String, Object> params) {
 		System.out.println("DAO - boardList");
 		System.out.println("Params: " + params );
-		
-		List<AdminBoardDTO> list = sqlSession.selectList("com.spring.ict03_fastiCat.dao.AdminBoardDAO.boardList", params);
+		AdminBoardDAO dao = sqlSession.getMapper(AdminBoardDAO.class);
+		List<AdminBoardDTO> list = dao.boardList(params);
 		return list;
 	}
 
@@ -28,7 +28,8 @@ public class AdminBoardDAOImpl implements AdminBoardDAO{
 	@Override
 	public int boardCnt(Map<String, Object> params) {
 		System.out.println(" DAO - boardCnt");
-		int total = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.AdminBoardDAO.boardCnt", params);
+		AdminBoardDAO dao = sqlSession.getMapper(AdminBoardDAO.class);
+		int total = dao.boardCnt(params);
 		System.out.println("total : " + total);
 		return total;
 	}
@@ -37,8 +38,8 @@ public class AdminBoardDAOImpl implements AdminBoardDAO{
 	@Override
 	public int boardDelete(Map<String, Object> map) {
 		System.out.println("DAO - boardDelete");
-		
-		int deleteCnt = sqlSession.update("com.spring.ict03_fastiCat.dao.AdminBoardDAO.boardDelete", map);
+		AdminBoardDAO dao = sqlSession.getMapper(AdminBoardDAO.class);
+		int deleteCnt = dao.boardDelete(map);
 		System.out.println("deleteCnt : " + deleteCnt);
 		return deleteCnt;
 	}

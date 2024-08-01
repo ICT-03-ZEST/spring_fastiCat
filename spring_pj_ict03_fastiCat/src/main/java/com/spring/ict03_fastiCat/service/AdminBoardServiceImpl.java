@@ -35,7 +35,7 @@ public class AdminBoardServiceImpl implements AdminBoardService{
 		System.out.println("category: " + category);
 		//AdminBoardDAO dao = AdminBoardDAOImpl.getInstance();
 		
-		Map<String, Object> params = new HashMap<>();
+		Map<String, Object> params = new HashMap<String, Object>();
 	    params.put("category", category);
 		
 		// 5-1 단계. 전체 게시글 갯수 카운트

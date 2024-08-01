@@ -39,7 +39,7 @@
 						</div>
 
                         <div class="card-body">
-                          <form name="noticeAdd" action="ad_noticeAddAction.not" method="post" >
+                          <form name="noticeAdd" action="ad_noticeAddAction.adnot" method="post" >
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                    
@@ -68,7 +68,7 @@
 		                                 <div align="right">
 		                                    <input type="submit" class="btn btn-primary inputButton"  value="공지사항 등록">
 		                                    <input type="reset" class="btn btn-danger inputButton"  value="초기화">
-		                                    <input type="button" class="btn btn-secondary inputButton"  value="공지사항 목록" onclick="window.location='ad_noticeEdit.not'">
+		                                    <input type="button" class="btn btn-secondary inputButton"  value="공지사항 목록" onclick="window.location='ad_noticeEdit.adnot'">
 		                                 </div>
 		                              </td>
 		                           </tr>
