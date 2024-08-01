@@ -108,15 +108,15 @@
                     <!-- Content Row -->
 
                     <div class="row">
-							<div class="col-xl-8 col-lg-7" >
+						<div class="col-xl-8 col-lg-7" >
 							<div class="card shadow mb-4" style="width:800px">
 								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-						            <h6 class="m-0 font-weight-bold text-primary">웹사이트 방문자 수 (월별)</h6>
+						            <h6 class="m-0 font-weight-bold text-primary">웹사이트 방문자 수 (주간)</h6>
 						        </div>
 						        <div class="card-body">
 						        <c:forEach var="dto" items="${visit}">
-						        	<input type="hidden" id="visit_date${dto.visit_date}" value="${dto.visit_date}">
-						        	<input type="hidden" id="visit_count${dto.visit_count}" value="${dto.visit_count}">
+						        	<input type="hidden" class="visit_date" value="${dto.visit_date}">
+						        	<input type="hidden" class="visit_count" value="${dto.visit_count}">
 						        </c:forEach>
 						        	<div id="chart_div"></div>
 						    	</div>
@@ -164,21 +164,47 @@
   google.charts.setOnLoadCallback(drawChart);
  
   function drawChart() {
-	  let date = Number(document.getElementById('visit_date').value.split("/").pop());
-	  let count = Number(document.getElementById('visit_count').value);
-	  
-      let mViews = new Array();
-      mViews[0] = ['Week', '조회수'];
+	  let dates = document.getElementsByClassName('visit_date');
+      let counts = document.getElementsByClassName('visit_count');
       
-      for(let i = 1; i <= 7; i++) {
-        let viewArr = [date, count];
-        mViews[i] = viewArr;
+      let mViews = [['Date', '조회수']];
+      let uniqueDates = []; // 고유한 날짜를 저장할 배열
+      
+      for(let i = 0; i < dates.length; i++) {
+    	  let dateStr = dates[i].value;
+          let count = Number(counts[i].value);
+          
+          // 날짜 문자열을 Date 객체로 변환
+          let dateParts = dateStr.split("-");
+          let year = Number(dateParts[0]);
+          let month = Number(dateParts[1]) - 1; // JavaScript에서 월은 0부터 시작
+          let day = Number(dateParts[2]);
+          
+          let date = new Date(year, month, day);
+          mViews.push([date, count]);
+          
+       // 고유한 날짜를 uniqueDates 배열에 추가
+          if (!uniqueDates.some(d => d.getTime() === date.getTime())) {
+              uniqueDates.push(date);
+          }
       }
       
       let data = google.visualization.arrayToDataTable(mViews);
       
+      let options = {
+              hAxis: {
+                  format: 'M/d', // 일(day)만 표시
+                  ticks: uniqueDates // 고유한 날짜들만 표시
+              },
+              vAxis: {
+                  title: '조회수'
+              },
+              legend: { position: 'none' }
+          };
+      
+      
       let chart = new google.visualization.LineChart(document.getElementById('chart_div'));
-      chart.draw(data); 
+      chart.draw(data, options); 
     }
 </script>
 </body>

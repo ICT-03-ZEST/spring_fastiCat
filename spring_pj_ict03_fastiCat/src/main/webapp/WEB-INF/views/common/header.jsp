@@ -42,6 +42,7 @@
 		</ul>
 
 		<ul id="navbar_icons">
+				<li><a href="${path}/ad_dashboard.bc">관리자</a></li>
 				<li><a href="${path}/login.do">LOGIN</a></li>
 				<li><a href="${path}/logout.do">logout</a></li>
 
