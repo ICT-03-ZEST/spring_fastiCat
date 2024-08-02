@@ -21,14 +21,14 @@ public class CustomerController {
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
 	
 	@Autowired
-	private AdminBannerServiceImpl service;
+	private AdminBannerServiceImpl bannerService;
 
 	// 배너등록 화면
 	@RequestMapping("main.do")
 	public String main(HttpServletRequest request, Model model)
 			throws ServletException, IOException {
 		logger.info("<<< url ==> /main.do >>>");
-		service.getMainBanner(request, model);
+		bannerService.getMainBanner(request, model);
 		return "common/main";
 		
 	}
