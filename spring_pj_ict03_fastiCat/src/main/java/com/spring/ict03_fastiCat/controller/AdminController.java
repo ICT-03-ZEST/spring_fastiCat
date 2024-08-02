@@ -41,7 +41,7 @@ public class AdminController {
 	@Autowired
 	private CustomerServiceImpl service4;
 	
-	//5.공연관리 서비스
+	//5.공연관리,페스티벌관리 서비스
 	@Autowired
 	private AdminShowServiceImpl service5;
 	

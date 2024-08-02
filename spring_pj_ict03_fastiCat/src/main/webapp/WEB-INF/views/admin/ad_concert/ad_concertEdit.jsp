@@ -54,6 +54,7 @@
                                         <tr>
                                         	<th style="width:5%">번호</th>
                                             <th>이미지</th>
+                                            <th>카테고리</th>
                                             <th>공연명</th>
                                             <th>날짜</th>
                                             <th>공연시간</th>
@@ -71,6 +72,7 @@
                                         <tr>
                                         	<th>번호</th>
                                         	<th>이미지</th>
+                                        	<th>카테고리</th>
                                             <th>공연명</th>
                                             <th>날짜</th>
                                             <th>공연시간</th>
@@ -90,6 +92,7 @@
 				                           <tr>
 				                              <td> ${dto.showNum} </td>
 				                              <td> <img src="${dto.showImage}" width="80px" height="100px"> </td>
+				                              <td> ${dto.showCategory} </td>
 				                              <td> ${dto.showName} </td>
 				                              <td> ${dto.showDay} </td>
 				                              <td> ${dto.showTime}분</td>
