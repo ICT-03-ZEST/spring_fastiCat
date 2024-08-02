@@ -26,7 +26,7 @@ public class BoardController {
 	
 	@Autowired
 	private BoardServiceImpl serv;
-	
+
 	// 1.게시판 목록조회
 	@RequestMapping("board.bc")
 	public String board(HttpServletRequest req, Model model)

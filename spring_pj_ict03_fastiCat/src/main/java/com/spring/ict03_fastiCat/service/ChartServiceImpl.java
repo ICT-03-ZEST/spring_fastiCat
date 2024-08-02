@@ -1,6 +1,6 @@
 package com.spring.ict03_fastiCat.service;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import com.spring.ict03_fastiCat.dao.ChartDAO;
 import com.spring.ict03_fastiCat.dto.BoardDTO;
 import com.spring.ict03_fastiCat.dto.VisitDTO;
+import com.spring.ict03_fastiCat.dto.test_ShowReservationDTO;
 
 @Service
 public class ChartServiceImpl implements ChartService {
@@ -34,8 +35,12 @@ public class ChartServiceImpl implements ChartService {
 		//일일 등록 게시글 수 list
 		List<BoardDTO> boardCnt = dao.regCountforday();
 		
-		// 일주일 간 예매된 횟수
+		// 일주일 간 예매된 수량
 		int bookCnt = dao.bookingCountforWeek();
+		
+		//일일 예매 수량 list
+		List<test_ShowReservationDTO> reservCnt = dao.bookCountForday();
+		
 		//인기 게시글 목록
 		List<BoardDTO> list = dao.popularBoard();
 		
@@ -47,6 +52,7 @@ public class ChartServiceImpl implements ChartService {
 		model.addAttribute("regCnt", regCnt);
 		model.addAttribute("boardCnt", boardCnt);
 		model.addAttribute("bookCnt", bookCnt);
+		model.addAttribute("reservCnt", reservCnt);
 		model.addAttribute("list", list);
 		model.addAttribute("visit", visit);
 	}

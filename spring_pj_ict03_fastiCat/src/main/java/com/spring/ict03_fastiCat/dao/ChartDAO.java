@@ -4,14 +4,12 @@ import java.util.List;
 
 import com.spring.ict03_fastiCat.dto.BoardDTO;
 import com.spring.ict03_fastiCat.dto.VisitDTO;
+import com.spring.ict03_fastiCat.dto.test_ShowReservationDTO;
 
 public interface ChartDAO {
 	
 	// 전체 회원수 
 	public int userCount(); 
-	
-	// 일주일 간 예매된 횟수
-	public int bookingCountforWeek(); 
 	
 	// 등록된 공연 및 페스티벌 수
 	public int showCount(); 
@@ -22,6 +20,12 @@ public interface ChartDAO {
 	//일일 등록 게시글 수 list 
 	public List<BoardDTO> regCountforday();
 	
+	// 일주일 간 예매된 횟수
+	public int bookingCountforWeek(); 
+		
+	//일일 예매 수량
+	public List<test_ShowReservationDTO> bookCountForday();
+	
 	//인기 게시글 목록
 	public List<BoardDTO> popularBoard();
 
@@ -30,6 +34,8 @@ public interface ChartDAO {
 	
 	//방문자 수 추가
 	public void addVisit();
+
+	
 
 	
 }
