@@ -84,3 +84,6 @@
 	align-items: center;
 	height: 70px;
 }
+.bold {
+    font-weight: bold;
+}

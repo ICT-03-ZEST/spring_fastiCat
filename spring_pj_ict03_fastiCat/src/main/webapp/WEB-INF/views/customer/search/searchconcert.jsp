@@ -64,7 +64,7 @@
 																<tr>
 																	<td class="searchtd">${list.getSource() }</td>
 																	<td class="searchtd"><a
-																		href="${path}/concertInfo.cc?conNo=${list.getNum()}&pageNum=1">
+																		href="${path}/showInfo.pf?showNum=${list.getNum()}&pageNum=1&showCategory=${list.getSource() }">
 																			${list.getTitle()} </a></td>
 																	<td class="searchtd">${list.getContent() }</td>
 																</tr>

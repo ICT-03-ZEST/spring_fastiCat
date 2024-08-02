@@ -10,8 +10,10 @@
 <link rel="stylesheet" href="${path}/resources/css/common/header.css">
 <link rel="stylesheet" href="${path}/resources/css/common/footer.css">
 <link rel="stylesheet" href="${path}/resources/css/customer/search.css">
-<script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
-<script type="text/javascript" src="${path}/resources/js/jquery-3.7.1.min.js"></script>
+<script src="https://kit.fontawesome.com/e3f7bcf3d6.js"
+	crossorigin="anonymous"></script>
+<script type="text/javascript"
+	src="${path}/resources/js/jquery-3.7.1.min.js"></script>
 <script src="../../resources/js/customer/main.js" defer></script>
 <title>검색 페이지</title>
 
@@ -21,8 +23,8 @@
 	<!-- header 시작 -->
 	<%@ include file="../../common/header.jsp"%>
 	<!-- header 끝 -->
-	
-	
+
+
 	<!-- 컨텐츠 시작 -->
 	<div id="container">
 		<div id="contents">
@@ -42,7 +44,7 @@
 												'${query }' 에 대한 검색결과 </span>
 
 										</div>
-										
+
 										<!-- 상단 중앙2 시작 -->
 										<div id="section2">
 
@@ -62,13 +64,24 @@
 															<!-- 상품이 있으면 -->
 															<c:forEach var="list" items="${list }">
 																<tr>
-																	<td class="searchtd">${list.getSource() }</td>
-																	<td class="searchtd">
-																		<a href="${path}/content.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1">
-																			${list.getTitle()}
-																		</a>
+																	<c:choose>
+																		<c:when test="${list.getSource() == '공지사항'}">
+																			<td class="searchtd"><strong>${list.getSource()}</strong></td>
+																			<td class="searchtd"><strong> <a
+																					href="${path}/content.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1">
+																						${list.getTitle()} </a>
+																			</strong></td>
+																			<td class="searchtd"><strong>${list.getWriter() }</strong></td>
+																		</c:when>
+																		<c:otherwise>
+																			<td class="searchtd">${list.getSource()}</td>
+																			<td class="searchtd"><a
+																				href="${path}/content.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1">
+																					${list.getTitle()} </a></td>
+																			<td class="searchtd">${list.getWriter() }</td>
+																		</c:otherwise>
+																	</c:choose>
 																	</td>
-																	<td class="searchtd">${list.getWriter() }</td>
 																	<td class="searchtd">${list.getRegDate() }</td>
 																	<td class="searchtd">${list.getReadCnt() }</td>
 																</tr>
@@ -113,8 +126,8 @@
 										<option value="content">내용</option>
 									</select> <input id="searchInput" class="searchInputButton" type="text"
 										name="query" placeholder="검색어를 입력하세요" aria-label="Search">
-									<input id="searchInputButton" class="searchInputButton" type="submit"
-										value="search">
+									<input id="searchInputButton" class="searchInputButton"
+										type="submit" value="search">
 								</form>
 							</div>
 							<!-- 드롭다운 + 검색 창 끝 -->

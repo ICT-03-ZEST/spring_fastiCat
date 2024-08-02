@@ -1,5 +1,4 @@
 /*  2024/07/17/11:04  */
-
 @charset "UTF-8";
 
 a {
@@ -66,7 +65,7 @@ a {
 
 #navbar_icons {
 	display: flex; /* 한줄(수평) 배치 */
-	 white-space: nowrap;    
+	white-space: nowrap;
 	position: relative; /* 하위 메뉴 위치 설정을 위한 상대 위치 설정 */
 	list-style: none; /* 리스트 불릿없앰 */
 	color: white;
@@ -84,6 +83,18 @@ a {
 	border: none;
 	outline: none;
 	box-sizing: border-box;
+}
+
+#searchInput {
+	width: 213px !important; /* 너비를 213px로 설정 */
+	height: 28px !important; /* 높이를 28px로 설정 */
+}
+
+#searchInputButton{
+	border-radius: 30px; /* 동그란 형태 */
+	border-right: 1px solid gray;
+	border-bottom: 1px solid gray;
+	background-color: white !important;	
 }
 
 .searchInputButton:first-of-type {
@@ -127,9 +138,9 @@ a {
 		flex-direction: column; /* 위에서 아래로 아이템 배치 */
 		align-items: center; /* 가운데 정렬 */
 		width: 50%;
-		left:25%;
+		left: 25%;
 		background-color: white;
-		border: 5px solid orange; 
+		border: 5px solid orange;
 	}
 
 	/* 마우스 올리면 하이라이트를 전체 크기로 전에 */
@@ -145,7 +156,7 @@ a {
 		align-items: center; /* 가운데 정렬 */
 		width: 100%;
 	}
-	
+
 	/* ------------(3-2) 종료 : 2차 테스트 => F12창에서 768px 보다 작게 창을 줄이면 햄버거 아이콘이 보이고, 나머지는 모두 자바스크립트에서 핸들링 (강력 새로고침) ---------- */
 
 	/* (3-3). 자바스크립트에 이벤트 추가 : 햄버거 아이콘을 클릭하면 아래쪽으로 메뉴가 나오도록 main.js 에 작성 */
@@ -159,8 +170,7 @@ a {
 	.navbar_toggleBtn {
 		display: block; /* 세로로 보여주기 */
 	}
-}/*  2024/07/17/11:04  */
-
+} /*  2024/07/17/11:04  */
 @charset "UTF-8";
 
 a {
@@ -227,7 +237,7 @@ a {
 
 #navbar_icons {
 	display: flex; /* 한줄(수평) 배치 */
-	 white-space: nowrap;    
+	white-space: nowrap;
 	position: relative; /* 하위 메뉴 위치 설정을 위한 상대 위치 설정 */
 	list-style: none; /* 리스트 불릿없앰 */
 	color: white;
@@ -288,9 +298,9 @@ a {
 		flex-direction: column; /* 위에서 아래로 아이템 배치 */
 		align-items: center; /* 가운데 정렬 */
 		width: 50%;
-		left:25%;
+		left: 25%;
 		background-color: white;
-		border: 5px solid orange; 
+		border: 5px solid orange;
 	}
 
 	/* 마우스 올리면 하이라이트를 전체 크기로 전에 */
@@ -306,7 +316,7 @@ a {
 		align-items: center; /* 가운데 정렬 */
 		width: 100%;
 	}
-	
+
 	/* ------------(3-2) 종료 : 2차 테스트 => F12창에서 768px 보다 작게 창을 줄이면 햄버거 아이콘이 보이고, 나머지는 모두 자바스크립트에서 핸들링 (강력 새로고침) ---------- */
 
 	/* (3-3). 자바스크립트에 이벤트 추가 : 햄버거 아이콘을 클릭하면 아래쪽으로 메뉴가 나오도록 main.js 에 작성 */
