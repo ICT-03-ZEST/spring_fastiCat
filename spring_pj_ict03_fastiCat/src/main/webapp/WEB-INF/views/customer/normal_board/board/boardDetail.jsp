@@ -12,7 +12,6 @@
 <script src="${path}/resources/js/jquery-3.7.1.min.js"></script>
 <script src="${path}/resources/js/request.js"></script>
 <script type="text/javascript">
-alert(${heartChk});
  $(function() {
 	//댓글 목록 자동조회
 	comment_list();
@@ -22,7 +21,6 @@ alert(${heartChk});
 		comment_add();
 	});
 
-	
 	//하트클릭
 	heartClick();
 	 
@@ -77,8 +75,6 @@ alert(${heartChk});
 					,"background-size":"cover"}
 		$('.head').css(style);
 	}
-	
-	
 		
 }); 
  // 자동으로 댓글목록 호출
