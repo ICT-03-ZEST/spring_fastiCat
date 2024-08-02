@@ -1,11 +1,22 @@
 package com.spring.ict03_fastiCat.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.spring.ict03_fastiCat.dto.CustomerDTO;
 
 public interface CustomerDAO {
 
+	// ID 중복확인 처리
+	public int useridCheck(String strId);
+
+	// 회원가입 처리
+	public int insertCustomer(CustomerDTO dto);
+
+	// 로그인 처리 / 회원정보 인증(수정, 탈퇴)
+	public int idPasswordChk(Map<String, Object> map);
+	
+	
 	// 관리자 - 회원목록 조회
 	public List<CustomerDTO> memberList();
 

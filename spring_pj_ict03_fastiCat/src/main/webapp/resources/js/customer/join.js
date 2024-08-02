@@ -46,7 +46,7 @@ function confirmId() {
 	
 	// 중복확인 버튼 클릭시 컨트롤러로 url을 전달
 	// http://localhost/jsp_pj_ict03/idConfirmAction.do?userid=hong
-	let url="/ict03_fastiCat/idConfirmAction.do?userid=" + document.joinform.userid.value;
+	let url="/spring_pj_ict03_fastiCat/idConfirmAction.do?userid=" + document.joinform.userid.value;
 	window.open(url, "confirm", "menubar=no, width=500, height=300");
 }
 

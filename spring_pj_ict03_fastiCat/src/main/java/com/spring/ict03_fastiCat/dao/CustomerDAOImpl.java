@@ -1,6 +1,7 @@
 package com.spring.ict03_fastiCat.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,39 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+
+	// ID 중복확인 처리 호출
+	@Override
+	public int useridCheck(String strId) {
+
+		System.out.println("DAO -useridcheck()");
+
+		int selectCnt = sqlSession.selectOne("spring.jdbc.spring_ict03_fastiCat.dao.CustomerDAO.useridCheck", strId);
+		System.out.println("selectCnt : " + selectCnt);
+		return selectCnt;
+	}
+
+	// 회원가입 처리 호출
+	@Override
+	public int insertCustomer(CustomerDTO dto) {
+		System.out.println("DAO-insertCustomer()");
+
+		int insertCnt = sqlSession.insert("spring.jdbc.spring_ict03_fastiCat.dao.CustomerDAO.insertCustomer", dto);
+
+		System.out.println("insertCnt : " + insertCnt);
+		return insertCnt;
+	}
+
+	// 로그인 처리/ 회원정보 인증(수정, 탈퇴) 호출
+	@Override
+	public int idPasswordChk(Map<String, Object> map) {
+		System.out.println("DAO - idpassword check()");
+
+		int selectCnt = sqlSession.selectOne("spring.jdbc.spring_ict03_fastiCat.dao.CustomerDAO.idPasswordChk", map);
+
+		System.out.println("selectCnt :" + selectCnt);
+		return selectCnt;
+	}
 	
 	// 관리자 - 회원목록 조회
 	@Override
