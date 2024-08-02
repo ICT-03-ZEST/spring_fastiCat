@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.spring.ict03_fastiCat.service.AdminBannerServiceImpl;
+import com.spring.ict03_fastiCat.service.ChartServiceImpl;
 import com.spring.ict03_fastiCat.service.CustomerServiceImpl;
 
 
@@ -26,12 +27,16 @@ public class CustomerController {
 
 	@Autowired
 	private CustomerServiceImpl customerservice;
+	
+	@Autowired
+	private ChartServiceImpl chart;
 
-	// 배너등록 화면
+	// 메인 화면
 	@RequestMapping("main.do")
 	public String main(HttpServletRequest request, Model model)
 			throws ServletException, IOException {
 		logger.info("<<< url ==> /main.do >>>");
+		chart.addVisit(request, model); // 방문자수 증가(결산차트에 반영)
 		bannerService.getMainBanner(request, model);
 		return "common/main";
 		
