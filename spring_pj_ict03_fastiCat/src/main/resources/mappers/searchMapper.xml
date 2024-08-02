@@ -7,160 +7,183 @@
 <mapper
 	namespace="com.spring.ict03_fastiCat.dao.SearchDAO">
 
-	<!-- 게시글 목록 -->
-	<select id="boardList" parameterType="map"
-		resultType="com.spring.ict03_fastiCat.dto.SearchDTO">
-		SELECT * FROM (
-		SELECT A.*, rownum AS rn FROM (
-		SELECT
-		board_num AS num, board_title AS title, board_content AS content,
-		board_writer AS writer, board_regDate AS regDate, board_category AS
-		source
-		FROM reviewBoard_tbl
-		WHERE board_show = 'y' AND (board_title LIKE
-		'%' || #{query} || '%' OR
-		board_content LIKE '%' || #{query} || '%' OR
-		board_writer LIKE '%' ||
-		#{query} || '%')
-		UNION ALL
-		SELECT board_num AS
-		num, board_title AS title, board_content AS content,
-		board_writer AS
-		writer, board_regDate AS regDate, board_category AS
-		source
-		FROM
-		freeBoard_tbl
-		WHERE board_show = 'y' AND (board_title LIKE '%' ||
-		#{query} || '%' OR
-		board_content LIKE '%' || #{query} || '%' OR
-		board_writer LIKE '%' ||
-		#{query} || '%')
-		UNION ALL
-		SELECT noticeNo AS
-		num, noticeTitle AS title, noticeContent AS content,
-		noticeWriter AS
-		writer, noticeRegDate AS regDate, 'notice' AS source
-		FROM
-		mvc_ad_notice_tbl
-		WHERE show = 'y' AND (noticeTitle LIKE '%' ||
-		#{query} || '%' OR
-		noticeContent LIKE '%' || #{query} || '%' OR
-		noticeWriter LIKE '%' ||
-		#{query} || '%')
-		ORDER BY regDate DESC
-		) A
-		)
-		WHERE rn BETWEEN #{start} AND #{end}
-	</select>
+    <!-- 게시글 목록 -->
+    <select id="boardList" parameterType="map" resultType="com.spring.ict03_fastiCat.dto.SearchDTO">
+        SELECT * FROM (
+            -- 공지사항
+            SELECT A.*, rownum AS rn FROM (
+                SELECT
+                    noticeNo AS num,
+                    noticeTitle AS title,
+                    noticeContent AS content,
+                    noticeWriter AS writer,
+                    noticeRegDate AS regDate,
+                    '공지사항' AS source
+                FROM mvc_ad_notice_tbl
+                WHERE show = 'y'
+                  AND (noticeTitle LIKE '%' || #{query} || '%'
+                    OR noticeContent LIKE '%' || #{query} || '%'
+                    OR noticeWriter LIKE '%' || #{query} || '%')
+                ORDER BY regDate DESC
+            ) A
+            UNION ALL
+            -- 나머지 게시글
+            SELECT B.*, rownum + (SELECT COUNT(*) FROM mvc_ad_notice_tbl WHERE show = 'y' AND (noticeTitle LIKE '%' || #{query} || '%' OR noticeContent LIKE '%' || #{query} || '%' OR noticeWriter LIKE '%' || #{query} || '%')) AS rn FROM (
+                SELECT
+                    board_num AS num,
+                    board_title AS title,
+                    board_content AS content,
+                    board_writer AS writer,
+                    board_regDate AS regDate,
+                    board_category AS source
+                FROM reviewBoard_tbl
+                WHERE board_show = 'y'
+                  AND (board_title LIKE '%' || #{query} || '%'
+                    OR board_content LIKE '%' || #{query} || '%'
+                    OR board_writer LIKE '%' || #{query} || '%')
+                UNION ALL
+                SELECT
+                    board_num AS num,
+                    board_title AS title,
+                    board_content AS content,
+                    board_writer AS writer,
+                    board_regDate AS regDate,
+                    '자유' AS source
+                FROM freeBoard_tbl
+                WHERE board_show = 'y'
+                  AND (board_title LIKE '%' || #{query} || '%'
+                    OR board_content LIKE '%' || #{query} || '%'
+                    OR board_writer LIKE '%' || #{query} || '%')
+                ORDER BY regDate DESC
+            ) B
+        )
+        WHERE rn BETWEEN #{start} AND #{end}
+        ORDER BY rn
+    </select>
 
-	<!-- 게시글 갯수 -->
-	<select id="boardCnt" parameterType="string" resultType="int">
-		SELECT
-		COUNT(*) AS cnt
-		FROM (
-		SELECT N_Board_Num AS num
-		FROM mvc_Notice_TBL
-		WHERE show = 'y'
-		AND (N_Title LIKE '%' || #{query} || '%'
-		OR N_Content
-		LIKE '%' || #{query} || '%'
-		OR N_Writer LIKE '%' || #{query} || '%')
-		UNION ALL
-		SELECT board_num AS num
-		FROM reviewBoard_tbl
-		WHERE board_show =
-		'y'
-		AND (board_title LIKE '%' || #{query} || '%'
-		OR board_content LIKE
-		'%' || #{query} || '%'
-		OR board_writer LIKE '%' || #{query} || '%')
-		UNION ALL
-		SELECT board_num AS num
-		FROM freeBoard_tbl
-		WHERE board_show =
-		'y'
-		AND (board_title LIKE '%' || #{query} || '%'
-		OR board_content LIKE
-		'%' || #{query} || '%'
-		OR board_writer LIKE '%' || #{query} || '%')
-		)
-		combinedResults
-	</select>
+    <!-- 게시글 갯수 -->
+    <select id="boardCnt" parameterType="string" resultType="int">
+        SELECT COUNT(*) AS cnt
+        FROM (
+            -- 공지사항
+            SELECT num
+            FROM (
+                SELECT noticeNo AS num
+                FROM mvc_ad_notice_tbl
+                WHERE show = 'y'
+                  AND (noticeTitle LIKE '%' || #{query} || '%'
+                    OR noticeContent LIKE '%' || #{query} || '%'
+                    OR noticeWriter LIKE '%' || #{query} || '%')
+            ) A
+            UNION ALL
+            -- 나머지 게시글
+            SELECT num
+            FROM (
+                SELECT board_num AS num
+                FROM reviewBoard_tbl
+                WHERE board_show = 'y'
+                  AND (board_title LIKE '%' || #{query} || '%'
+                    OR board_content LIKE '%' || #{query} || '%'
+                    OR board_writer LIKE '%' || #{query} || '%')
+                UNION ALL
+                SELECT board_num AS num
+                FROM freeBoard_tbl
+                WHERE board_show = 'y'
+                  AND (board_title LIKE '%' || #{query} || '%'
+                    OR board_content LIKE '%' || #{query} || '%'
+                    OR board_writer LIKE '%' || #{query} || '%')
+            ) B
+        ) combinedResults
+    </select>
 
-	<!-- 게시글 상세 검색 -->
-	<select id="boardDetailList" parameterType="map"
-		resultType="com.spring.ict03_fastiCat.dto.SearchDTO">
-		SELECT * FROM (
-		SELECT A.*, rownum AS rn FROM (
-		SELECT
-		board_num AS num,
-		board_title AS title, board_content AS content,
-		board_writer AS writer,
-		board_regDate AS regDate, '공연후기' AS source
-		FROM reviewBoard_tbl
-		WHERE
-		board_show = 'y'
-		<choose>
-			<when test="searchItem == 'title'">
-				AND board_title LIKE '%' || #{query} || '%'
-			</when>
-			<when test="searchItem == 'content'">
-				AND board_content LIKE '%' || #{query} || '%'
-			</when>
-			<when test="searchItem == 'writer'">
-				AND board_writer LIKE '%' || #{query} || '%'
-			</when>
-			<otherwise>
-				AND 1=0
-			</otherwise>
-		</choose>
-		UNION ALL
-		SELECT board_num AS num, board_title AS title, board_content
-		AS content,
-		board_writer AS writer, board_regDate AS regDate, '자유' AS
-		source
-		FROM freeBoard_tbl
-		WHERE board_show = 'y'
-		<choose>
-			<when test="searchItem == 'title'">
-				AND board_title LIKE '%' || #{query} || '%'
-			</when>
-			<when test="searchItem == 'content'">
-				AND board_content LIKE '%' || #{query} || '%'
-			</when>
-			<when test="searchItem == 'writer'">
-				AND board_writer LIKE '%' || #{query} || '%'
-			</when>
-			<otherwise>
-				AND 1=0
-			</otherwise>
-		</choose>
-		UNION ALL
-		SELECT noticeNo AS num, noticeTitle AS title, noticeContent
-		AS content,
-		noticeWriter AS writer, noticeRegDate AS regDate, '공지사항' AS
-		source
-		FROM mvc_ad_notice_tbl
-		WHERE show = 'y'
-		<choose>
-			<when test="searchItem == 'title'">
-				AND noticeTitle LIKE '%' || #{query} || '%'
-			</when>
-			<when test="searchItem == 'content'">
-				AND noticeContent LIKE '%' || #{query} || '%'
-			</when>
-			<when test="searchItem == 'writer'">
-				AND noticeWriter LIKE '%' || #{query} || '%'
-			</when>
-			<otherwise>
-				AND 1=0
-			</otherwise>
-		</choose>
-		ORDER BY regDate DESC
-		) A
-		)
-		WHERE rn BETWEEN #{start} AND #{end}
-	</select>
+    <!-- 게시글 상세 검색 -->
+    <select id="boardDetailList" parameterType="map" resultType="com.spring.ict03_fastiCat.dto.SearchDTO">
+        SELECT * FROM (
+            -- 공지사항
+            SELECT A.*, rownum AS rn FROM (
+                SELECT
+                    noticeNo AS num,
+                    noticeTitle AS title,
+                    noticeContent AS content,
+                    noticeWriter AS writer,
+                    noticeRegDate AS regDate,
+                    '공지사항' AS source
+                FROM mvc_ad_notice_tbl
+                WHERE show = 'y'
+                  <choose>
+                    <when test="searchItem == 'title'">
+                        AND noticeTitle LIKE '%' || #{query} || '%'
+                    </when>
+                    <when test="searchItem == 'content'">
+                        AND noticeContent LIKE '%' || #{query} || '%'
+                    </when>
+                    <when test="searchItem == 'writer'">
+                        AND noticeWriter LIKE '%' || #{query} || '%'
+                    </when>
+                    <otherwise>
+                        AND 1=0
+                    </otherwise>
+                  </choose>
+                ORDER BY regDate DESC
+            ) A
+            UNION ALL
+            -- 나머지 게시글
+            SELECT B.*, rownum + (SELECT COUNT(*) FROM mvc_ad_notice_tbl WHERE show = 'y' AND (noticeTitle LIKE '%' || #{query} || '%' OR noticeContent LIKE '%' || #{query} || '%' OR noticeWriter LIKE '%' || #{query} || '%')) AS rn FROM (
+                SELECT
+                    board_num AS num,
+                    board_title AS title,
+                    board_content AS content,
+                    board_writer AS writer,
+                    board_regDate AS regDate,
+                    '공연후기' AS source
+                FROM reviewBoard_tbl
+                WHERE board_show = 'y'
+                  <choose>
+                    <when test="searchItem == 'title'">
+                        AND board_title LIKE '%' || #{query} || '%'
+                    </when>
+                    <when test="searchItem == 'content'">
+                        AND board_content LIKE '%' || #{query} || '%'
+                    </when>
+                    <when test="searchItem == 'writer'">
+                        AND board_writer LIKE '%' || #{query} || '%'
+                    </when>
+                    <otherwise>
+                        AND 1=0
+                    </otherwise>
+                  </choose>
+                UNION ALL
+                SELECT
+                    board_num AS num,
+                    board_title AS title,
+                    board_content AS content,
+                    board_writer AS writer,
+                    board_regDate AS regDate,
+                    '자유' AS source
+                FROM freeBoard_tbl
+                WHERE board_show = 'y'
+                  <choose>
+                    <when test="searchItem == 'title'">
+                        AND board_title LIKE '%' || #{query} || '%'
+                    </when>
+                    <when test="searchItem == 'content'">
+                        AND board_content LIKE '%' || #{query} || '%'
+                    </when>
+                    <when test="searchItem == 'writer'">
+                        AND board_writer LIKE '%' || #{query} || '%'
+                    </when>
+                    <otherwise>
+                        AND 1=0
+                    </otherwise>
+                  </choose>
+                ORDER BY regDate DESC
+            ) B
+        )
+        WHERE rn BETWEEN #{start} AND #{end}
+        ORDER BY rn
+    </select>
+
+
 
 	<!-- 공연 갯수 구하기 -->
 	<select id="getTotalCount" parameterType="String"
