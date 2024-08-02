@@ -18,7 +18,7 @@
                     noticeContent AS content,
                     noticeWriter AS writer,
                     noticeRegDate AS regDate,
-                    '공지사항' AS source
+                    'notice' AS source
                 FROM mvc_ad_notice_tbl
                 WHERE show = 'y'
                   AND (noticeTitle LIKE '%' || #{query} || '%'
@@ -48,7 +48,7 @@
                     board_content AS content,
                     board_writer AS writer,
                     board_regDate AS regDate,
-                    '자유' AS source
+                    'free' AS source
                 FROM freeBoard_tbl
                 WHERE board_show = 'y'
                   AND (board_title LIKE '%' || #{query} || '%'
@@ -107,7 +107,7 @@
                     noticeContent AS content,
                     noticeWriter AS writer,
                     noticeRegDate AS regDate,
-                    '공지사항' AS source
+                    'notice' AS source
                 FROM mvc_ad_notice_tbl
                 WHERE show = 'y'
                   <choose>
@@ -135,7 +135,7 @@
                     board_content AS content,
                     board_writer AS writer,
                     board_regDate AS regDate,
-                    '공연후기' AS source
+                    'review' AS source
                 FROM reviewBoard_tbl
                 WHERE board_show = 'y'
                   <choose>
@@ -159,7 +159,7 @@
                     board_content AS content,
                     board_writer AS writer,
                     board_regDate AS regDate,
-                    '자유' AS source
+                    'free' AS source
                 FROM freeBoard_tbl
                 WHERE board_show = 'y'
                   <choose>

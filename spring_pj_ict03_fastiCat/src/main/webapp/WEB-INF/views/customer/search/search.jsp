@@ -68,7 +68,7 @@
 																		<c:when test="${list.getSource() == '공지사항'}">
 																			<td class="searchtd"><strong>${list.getSource()}</strong></td>
 																			<td class="searchtd"><strong> <a
-																					href="${path}/content.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1">
+																					href="${path}/boardDetail.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1&views=1">
 																						${list.getTitle()} </a>
 																			</strong></td>
 																			<td class="searchtd"><strong>${list.getWriter() }</strong></td>
@@ -76,7 +76,7 @@
 																		<c:otherwise>
 																			<td class="searchtd">${list.getSource()}</td>
 																			<td class="searchtd"><a
-																				href="${path}/content.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1">
+																				href="${path}/boardDetail.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1&views=1">
 																					${list.getTitle()} </a></td>
 																			<td class="searchtd">${list.getWriter() }</td>
 																		</c:otherwise>

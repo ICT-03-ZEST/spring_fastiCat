@@ -69,7 +69,7 @@
 																<tr class="${list.source == '공지사항' ? 'notice' : ''}">
 																	<td class="searchtd">${list.getSource()}</td>
 																	<td class="searchtd"><a
-																		href="${path}/search_detailAction.sc?num=${list.getNum()}">${list.getTitle()}</a></td>
+																		href="${path}/boardDetail.bc?board_num=${list.getNum()}&board_category=${list.getSource()}&pageNum=1&views=1">${list.getTitle()}</a></td>
 																	<td class="searchtd">${list.getWriter()}</td>
 																	<td class="searchtd">${list.getRegDate()}</td>
 																	<td class="searchtd">${list.getReadCnt()}</td>
