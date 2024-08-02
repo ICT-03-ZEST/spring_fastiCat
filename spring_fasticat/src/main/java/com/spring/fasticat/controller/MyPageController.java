@@ -38,19 +38,28 @@ public class MyPageController {
 		return "customer/mypage/myPage";
 	}
 	
-	// 나의 게시물 목록
+	// 나의 게시물 목록 이동
 	@RequestMapping("/myBoardList.myp")
 	public String myBoardList(HttpServletRequest request, HttpServletResponse response , Model model)
     		throws ServletException, IOException {
 		logger.info("<url --> /myBoardList.myp>");
 		
 		request.getSession().setAttribute("myBoard","1");
-          
-		// 서비스 -> DAO(SELECT)
-		service.boardListAction(request, response, model);
 	
    	 	return "customer/mypage/myBoardList";
 	} 
+	
+	// 나의 게시물 목록 (토글)
+		@RequestMapping("/myBoardTable.myp")
+		public String myBoardTable(HttpServletRequest request, HttpServletResponse response , Model model)
+	    		throws ServletException, IOException {
+			logger.info("<url --> /myBoardTable.myp>");
+
+			// 서비스 -> DAO(SELECT)
+			service.boardListAction(request, response, model);
+		
+	   	 	return "customer/mypage/myBoardTable";
+		} 
 	
 	// [나의 예매 내역]
 	@RequestMapping("/myReservation.myp")

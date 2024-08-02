@@ -25,7 +25,7 @@ $(function(){	// 상세페이지가 로딩화면
 	        <div id="mod" class="mod">  
 	        	<table>
 				    <tr>
-				        <th> * 아이디 </th>
+				        <th><b class="essential">*</b> 아이디 </th>
 				        <td> 
 				           ${sessionID}
 				        </td>
@@ -45,21 +45,21 @@ $(function(){	// 상세페이지가 로딩화면
 				    </tr>
 				
 				    <tr>
-				        <th> * 이름 </th>
+				        <th><b class="essential">*</b>이름 </th>
 				        <td> 
 				            <input type="text" class="input" name="username" id="username" size="8" value="${dto.username}" required>
 				        </td>
 				    </tr>
 				    
 				    <tr>
-				        <th> * 생년월일 </th>
+				        <th><b class="essential">*</b>생년월일 </th>
 				        <td> 
 				            <input type="date" class="input" name="birthday" id="birthday" size="8" value="${dto.birthday}" required>
 				        </td>
 				    </tr>
 				    
 				    <tr>
-				        <th> * 주소 </th>
+				        <th><b class="essential">*</b>주소 </th>
 				        <td> 
 				            <input type="text" class="input" name="address" id="address" size="30" placeholder="주소변경" value="${dto.address}" required>
 				        </td>
@@ -89,15 +89,15 @@ $(function(){	// 상세페이지가 로딩화면
 					                <option value="070">070</option>
 					            </select> 
 					            -
-					            <input type="text" class="input" name="hp2" id="hp2" size="4" style="width:70px" value="${hpArr[1]}">
+					            <input type="text" class="input" name="hp2" id="hp2" size="4" style="width:100px" value="${hpArr[1]}">
 					            -
-					            <input type="text" class="input" name="hp3" id="hp3" size="4" style="width:70px" value="${hpArr[2]}">
+					            <input type="text" class="input" name="hp3" id="hp3" size="4" style="width:100px" value="${hpArr[2]}">
 							</c:if>
 				        </td>
 				    </tr>
 				    
 				    <tr>
-				        <th> * email </th>
+				        <th><b class="essential">*</b>email </th>
 				        <td>
 				        	<c:set var="emailArr" value="${fn:split(dto.getEmail(), '@')}" />
 				            <input type="text" class="input" name="email1" id="email1" size="20" style="width:100px" value="${emailArr[0]}" required>

@@ -25,7 +25,7 @@ public class Paging {
 	public Paging(String pageNum) {
 		// 맨처음 board_list.jsp 를 클릭,수정,삭제 등 다른 게시글에서 페이지를 클릭할 때
 		// null 처리되므로 1로 설정
-		if(pageNum == null)	{
+		if(pageNum == null || pageNum.contentEquals("null"))	{
 			pageNum = "1";
 		}
 		this.pageNum = pageNum;

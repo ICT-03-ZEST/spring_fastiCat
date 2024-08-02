@@ -6,15 +6,15 @@
 	 <mapper namespace="com.spring.fasticat.dao.MyPageDAO">  <!-- namespace="패키지명.인터페이스" -->
 					
 		<select id="idPasswordChk" parameterType="java.util.Map" resultType="int">
-			SELECT COUNT(*) FROM mvc_customer_tbl WHERE userid=#{strId} and password=#{strPwd}
+			SELECT COUNT(*) FROM mvc_customer_tbl WHERE userid=#{strId, jdbcType=VARCHAR} and password=#{strPwd}
 		</select>
 		
 		<delete id="deleteUser" parameterType="String">
-			DELETE FROM mvc_customer_tbl WHERE userid = #{strId}
+			DELETE FROM mvc_customer_tbl WHERE userid = #{strId, jdbcType=VARCHAR}
 		</delete>
 		
 		<select id="getUserDetail" parameterType="String" resultType="com.spring.fasticat.dto.MyPageDTO">
-			SELECT * FROM mvc_customer_tbl WHERE userid= #{strId}
+			SELECT * FROM mvc_customer_tbl WHERE userid= #{strId, jdbcType=VARCHAR}
 		</select>
 		
 		<update id="updateUser" parameterType="com.spring.fasticat.dto.MyPageDTO">
@@ -36,55 +36,143 @@
 						FROM 
 							(SELECT * FROM 
 								(SELECT * FROM 
-									<choose>
+									<!-- <choose>
 							            <when test="table == 'REVIEWBOARD_TBL'">
 							                REVIEWBOARD_TBL
 							            </when>
 							            <when test="table == 'FREEBOARD_TBL'">
 							                FREEBOARD_TBL
 							            </when>
-							        </choose>
+							        </choose> -->
+							         ${table}
 								) 
 							   	WHERE board_show = 'y' 
-								AND  board_writer = #{strId}
+								AND  board_writer = #{strId, jdbcType=VARCHAR}
 						        ORDER BY board_num DESC 
 						) A 
 					) 
 				WHERE rn BETWEEN #{start} AND #{end}
 		</select>
 		
+		<select id="myCommentList" parameterType="java.util.Map" resultType="com.spring.fasticat.dto.CommentDTO">
+				SELECT * 
+					FROM (
+					    SELECT A.*, rownum AS rn 
+					    FROM (
+					        SELECT 
+					            COMMENT_NUM, 
+					            BOARD_NUM, 
+					            BOARD_CATEGORY, 
+					            USERID, 
+					            DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+					            REGDATE 
+					        FROM FREECOMMENT_TBL 
+					        UNION 
+					        SELECT 
+					            COMMENT_NUM, 
+					            BOARD_NUM, 
+					            BOARD_CATEGORY, 
+					            USERID, 
+					            DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+					            REGDATE 
+					        FROM REVIEWCOMMENT_TBL
+					    ) A 
+					    WHERE USERID = #{strId, jdbcType=VARCHAR} 
+					    ORDER BY BOARD_NUM DESC
+					) A 
+					WHERE rn BETWEEN #{start} AND #{end}
+		</select>
+		
 		<select id="myBoardCnt" parameterType="java.util.Map" resultType="int">
 				SELECT COUNT(*) FROM 
-				<choose>
+				<!-- <choose>
 		            <when test="table == 'REVIEWBOARD_TBL'">
 		                REVIEWBOARD_TBL
 		            </when>
 		            <when test="table == 'FREEBOARD_TBL'">
 		                FREEBOARD_TBL
 		            </when>
-		        </choose>
-				WHERE board_writer = #{strId} 
+		        </choose> -->
+		        ${table}
+				WHERE board_writer = #{strId, jdbcType=VARCHAR} 
+		</select>
+		
+		<select id="myCommentCnt" parameterType="String" resultType="int">
+				SELECT COUNT(*) FROM 
+				(SELECT 
+				    COMMENT_NUM, 
+				    BOARD_NUM, 
+				    BOARD_CATEGORY, 
+				    USERID, 
+				    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+				    REGDATE 
+				FROM FREECOMMENT_TBL
+				UNION
+				SELECT 
+				    COMMENT_NUM, 
+				    BOARD_NUM, 
+				    BOARD_CATEGORY, 
+				    USERID, 
+				    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+				    REGDATE 
+				FROM REVIEWCOMMENT_TBL)
+				WHERE USERID = #{strId, jdbcType=VARCHAR} 
 		</select>
 		
 		<delete id="boardDelete" parameterType="java.util.Map" >
 			DELETE FROM 
 				<choose>
-		            <when test="category == 'review'">
+		            <when test="category == 'review_table'">
 		                REVIEWBOARD_TBL
 		            </when>
-		            <when test="category == 'free'">
+		            <when test="category == 'free_table'">
 		                FREEBOARD_TBL
 		            </when>
+		            <when test="category == 'comment_table'">
+		                (SELECT 
+						    COMMENT_NUM, 
+						    BOARD_NUM, 
+						    BOARD_CATEGORY, 
+						    USERID, 
+						    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+						    REGDATE 
+						FROM FREECOMMENT_TBL
+						UNION
+						SELECT 
+						    COMMENT_NUM, 
+						    BOARD_NUM, 
+						    BOARD_CATEGORY, 
+						    USERID, 
+						    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+						    REGDATE 
+						FROM REVIEWCOMMENT_TBL)
+		            </when>
 		        </choose>
-				WHERE board_writer = #{strId} 
-				AND board_num IN
+		        <choose>
+		            <when test="category == 'review_table' || category == 'free_table'">
+						WHERE board_writer = #{strId, jdbcType=VARCHAR} 
+					</when>
+					<when test="category == 'comment_table'">
+						WHERE USERID = #{strId, jdbcType=VARCHAR} 
+					</when>
+				</choose>
+				AND 
+				<choose>
+		            <when test="category == 'review_table' || category == 'free_table'">
+						BOARD_NUM
+					</when>
+					<when test="category == 'comment_table'">
+						COMMENT_NUM
+					</when>
+				</choose>
+				IN
 				<foreach item="num" index="index" collection="numList" open="(" separator="," close=")">
 					#{num}
 				</foreach>
 		</delete>
 		
 		<select id="resBoardCnt" parameterType="String" resultType="int">
-			SELECT COUNT(*) FROM SHOW_RESERVATION WHERE userid = #{strId} AND Reservation_check = 'y'
+			SELECT COUNT(*) FROM SHOW_RESERVATION WHERE userid = #{strId, jdbcType=VARCHAR} AND Reservation_check = 'y'
 		</select>
 		
 		<select id="resBoardList" parameterType="java.util.Map" resultType="int">
@@ -113,11 +201,11 @@
 		</select>
 		
 		<update id="resDelete" parameterType="java.util.Map">
-			UPDATE SHOW_RESERVATION SET reservation_check = 'n' WHERE show_resid = #{strId} AND userid = #{resNum}
+			UPDATE SHOW_RESERVATION SET reservation_check = 'n' WHERE show_resid = #{strId, jdbcType=VARCHAR} AND userid = #{resNum}
 		</update>
 		
 		<select id="userPasswordCheck" parameterType="String" resultType="String">
-			SELECT password FROM mvc_customer_tbl WHERE userid=#{strId}
+			SELECT password FROM mvc_customer_tbl WHERE userid=#{strId, jdbcType=VARCHAR}
 		</select>
 		
 		

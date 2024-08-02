@@ -24,8 +24,14 @@ public interface MyPageDAO {
 		// 게시물 목록
 		public List<BoardDTO> myBoardList(Map<String, Object> map);
 		
+		// 내 댓글 목록
+		public List<BoardDTO> myCommentList(Map<String, Object> map);
+		
 		// 게시물 갯수
 		public int myBoardCnt(Map<String, Object> map);
+		
+		// 내 댓글 갯수
+		public int myCommentCnt(String strId);
 		
 		// 게시물 삭제
 		public int boardDelete(Map<String, Object> map);

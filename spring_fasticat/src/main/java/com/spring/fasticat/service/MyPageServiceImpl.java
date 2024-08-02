@@ -10,8 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -111,61 +111,59 @@ public class MyPageServiceImpl implements MyPageService {
 			System.out.println("서비스 - boardListAction");
 			
 			// 3단계. 화면에서 입력받은 값을 가져오기
-			String rbPageNum = request.getParameter("rbPageNum");
-			String fbPageNum = request.getParameter("fbPageNum");
+			String pageNum = request.getParameter("pageNum");
 			String category = request.getParameter("category");
+			System.out.println("category : " + category);
 			
 			String strId = (String) request.getSession().getAttribute("sessionID");
+			System.out.println("strId : " + strId);
 			
-			Map<String, Object> rtMap = new HashMap<String, Object>();
-			rtMap.put("strId", strId); //아이디
-			rtMap.put("table", "REVIEWBOARD_TBL"); //비밀번호
-			
-			Map<String, Object> fbMap = new HashMap<String, Object>();
-			fbMap.put("strId", strId); //아이디
-			fbMap.put("table", "FREEBOARD_TBL"); //비밀번호
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("strId", strId); //아이디
+			if(category.equals("review_table")) {
+				map.put("table", "REVIEWBOARD_TBL"); 
+			} else if(category.equals("free_table")) {
+				map.put("table", "FREEBOARD_TBL"); 
+			} else if(category.equals("comment_table")) {
+				map.put("table", "COMMENT_TBL");
+			}
 			
 			// 5-1단계. 전체 게시글 갯수 카운트
-			Paging rbPaging = new Paging(rbPageNum);
-			Paging fbPaging = new Paging(fbPageNum);
-			int rtotal = dao.myBoardCnt(rtMap);
-			int ftotal = dao.myBoardCnt(fbMap);
-			System.out.println("review_total => " + rtotal);
-			System.out.println("free_total => " + ftotal);
-			
-			rbPaging.setTotalCount(rtotal);
-			fbPaging.setTotalCount(ftotal);
+			Paging paging = new Paging(pageNum);
+			int total = 0;
+			if(!category.equals("comment_table")) {
+				total = dao.myBoardCnt(map);
+			} else {
+				total = dao.myCommentCnt(strId);
+			}
+
+			System.out.println("total => " + total);
+
+			paging.setTotalCount(total);
 			
 			// 5-2단계. 게시글 목록 조회
-			int rbStart = rbPaging.getStartRow();
-			int rbEnd = rbPaging.getEndRow();
+			int start = paging.getStartRow();
+			int end = paging.getEndRow();
 			
-			int fbStart = fbPaging.getStartRow();
-			int fbEnd = fbPaging.getEndRow();
+			map.put("start", start); //비밀번호
+			map.put("end", end); //비밀번호
 			
-			rtMap.put("start", rbStart); //비밀번호
-			rtMap.put("end", rbEnd); //비밀번호
+			System.out.println("map : " + map);
+			List<BoardDTO> list = null;
+			if(!category.equals("comment_table")) {
+				list = dao.myBoardList(map);
+			} else {
+				list = dao.myCommentList(map);
+			}
 			
-			System.out.println("rtMap : " + rtMap);
-			List<BoardDTO> rbList = dao.myBoardList(rtMap);
-			System.out.println("rbList : " + rbList);
-			
-			fbMap.put("start", fbStart); //비밀번호
-			fbMap.put("end", fbEnd); //비밀번호
-			
-			System.out.println("fbMap : " + fbMap);
-			List<BoardDTO> fbList = dao.myBoardList(fbMap);
-			System.out.println("fbList : " + fbList);
+			System.out.println("list : " + list);
 			
 			// 6단계. jsp로 처리결과 전달
-			model.addAttribute("rbList", rbList);
-			model.addAttribute("rbPaging", rbPaging);
-			
-			model.addAttribute("fbList", fbList);
-			model.addAttribute("fbPaging", fbPaging);
+			model.addAttribute("list", list);
+			model.addAttribute("paging", paging);
 			
 			if(category == "" || category == null) {
-				category = "공연후기";
+				category = "review_table";
 			}
 			
 			model.addAttribute("category", category);
@@ -201,7 +199,7 @@ public class MyPageServiceImpl implements MyPageService {
 			
 		};
 		
-		// 게시글 목록 - 공연후기
+		// 게시글 목록 
 		@Override
 		public void reservationListAction(HttpServletRequest request, HttpServletResponse response, Model model)
 				throws ServletException, IOException {

@@ -84,12 +84,35 @@ public class MyPageDAOImpl implements MyPageDAO{
 		
 	}
 	
+	// 댓글 목록
+	@Override
+	public List<BoardDTO> myCommentList(Map<String, Object> map) {
+		System.out.println("MyPageDAO - myCommentList");
+		
+		List<BoardDTO> list = sqlSession.selectList("com.spring.fasticat.dao.MyPageDAO.myCommentList", map);
+				
+		System.out.println("list : " + list);
+		return list;
+	}
+	
 	// 게시글 갯수 구하기
 	@Override
 	public int myBoardCnt(Map<String, Object> map) {
 		System.out.println("MyPageDAO - myBoardCnt");
 
 		int total = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.myBoardCnt", map);
+			
+		// 5. CustomerDTO를 리턴한다.
+		return total;
+	
+	}
+	
+	// 댓글 갯수 구하기
+	@Override
+	public int myCommentCnt(String strId) {
+		System.out.println("MyPageDAO - myCommentCnt");
+		
+		int total = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.myCommentCnt", strId);
 			
 		// 5. CustomerDTO를 리턴한다.
 		return total;
