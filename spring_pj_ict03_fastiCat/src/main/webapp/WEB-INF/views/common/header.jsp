@@ -30,8 +30,8 @@
 			src="${path }/resources/images/festicat.PNG" width="155px"
 			height="50px" id="festicat"></a>
 		<ul class="navbar_menu">
-			<li><a href="${path}/concertList.cc">국내공연</a></li>
-			<li><a href="${path}/festivalList.fv">국내 페스티벌</a></li>
+			<li><a href="${path}/showList.pf?showCategory=concert">국내공연</a></li>
+			<li><a href="${path}/showList.pf?showCategory=festival">국내 페스티벌</a></li>
 			<li><a href="${path}/searchEvent.sc">공연 검색</a></li>
 			<li><a href="#">게시판</a>
 				<ul class="submenu">
