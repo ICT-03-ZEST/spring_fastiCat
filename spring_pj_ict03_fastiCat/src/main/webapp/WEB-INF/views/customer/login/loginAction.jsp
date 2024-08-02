@@ -71,28 +71,6 @@
       					
 						<!-- // 세션이 있는 경우 -->
      					<c:if test="${sessionScope.sessionID != null}">
-						<%-- <table>
-								<tr>
-									<td colspan="2" align="center">
-										<h3>
-											<span style="color: orange"><b>${sessionScope.sessionID}</b></span>님 환영합니다.
-										</h3>
-									</td>
-								</tr>
-								<tr>
-									<td colspan="2" style="border-bottom: none">
-										<br>
-										<div align="right">
-											<input class="inputButton" type="button" value="회원수정" onclick="window.location='modifyCustomer.do'">
-											<input class="inputButton" type="button" value="회원탈퇴" onclick="window.location='deleteCustomer.do'">
-											<input class="inputButton" type="button" value="로그아웃" onclick="window.location='logout.do'">
-											
-											<a href="${path}/admin/ad_main/ad_dashboard.jsp" style="color:white">관리자</a>
-										</div>
-									</td>
-								</tr>
-      						</table>   --%>
-      						
       						<script type="text/javascript">
       							window.location="/ict03_fastiCat/main.do"
       						</script>

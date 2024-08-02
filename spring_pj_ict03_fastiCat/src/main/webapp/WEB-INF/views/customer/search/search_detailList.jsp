@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../../common/setting.jsp" %>
+<%@ include file="/WEB-INF/views/common/setting.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,10 +11,15 @@
 <link rel="stylesheet" href="${path}/resources/css/common/footer.css">
 <link rel="stylesheet" href="${path}/resources/css/customer/search.css">
 
-<script src="https://kit.fontawesome.com/e99c5d1543.js"
-	crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/e99c5d1543.js" crossorigin="anonymous"></script>
 <script src="../../resources/js/customer/main.js" defer></script>
 <title>검색 페이지</title>
+
+<style>
+.notice {
+    font-weight: bold;
+}
+</style>
 
 </head>
 <body>
@@ -61,14 +66,13 @@
 
 															<!-- 상품이 있으면 -->
 															<c:forEach var="list" items="${list }">
-																<tr>
-																	<td class="searchtd">${list.getSource() }</td>
+																<tr class="${list.source == '공지사항' ? 'notice' : ''}">
+																	<td class="searchtd">${list.getSource()}</td>
 																	<td class="searchtd"><a
-																		href="${path}/search_detailAction.sc?num=${list.getNum()}">${list.getTitle()}</a>
-																	</td>
-																	<td class="searchtd">${list.getWriter() }</td>
-																	<td class="searchtd">${list.getRegDate() }</td>
-																	<td class="searchtd">${list.getReadCnt() }</td>
+																		href="${path}/search_detailAction.sc?num=${list.getNum()}">${list.getTitle()}</a></td>
+																	<td class="searchtd">${list.getWriter()}</td>
+																	<td class="searchtd">${list.getRegDate()}</td>
+																	<td class="searchtd">${list.getReadCnt()}</td>
 																</tr>
 															</c:forEach>
 
@@ -103,7 +107,7 @@
 
 							<!-- 드롭다운 + 검색 창 시작 -->
 							<div align="right" id="searchfooter">
-								<form action="${path}/search_detailList.sc" method="get">
+								<form id="searchForm" action="${path}/search_detailList.sc" method="get">
 									<select name="searchItem" id="searchItem">
 										<option value="">세부검색</option>
 										<option value="writer">작성자</option>
@@ -129,6 +133,15 @@
 		<!-- footer 끝 -->
 
 	</div>
-
 </body>
+<!-- JavaScript 코드 추가 -->
+<script>
+document.getElementById('searchForm').addEventListener('submit', function(event) {
+    var searchItem = document.getElementById('searchItem').value;
+    if (searchItem === '') {
+        alert('검색 항목을 선택하세요.');
+        event.preventDefault(); // 폼 제출을 막음
+    }
+});
+</script>
 </html>

@@ -20,7 +20,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 
 		System.out.println("DAO -useridcheck()");
 
-		int selectCnt = sqlSession.selectOne("spring.jdbc.spring_ict03_fastiCat.dao.CustomerDAO.useridCheck", strId);
+		int selectCnt = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.CustomerDAO.useridCheck", strId);
 		System.out.println("selectCnt : " + selectCnt);
 		return selectCnt;
 	}
@@ -30,7 +30,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public int insertCustomer(CustomerDTO dto) {
 		System.out.println("DAO-insertCustomer()");
 
-		int insertCnt = sqlSession.insert("spring.jdbc.spring_ict03_fastiCat.dao.CustomerDAO.insertCustomer", dto);
+		int insertCnt = sqlSession.insert("com.spring.ict03_fastiCat.dao.CustomerDAO.insertCustomer", dto);
 
 		System.out.println("insertCnt : " + insertCnt);
 		return insertCnt;
@@ -41,7 +41,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 	public int idPasswordChk(Map<String, Object> map) {
 		System.out.println("DAO - idpassword check()");
 
-		int selectCnt = sqlSession.selectOne("spring.jdbc.spring_ict03_fastiCat.dao.CustomerDAO.idPasswordChk", map);
+		int selectCnt = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.CustomerDAO.idPasswordChk", map);
 
 		System.out.println("selectCnt :" + selectCnt);
 		return selectCnt;

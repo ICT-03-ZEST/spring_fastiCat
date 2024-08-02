@@ -126,5 +126,6 @@ public class SearchServiceImpl implements SearchService {
 		model.addAttribute("list", list);
 		model.addAttribute("paging", paging);
 		model.addAttribute("query", query); // 검색어도 전달
+		model.addAttribute("searchItem", searchItem); // 세부검색컬럼도 전달
 	}
 }

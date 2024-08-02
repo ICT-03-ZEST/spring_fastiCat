@@ -138,7 +138,7 @@
 		UNION ALL
 		SELECT noticeNo AS num, noticeTitle AS title, noticeContent
 		AS content,
-		noticeWriter AS writer, noticeRegDate AS regDate, '' AS
+		noticeWriter AS writer, noticeRegDate AS regDate, '공지사항' AS
 		source
 		FROM mvc_ad_notice_tbl
 		WHERE show = 'y'

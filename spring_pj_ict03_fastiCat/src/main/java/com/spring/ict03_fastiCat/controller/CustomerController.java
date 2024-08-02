@@ -24,7 +24,6 @@ public class CustomerController {
 	@Autowired
 	private AdminBannerServiceImpl bannerService;
 
-
 	@Autowired
 	private CustomerServiceImpl customerservice;
 
@@ -77,7 +76,7 @@ public class CustomerController {
 		logger.info("url ==> /loginAction.do ");
 
 		customerservice.loginAction(request, model);
-		return "common/main";
+		return "redirect:/";
 	}
 
 	@RequestMapping("logout.do")
@@ -85,7 +84,7 @@ public class CustomerController {
 		logger.info("url ==> /logout.do ");
 		// 세션 삭제
 		request.getSession().invalidate();
-		return "common/main";
+		return "redirect:/";
 	}
 
 }
