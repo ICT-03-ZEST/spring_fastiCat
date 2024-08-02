@@ -37,7 +37,7 @@
             <hr class="sidebar-divider my-0">
             <!-- Nav Item - 현황조회 -->
             <li class="nav-item active">
-                <a class="nav-link" href="${path}/ad_dashboard.ad">
+                <a class="nav-link" href="${path}/ad_dashboard.bc">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>현황조회</span></a>
             </li>
