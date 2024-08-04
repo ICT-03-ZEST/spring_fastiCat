@@ -3,7 +3,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/views/common/setting.jsp" %>
-<%@ page import="java.util.List" %>   
+<%@ page import="java.util.List" %>
+<%@ page import="com.spring.ict03_fastiCat.dto.AdminBannerDTO" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,12 +31,89 @@
 	<%@include file="header.jsp" %>
       <!-- header 끝 -->
       <br>
+<%
+    int activeBannerCount = 0;
+    List<AdminBannerDTO> banners = (List<AdminBannerDTO>)request.getAttribute("bannerList");
+    for (AdminBannerDTO dto : banners) {
+        if ("사용함".equals(dto.getBannerStatus())) {
+            activeBannerCount++;
+        }
+    }
+%>    
        
       
+      <!-- 컨텐츠 시작 -->
+      <div align="center">
+<div class="slide_section">
+	<input type="radio" name="slide" id="slide01" checked>
+	<% for (int i = 2; i <= activeBannerCount; i++) { %>
+        <input type="radio" name="slide" id="slide0<%= i %>">
+    <% } %>
+	
+	
+	<div class="slidewrap">
+		<ul class="slidelist">
+			<!-- 배너 슬라이드 영역 -->
+			<c:forEach var="dto" items="${bannerList}">
+				<c:if test="${dto.bannerStatus == '사용함'}">
+					<li class="slideitem">
+						<a>
+							<div class="textbox">
+							</div>
+							<img src="${dto.bannerImg}" width="1160" height="586">
+						</a>
+					</li>
+				</c:if>
+			</c:forEach>
+
+			<!-- 좌,우 슬라이드 버튼 -->
+			<div class="slide-control">
+				<% for (int i = 1; i <= activeBannerCount; i++) { %>
+					<div>
+						<label for="slide0<%= (i == 1 ? activeBannerCount : i - 1) %>" class="left"></label>
+						<label for="slide0<%= (i == activeBannerCount ? 1 : i + 1) %>" class="right"></label>
+					</div>
+				<% } %>
+			</div>
+		</ul>
+		<!-- 페이징 -->
+		<ul class="slide-pagelist">
+			<% for (int i = 1; i <= activeBannerCount; i++) { %>
+				<li><label for="slide0<%= i %>"></label></li>
+			<% } %>
+		</ul>
+	</div>
+</div>	                                                                
+      </div>
+      <!-- 컨텐츠 끝 -->
+      <div class="calendar-container">
+        <div class="calendar-header">
+            <button id="prevBtn">◀</button>
+            <span id="currentMonth"></span>
+            <button id="nextBtn">▶</button>
+        </div>
+        <div id="calendarDates"></div>
+    </div>
       
       <!-- footer 시작 -->
 		<%@include file="footer.jsp" %>
       <!-- footer 끝 -->
-    </div>  
+      
+   </div>
+   <script>
+    var shows = [
+        <c:forEach var="item" items="${list}" varStatus="status">
+            {
+                "showNum": "${item.showNum}",
+                "showName": "${item.showName}",
+                "curCapacity": "${item.curCapacity}",
+                "maxCapacity": "${item.maxCapacity}",
+                "showDay": "${item.showDay}",
+                "showCHK": "${item.showCHK}"
+            }<c:if test="${!status.last}">,</c:if>
+        </c:forEach>
+    ];
+    </script>
+    <script src="${path}/resources/js/calender/calendar.js"></script>
 </body>
 </html>

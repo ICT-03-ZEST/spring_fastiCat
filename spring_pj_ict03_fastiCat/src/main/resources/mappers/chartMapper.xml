@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+<mapper namespace="com.spring.ict03_fastiCat.dao.ChartDAO">
+	  <!-- 전체 회원수 -->
+	  <select id="userCount" resultType="int">
+	  	SELECT COUNT(*) AS cnt FROM mvc_customer_tbl
+	  	 WHERE show='y'
+	  </select>
+	  
+	  <!-- 등록된 공연 및 페스티벌 수 -->
+	  <select id="showCount" resultType="int">
+	  	SELECT SUM(cnt)AS total 
+	      FROM (
+				SELECT COUNT(*) AS cnt FROM show_tbl_fes
+				 WHERE show='y'
+				UNION ALL
+				SELECT COUNT(*) AS cnt FROM show_tbl
+				 WHERE show='y')
+	  </select>
+	  
+	  <!-- 일주일 간 등록된 게시글 수   -->
+	  <select id="regBoardCountforWeek" resultType="int">
+	   		SELECT SUM(cnt) 
+	   		 FROM (
+				SELECT COUNT(*) AS cnt FROM reviewBoard_tbl
+				WHERE board_show = 'y'
+				AND board_regDate BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE
+				UNION ALL
+				SELECT COUNT(*) AS cnt FROM freeBoard_tbl
+				WHERE board_show = 'y'
+				AND board_regDate BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE)
+	  </select>
+	  
+	  <!-- 일일 등록 게시글 수 list -->
+	  <select id="regCountforday" resultType="com.spring.ict03_fastiCat.dto.BoardDTO">
+	  	SELECT TRUNC(board_regDate) AS board_regDate, COUNT(board_regDate) AS board_count 
+		  FROM (
+				SELECT * FROM reviewBoard_tbl
+				WHERE board_show = 'y'
+				UNION ALL
+				SELECT *  FROM freeBoard_tbl
+				WHERE board_show = 'y')
+		GROUP BY TRUNC(board_regDate)
+	  </select>
+	  
+	  <!-- 일주일 간 예매된 수량 -->
+	  <select id="bookingCountforWeek" resultType="int">
+	  		SELECT COUNT(*) AS cnt FROM show_Reservation
+ 			 WHERE Reservation_dateNow BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE
+	  </select>
+	  
+	  <!-- 일일  예매 수량 -->
+	   <select id="bookCountForday" resultType="com.spring.ict03_fastiCat.dto.test_ShowReservationDTO">
+	  		SELECT TRUNC(Reservation_dateNow) AS reservation_date,  
+				   COUNT(Reservation_dateNow) AS reserv_count 
+			  FROM show_Reservation
+			GROUP BY
+			    TRUNC(Reservation_dateNow)
+			ORDER BY
+			    reservation_date ASC
+	  </select>
+	  
+	  <!-- 인기 게시글 목록 -->
+	   <select id="popularBoard" resultType="com.spring.ict03_fastiCat.dto.BoardDTO">
+	  <![CDATA[
+	  		SELECT * 
+	  		  FROM (
+					SELECT A.*, rownum AS rn
+					  FROM (
+					        SELECT * FROM(
+					        SELECT * FROM reviewBoard_tbl
+					         WHERE board_show = 'y'
+					        UNION ALL
+					        SELECT * FROM freeBoard_tbl
+					         WHERE board_show = 'y')
+					        ORDER BY board_views DESC
+					        ) A )
+					WHERE rn <= 5
+		]]>
+	  </select>
+	  
+	  <!-- 일별 방문자수(일주일 단위) -->
+	  <select id="visitCount" resultType="com.spring.ict03_fastiCat.dto.VisitDTO">
+		  	SELECT TRUNC(visit_date) AS visit_date,  
+			COUNT(visit_date) AS visit_count 
+			  FROM visit_tbl
+			GROUP BY
+			    TRUNC(visit_date)
+			ORDER BY
+			    visit_date ASC
+	  </select>
+	  
+	  <!-- 방문자 수 추가 -->
+	  <insert id="addVisit">
+	  	 INSERT INTO visit_tbl
+         VALUES((SELECT NVL(MAX(visit_num)+1, 1) FROM visit_tbl), sysdate)
+	  </insert>
+	  
+</mapper>

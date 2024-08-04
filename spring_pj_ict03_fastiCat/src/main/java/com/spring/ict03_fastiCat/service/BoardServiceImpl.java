@@ -48,7 +48,7 @@ public class BoardServiceImpl implements BoardService {
 		System.out.println("start: " + start);
 		System.out.println("end: " + end);
 		
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("category", category);
 		map.put("start", start);
 		map.put("end", end);
@@ -95,7 +95,7 @@ public class BoardServiceImpl implements BoardService {
 		
 		//System.out.println("selWriter: " + selWriter);
 		 
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("category", category);
 		map.put("board_num", board_num);
 		// 게시판에서 상세페이지 클릭시에만 조회수증가
@@ -246,7 +246,7 @@ public class BoardServiceImpl implements BoardService {
 		String category = request.getParameter("board_category");
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("category", category);
 		map.put("board_num", board_num);
 		dao.deleteBoard(map);
@@ -264,7 +264,7 @@ public class BoardServiceImpl implements BoardService {
 		int board_num = Integer.parseInt(request.getParameter("board_num"));
 		String category = request.getParameter("board_category");
 		
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("category", category);
 		map.put("board_num", board_num);
 		List<CommentDTO> list = dao.cmtList(map); // 댓글목록
@@ -347,7 +347,7 @@ public class BoardServiceImpl implements BoardService {
 		String board_category = request.getParameter("board_category");
 		String pageNum = request.getParameter("pageNum");
 
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("comment_num", comment_num);
 		map.put("category", board_category);
 		

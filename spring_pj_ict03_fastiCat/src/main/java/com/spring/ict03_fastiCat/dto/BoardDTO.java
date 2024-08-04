@@ -14,13 +14,14 @@ public class BoardDTO {
     private Date board_regDate;     //작성일
     private int board_views;       	//조회수
     private int board_heart;		//하트수
+    private int board_count; 		//일일 게시글 개수
  
 	public BoardDTO() {
 		super();
 	}
 
 	public BoardDTO(int board_num, String board_category, String board_title, String board_content, String board_thumnail, String board_image,
-					String board_writer, Date board_regDate, int board_views, int board_heart) {
+					String board_writer, Date board_regDate, int board_views, int board_heart, int board_count) {
 		super();
 		this.board_num = board_num;
 		this.board_category = board_category;
@@ -32,6 +33,7 @@ public class BoardDTO {
 		this.board_regDate = board_regDate;
 		this.board_views = board_views;
 		this.board_heart = board_heart;
+		this.board_count = board_count;
 	}
 
 	public int getBoard_num() {
@@ -99,6 +101,14 @@ public class BoardDTO {
 		this.board_heart = board_heart;
 	}
 	
+	public int getBoard_count() {
+		return board_count;
+	}
+
+	public void setBoard_count(int board_count) {
+		this.board_count = board_count;
+	}
+
 	@Override
 	public String toString() {
 		return "BoardDTO [board_num=" + board_num + ", board_category=" + board_category + ", board_title="

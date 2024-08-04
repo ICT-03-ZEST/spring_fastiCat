@@ -12,7 +12,6 @@
 <script src="${path}/resources/js/jquery-3.7.1.min.js"></script>
 <script src="${path}/resources/js/request.js"></script>
 <script type="text/javascript">
-alert(${heartChk});
  $(function() {
 	//댓글 목록 자동조회
 	comment_list();
@@ -22,7 +21,6 @@ alert(${heartChk});
 		comment_add();
 	});
 
-	
 	//하트클릭
 	heartClick();
 	 
@@ -77,8 +75,6 @@ alert(${heartChk});
 					,"background-size":"cover"}
 		$('.head').css(style);
 	}
-	
-	
 		
 }); 
  // 자동으로 댓글목록 호출
@@ -211,7 +207,14 @@ function newLoad() { //새로고침
                 <ul>
                     <li class="writer"><span>${dto.board_writer}</span>
                         <ul>
-                            <li class="review_catgry">${dto.board_category}</li>
+                            <li class="review_catgry">
+                             <c:if test="${dto.board_category == 'review'}">
+				   	  				공연후기
+					    	</c:if>
+					     	<c:if test="${dto.board_category != 'review'}">
+					   	  			자유
+					   		</c:if>
+                            </li>
                             <li class="regDate">${dto.board_regDate}</li>
                             <li class="views">조회수 ${dto.board_views}</li>
                             <li><i id="board_heart" class="fa-regular fa-heart"></i>${dto.board_heart}</li>
@@ -234,7 +237,7 @@ function newLoad() { //새로고침
          <div class="content_box">
             <ul>
             	<c:if test="${dto.board_image != null}"> 
-            		<li><img src="${dto.board_image}" class="boardImg"></li>
+            		<li><img src="${dto.board_image}" class="boardImg"></li><br>
             	</c:if>
             	
                 <li>

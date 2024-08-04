@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.ict03_fastiCat.dao.AdminBannerDAO">
+	
+	<!-- CDATA : Character Data의 의미 : 면접
+      CDATA 영역에 작성된 특수문자데이터는 단순한 문자데이터(Character Data)로 인식하므로
+      XML 파서기가 처리하지 않고, 데이터베이스에 그대로 전달함으로써 에러가 발생하지 않도록 한다.
+      즉 <>와 같은 부등호를 xml 태그로 인식하지 않고, 단순 문자로 인식(부등호로 인식)하도록 한다.
+    -->
+	
+	
+	<!-- 배너등록 -->
+	<insert id="bannerInsert" parameterType="com.spring.ict03_fastiCat.dto.AdminBannerDTO">
+		INSERT INTO mvc_ad_banner_tbl(bannerNo, bannerArea, bannerImg, bannerStatus, bannerIndate)
+		VALUES((SELECT NVL(MAX(bannerNo)+1, 1) FROM mvc_ad_banner_tbl), #{bannerArea}, #{bannerImg}, #{bannerStatus}, sysdate)
+	</insert>
+	
+	<!-- 배너갯수 -->
+	<select id="bannerCnt" resultType="int">
+		SELECT COUNT(*) as cnt FROM mvc_ad_banner_tbl
+	</select>
+	
+	<!-- 배너목록 -->
+	<select id="bannerList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.AdminBannerDTO">
+		SELECT * FROM mvc_ad_banner_tbl
+		ORDER BY bannerArea
+	</select>
+	
+	<!-- 배너 상세페이지 -->
+	<select id="bannerDetail" parameterType="int" resultType="com.spring.ict03_fastiCat.dto.AdminBannerDTO">
+		SELECT * FROM mvc_ad_banner_tbl
+		 WHERE bannerNo=#{bannerNo}
+	</select>
+	
+	<!-- 배너수정 -->
+	<update id="bannerUpdate" parameterType="com.spring.ict03_fastiCat.dto.AdminBannerDTO" >
+		UPDATE mvc_ad_banner_tbl
+		   SET bannerArea=#{bannerArea}, bannerImg=#{bannerImg}, bannerStatus=#{bannerStatus} ,bannerIndate=sysdate
+		 WHERE bannerNo=#{bannerNo}
+	</update>
+	
+	<!-- 배너 삭제  -->
+	<delete id="bannerDelete" parameterType="int">
+		DELETE mvc_ad_banner_tbl
+		 WHERE bannerNo=#{bannerNo}
+	</delete>
+	
+	<!-- 메인 - 배너 조회  -->
+	<select id="getBannerList" resultType="com.spring.ict03_fastiCat.dto.AdminBannerDTO">
+		SELECT * FROM mvc_ad_banner_tbl
+		 WHERE bannerStatus='사용함'
+		 ORDER BY bannerArea
+	</select>
+	
+	
+</mapper>

@@ -14,10 +14,17 @@
 	
    $(function() {
 
-       $('#board_image').change(function() {
-       	let fileName = $(this).val().split('\\').pop();
-           $('#image_name').text(fileName);
-       });
+	   $('#board_image').change(function() {
+      		let file = this.files[0];
+      		
+      		let fileName = $(this).val().split('\\').pop();
+      		$('#image_name').text(fileName);
+      		
+      		if(file) {
+      			let url = URL.createObjectURL(file);
+      			$('#preview').html('<img src="' + url + '" alt="' + fileName + '" style="width:100px">');
+      		}
+      });
    });
 </script>
 </head>
@@ -33,34 +40,39 @@
     <!-- 드롭다운 => 카테고리 공연 ,페스티벌-->
     <div class="outline">
         <form id="myWritingForm" action="boardInsertAction.bc" method="post" enctype="multipart/form-data">
-                <table class="container">
+                <table class="container" cellspacing="0" cellpadding="0">
                     <tr><!-- 제목  -->
-                        <td colspan="2"><input class="title" type="text" name="board_title" id="board_title" size="30px" placeholder="제목을 입력하세요" required autofocus></td>   
-                    </tr>
-
-                    <tr>
-                        <td> <!-- 게시판 유형  -->
+                        <td class="td_title"><input class="title" type="text" name="board_title" id="board_title" size="30px" placeholder="제목을 입력하세요" required autofocus></td>   
+                    	
+                    	<td> <!-- 게시판 유형  -->
                             <div class="div_medium">
                                 <select name="board_category" id="board_category" required>
                                     <option <c:if test="${category == 'review'}">selected</c:if> value="review">공연후기</option>
 	                                <option <c:if test="${category == 'free'}">selected</c:if> value="free">자유주제</option>
                                 </select>
                             </div>
-                       </td>      
-	                    <td align="left">  	<!-- 이미지  -->
-                            <label class="btn_choice" for="board_image">image</label>
-			        		<input type="file" class="input_file" name="board_image" id="board_image" accept="image/*">
-			        		<span class="file_name" id="image_name">파일선택 없음</span>
-                        </td> 
+                       </td>   
                     </tr>
+					
+					<tr>
+						<td align="left">
+							<label class="btn_choice" for="board_image">image</label>
+							<input type="file" class="input_file" name="board_image" id="board_image" accept="image/*">
+							<span class="file_name" id="image_name">파일선택 없음</span>
+						</td>
+						
+						<td>
+							<span id="preview"></span>
+						</td>
+					</tr>
 
                     <tr>
                         <td colspan="2"><hr class="hr_between"></td>
                     </tr>
 
                     <tr> <!-- 내용  -->
-                        <td colspan="2" class="td_content">
-                        	<textarea name="board_content" id="board_content" cols="50" rows="15" placeholder="내용을 입력하세요" required></textarea>
+                        <td class="td_content" colspan="2">
+                        	<textarea name="board_content" id="board_content" cols="70" rows="15" placeholder="내용을 입력하세요" required></textarea>
                         </td>
                     </tr>
                 </table>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.ict03_fastiCat.service.BoardServiceImpl;
+import com.spring.ict03_fastiCat.service.ChartServiceImpl;
 import com.spring.ict03_fastiCat.service.MainShowServiceImpl;
 
 
@@ -26,26 +27,20 @@ public class BoardController {
 	@Autowired
 	private BoardServiceImpl serv;
 	
-	@RequestMapping("main.do")
-	public String main(HttpServletRequest req, Model model)
-			throws ServletException, IOException {
-		return "common/main";
-	}
-	
-	@RequestMapping("login.do")
-	public String login(HttpServletRequest req, Model model)
-			throws ServletException, IOException {
-		req.getSession().setAttribute("sessionID", "user3"); // 로그인
-		return "common/main";
-	}
-	
-	@RequestMapping("logout.do")
-	public String logout(HttpServletRequest req, Model model)
-			throws ServletException, IOException {
-		req.getSession().invalidate(); // 로그아윳
-		return "common/main";
-	}
-	
+//	@Autowired
+//	private ChartServiceImpl chart;
+//
+//	// 메인 화면
+//	@RequestMapping("main.do")
+//	public String main(HttpServletRequest request, Model model)
+//			throws ServletException, IOException {
+//		logger.info("<<< url ==> /main.do >>>");
+//		chart.addVisit(request, model); // 방문자수 증가(결산차트에 반영)
+//		bannerService.getMainBanner(request, model);
+//		return "common/main";
+//		
+//	}
+
 	// 1.게시판 목록조회
 	@RequestMapping("board.bc")
 	public String board(HttpServletRequest req, Model model)
@@ -211,6 +206,17 @@ public class BoardController {
 		show.MainshowInfo(req, model);
 		
 		return  "customer/show_category/showInfo";
+	}	
+	
+	//--------------------------현황조회-------------------------------------
+	@Autowired
+	private ChartServiceImpl chart;
+	@RequestMapping("ad_dashboard.bc")
+	public String ad_dashboard(HttpServletRequest req, Model model)
+			throws ServletException, IOException {
+		logger.info("<< url => ad_dashboard.bc >>");
+		chart.chartCount(req, model);
+		return  "admin/ad_main/ad_dashboard";
 	}	
 
 }

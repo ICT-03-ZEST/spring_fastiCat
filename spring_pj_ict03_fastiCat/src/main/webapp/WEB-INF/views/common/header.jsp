@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/WEB-INF/views/common/setting.jsp"%>
+<%@ include file="../common/setting.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,9 +42,35 @@
 		</ul>
 
 		<ul id="navbar_icons">
+			<!-- 로그인 안한 경우  -->
+			<c:if test="${sessionScope.sessionID == null}">
+				<form action="${path}/search.sc" method="get">
+					<input id="searchInput" class="searchInputButton" type="search"
+						name="query" placeholder="검색어를 입력하세요" aria-label="Search">
+					<button id="searchInputButton" class="searchInputButton" type="submit">
+						<i class="fa-solid fa-magnifying-glass" style="color: #eb9500;"></i>
+					</button>
+				</form>
 				<li><a href="${path}/login.do">LOGIN</a></li>
-				<li><a href="${path}/logout.do">logout</a></li>
+				<li><a href="${path}/join.do">JOIN</a></li>
+			</c:if>
 
+			<!-- 로그인 한 경우  -->
+			<c:if test="${sessionScope.sessionID != null}">
+				<form action="${path}/search.sc" method="get">
+					<input id="searchInput" class=searchInputButton type="search"
+						name="query" placeholder="검색어를 입력하세요" aria-label="Search">
+					<button id="searchInputButton" class="searchInputButton" type="submit">
+						<i class="fa-solid fa-magnifying-glass" style="color: #eb9500;"></i>
+					</button>
+				</form>
+				<li><span style="color: orange">${sessionScope.sessionID}님</span></li>
+				<li><a href="${path}/logout.do">LOGOUT</a></li>
+				<li><a href="${path}/mypage.myp"><i
+						class="fa-solid fa-user">myPage</i></a></li>
+			</c:if>
+			<li><a href="main.html"><i class="fa-brands fa-twitter"></i></a></li>
+			<li><a href="main.html"><i class="fa-brands fa-facebook"></i></a></li>
 		</ul>
 		<!-- 반응형 웹 - (1). 햄버거 아이콘 fontawesome - free - bars -->
 		<a href="#" class="navbar_toggleBtn"> <i class="fa-solid fa-bars"></i>

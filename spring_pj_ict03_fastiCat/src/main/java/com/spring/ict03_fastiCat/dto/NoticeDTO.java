@@ -4,17 +4,20 @@ import java.sql.Date;
 
 public class NoticeDTO {
 	
+
 	private int n_Board_Num;	//공지글 번호
 	private String n_Title;		//공지 제목
 	private String n_Content;	//공지 내용
 	private String n_Writer;	//작성자
 	private Date n_WriteDate;	//작성일
 	private int n_ReadCnt;		//조회수
+
 	
 	//디폴트생성자 
 	public NoticeDTO() {
 		
 	}
+
 	//매개변수
 	public NoticeDTO(int n_Board_Num, String n_Title, String n_Content, String n_Writer, Date n_WriteDate,
 			int n_ReadCnt) {
@@ -25,10 +28,10 @@ public class NoticeDTO {
 		this.n_Writer  = n_Writer;
 		this.n_WriteDate = n_WriteDate;
 		this.n_ReadCnt = n_ReadCnt;
-	}
 	
 	//getter setter
 	public int getN_Board_Num() {
+    
 		return n_Board_Num;
 	}
 	public void setN_Board_Num(int n_Board_Num) {
@@ -71,8 +74,5 @@ public class NoticeDTO {
 		return "NoticeDTO [n_Board_Num=" + n_Board_Num + ", n_Title=" + n_Title + ", n_Content=" + n_Content
 				+ ", n_Writer=" + n_Writer + ", n_WriteDate=" + n_WriteDate + ", n_ReadCnt=" + n_ReadCnt + "]";
 	}
-	
-	
-	
-	
+
 }

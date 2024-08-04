@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.ict03_fastiCat.dao.AdminNoticeDAO">
+	
+	<!-- CDATA : Character Data의 의미 : 면접
+      CDATA 영역에 작성된 특수문자데이터는 단순한 문자데이터(Character Data)로 인식하므로
+      XML 파서기가 처리하지 않고, 데이터베이스에 그대로 전달함으로써 에러가 발생하지 않도록 한다.
+      즉 <>와 같은 부등호를 xml 태그로 인식하지 않고, 단순 문자로 인식(부등호로 인식)하도록 한다.
+    -->
+	
+	
+	<!-- 공지사항 등록 -->
+	<insert id="noticeInsert" parameterType="com.spring.ict03_fastiCat.dto.NoticeDTO">
+		INSERT INTO mvc_Notice_TBL(N_Board_Num, N_Title, N_Content, N_Writer, N_readCnt, N_WriteDate)
+		VALUES((SELECT NVL(MAX(N_Board_Num)+1, 1) FROM mvc_Notice_TBL), #{N_Title}, #{N_Content}, #{N_Writer}, 0, sysdate)
+	</insert>
+	
+	<!-- 공지사항 갯수  -->
+	<select id="noticeCnt" resultType="int">
+		SELECT COUNT(*) as cnt FROM mvc_Notice_TBL
+	</select>
+	
+	<!-- 공지사항 목록 -->
+	<select id="noticeList" resultType="com.spring.ict03_fastiCat.dto.NoticeDTO">
+		SELECT * FROM mvc_Notice_TBL WHERE show = 'y' ORDER BY N_Board_Num
+	</select>
+	
+	<!-- 공지사항 상세페이지 -->
+	<select id="getBoardDetail" parameterType="int" resultType="com.spring.ict03_fastiCat.dto.NoticeDTO">
+		SELECT * FROM mvc_Notice_TBL
+		WHERE N_Board_Num=#{N_Board_Num}
+	</select>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="com.spring.ict03_fastiCat.dto.NoticeDTO" >
+		UPDATE mvc_Notice_TBL
+		   SET N_Title=#{N_Title}, N_Content=#{N_Content}, N_Writer=#{N_Writer}, N_WriteDate=sysdate
+		 WHERE N_Board_Num=#{N_Board_Num}
+	</update>
+	
+	<!-- 공지사항 삭제  -->
+	<update id="deleteNotice" parameterType="int">
+		UPDATE mvc_Notice_TBL
+		SET show='n'
+		WHERE N_Board_Num =#{N_Board_Num}
+	</update>
+	
+	
+	
+</mapper>
