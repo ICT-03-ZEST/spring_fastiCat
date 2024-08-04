@@ -28,7 +28,7 @@ public class NoticeDTO {
 		this.n_Writer  = n_Writer;
 		this.n_WriteDate = n_WriteDate;
 		this.n_ReadCnt = n_ReadCnt;
-	
+	}
 	//getter setter
 	public int getN_Board_Num() {
     
