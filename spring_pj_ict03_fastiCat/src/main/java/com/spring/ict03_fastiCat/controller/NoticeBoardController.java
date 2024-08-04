@@ -36,7 +36,7 @@ public class NoticeBoardController {
 			
 			//서비스호출
 			service.NoticeBoardListAction(request, model);
-			return "customer/normal_board/notice_board/notice_boardList";
+			return "customer/notice_board/notice_boardList";
 		}
 
 		//공지사항 작성
@@ -47,7 +47,7 @@ public class NoticeBoardController {
 			//콘솔 출력확인
 			logger.info("url -> notice_insert");
 
-			return "customer/normal_board/notice_board/notice_insert";
+			return "customer/notice_board/notice_insert";
 		}
 		
 		//공지사항 작성처리
@@ -76,7 +76,7 @@ public class NoticeBoardController {
 			
 			//서비스호출
 			service.NoticeBoardDetail_Action(request, model);
-			return "customer/normal_board/notice_board/notice_detail";
+			return "customer/notice_board/notice_detail";
 		}
 		
 		//공지사항 수정페이지
@@ -90,7 +90,7 @@ public class NoticeBoardController {
 			//서비스호출
 			service.NoticeBoardDetail_Action(request, model);
 			//상세페이지에 들어간 값들을 가지고 수정을 해야하기 때문에 detailAction을 또 호출해야함.
-			return "customer/normal_board/notice_board/notice_update";
+			return "customer/notice_board/notice_update";
 		}
 		
 		//공지사항 수청처리 
@@ -104,7 +104,7 @@ public class NoticeBoardController {
 			//서비스호출
 			//실질적으로 처리가 이루어지는 부분이므로 updatAction을 호출
 			service.NoticeBoard_UpdateAction(request, model);
-			return "customer/normal_board/notice_board/notice_updateAction";
+			return "customer/notice_board/notice_updateAction";
 		}
 		
 
