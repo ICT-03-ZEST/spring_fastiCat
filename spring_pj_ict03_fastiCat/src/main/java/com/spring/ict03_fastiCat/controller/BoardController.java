@@ -26,20 +26,6 @@ public class BoardController {
 	
 	@Autowired
 	private BoardServiceImpl serv;
-	
-//	@Autowired
-//	private ChartServiceImpl chart;
-//
-//	// 메인 화면
-//	@RequestMapping("main.do")
-//	public String main(HttpServletRequest request, Model model)
-//			throws ServletException, IOException {
-//		logger.info("<<< url ==> /main.do >>>");
-//		chart.addVisit(request, model); // 방문자수 증가(결산차트에 반영)
-//		bannerService.getMainBanner(request, model);
-//		return "common/main";
-//		
-//	}
 
 	// 1.게시판 목록조회
 	@RequestMapping("board.bc")
@@ -50,7 +36,7 @@ public class BoardController {
 		
 		serv.boardListAction(req, model);
 	 
-		return "customer/normal_board/board/board";
+		return "customer/normal_board/board";
 	}
 	
 	// 1-1. 게시판 상세페이지 
@@ -61,7 +47,7 @@ public class BoardController {
 		
 		serv.boardDetailAction(req, model);
 	 
-		return "customer/normal_board/board/boardDetail";
+		return "customer/normal_board/boardDetail";
 	}
 		
 		
@@ -80,7 +66,7 @@ public class BoardController {
 			serv.heartDeleteAction(req, model); 
 		}
 		 
-		return "customer/normal_board/board/boardDetail";
+		return "customer/normal_board/boardDetail";
 	}
 		
 		
