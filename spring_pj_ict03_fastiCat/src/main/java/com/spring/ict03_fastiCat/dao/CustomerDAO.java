@@ -15,8 +15,7 @@ public interface CustomerDAO {
 
 	// 로그인 처리 / 회원정보 인증(수정, 탈퇴)
 	public int idPasswordChk(Map<String, Object> map);
-	
-	
+
 	// 관리자 - 회원목록 조회
 	public List<CustomerDTO> memberList();
 
@@ -25,7 +24,7 @@ public interface CustomerDAO {
 
 	// 관리자 - 회원 삭제
 	public int deleteMember(String userid);
-	
+
 	// 관리자 - 탈퇴 회원목록 조회
 	public List<CustomerDTO> dropMemberList();
 
@@ -34,5 +33,8 @@ public interface CustomerDAO {
 
 	// 관리자 - 탈퇴회원 복구
 	public int dropMemberRestore(String userid);
+
+	// 회원비밀번호정보 가져오기
+	public CustomerDTO getpassword(String strId);
 
 }

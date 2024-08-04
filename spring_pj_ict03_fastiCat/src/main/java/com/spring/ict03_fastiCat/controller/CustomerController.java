@@ -15,32 +15,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.spring.ict03_fastiCat.service.AdminBannerServiceImpl;
 import com.spring.ict03_fastiCat.service.ChartServiceImpl;
 import com.spring.ict03_fastiCat.service.CustomerServiceImpl;
-
+import com.spring.ict03_fastiCat.service.ReservationServiceImpl;
 
 @Controller
 public class CustomerController {
-      
+
 	private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
-	
+
 	@Autowired
 	private AdminBannerServiceImpl bannerService;
 
 	@Autowired
 	private CustomerServiceImpl customerservice;
-	
+
 	@Autowired
 	private ChartServiceImpl chart;
 
+	@Autowired
+	private ReservationServiceImpl serviceCal;
+
 	// 메인 화면
 	@RequestMapping("main.do")
-	public String main(HttpServletRequest request, Model model)
-			throws ServletException, IOException {
+	public String main(HttpServletRequest request, Model model) throws ServletException, IOException {
 		logger.info("<<< url ==> /main.do >>>");
 		chart.addVisit(request, model); // 방문자수 증가(결산차트에 반영)
 		bannerService.getMainBanner(request, model);
+		serviceCal.reservationListAction(request, model);
 		return "common/main";
-		
+
 	}
+
 	// 회원가입
 	@RequestMapping("join.do")
 	public String join() {
@@ -92,4 +96,21 @@ public class CustomerController {
 		return "redirect:/";
 	}
 
+	// ticket 구입 상세페이지
+	@RequestMapping("/showTicket_Detail.do")
+	public String showTicket_Detail(HttpServletRequest request, Model model) throws ServletException, IOException {
+		logger.info("<<< url ==>  /showTicket_Detail.do >>>");
+		serviceCal.showTicketDetail(request, model);
+		serviceCal.showTicketDetailList(request, model);
+		return "showTiket/showTiketDetail";
+	}
+
+	@RequestMapping("/showTicketInsert.do")
+	public String showTicketInsert(HttpServletRequest request, Model model) throws ServletException, IOException {
+		logger.info("<<< url ==>  /showTicketInsert.do >>>");
+		serviceCal.showTicketInsert(request, model);
+		serviceCal.showTicketDetail(request, model);
+		serviceCal.showTicketDetailList(request, model);
+		return "showTiket/showTiketDetail";
+	}
 }

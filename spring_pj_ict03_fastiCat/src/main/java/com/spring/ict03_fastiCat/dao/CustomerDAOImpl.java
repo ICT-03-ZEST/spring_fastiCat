@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.ict03_fastiCat.dto.CustomerDTO;
+
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
 
@@ -46,7 +47,7 @@ public class CustomerDAOImpl implements CustomerDAO {
 		System.out.println("selectCnt :" + selectCnt);
 		return selectCnt;
 	}
-	
+
 	// 관리자 - 회원목록 조회
 	@Override
 	public List<CustomerDTO> memberList() {
@@ -104,6 +105,11 @@ public class CustomerDAOImpl implements CustomerDAO {
 		System.out.println("updateCnt : " + updateCnt);
 		return updateCnt;
 	}
-	
-	
+
+	// 회원비밀번호정보 가져오기
+	public CustomerDTO getpassword(String strId) {
+		CustomerDTO dto = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.CustomerDAO.getpassword", strId);
+		return dto;
+	}
+
 }
