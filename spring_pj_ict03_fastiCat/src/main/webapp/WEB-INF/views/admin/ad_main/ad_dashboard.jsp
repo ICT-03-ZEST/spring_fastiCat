@@ -120,7 +120,7 @@
 	    								<span><i class="fa-solid fa-caret-right" onclick="changeWeek(1)"></i></span>
 						            </h6>
 						            <span id="numOfvisit" style="display: none">방문자 수</span>
-						            <span id="numOfboard" style="display: none">게시글 수</span>
+						            <span id="numOfboard" style="display: none">게시물 수</span>
 						            <span id="numOfreserv" style="display: none">예매 수량</span>
 						        </div>
 						        		
@@ -157,27 +157,28 @@
 			            		<div class="card-header py-3">
 			                		<h6 class="m-0 font-weight-bold text-primary">인기 게시글 목록</h6>
 			            		</div>
-			            	<div class="card-body">
-			               		<div class="table-responsive">
-			                  	  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-			                        
-			                            <tr>
-			                                <th>제목</th>
-			                                <th>작성자</th>
-			                                <th>조회수</th>
-			                                <th>작성일</th>
-			                            </tr>
-			                            <c:forEach var="dto" items="${list}">
+				            	<div class="card-body">
+				               		<div class="table-responsive">
+				                  	  <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 				                            <tr>
-				                                <td>${dto.board_title}</td>
-				                                <td>${dto.board_writer}</td>
-				                                <td>${dto.board_views}</td>
-				                                <td>${dto.board_regDate}</td>
+				                            	<th>번호</th>
+				                                <th>제목</th>
+				                                <th>작성자</th>
+				                                <th>조회수</th>
+				                                <th>작성일</th>
 				                            </tr>
-			                            </c:forEach>
-			                    	</table>
-			                	</div>
-			           		</div>
+				                            <c:forEach var="dto" items="${list}">
+					                            <tr>
+					                            	<td>${dto.board_num}</td>
+					                                <td>${dto.board_title}</td>
+					                                <td>${dto.board_writer}</td>
+					                                <td>${dto.board_views}</td>
+					                                <td>${dto.board_regDate}</td>
+					                            </tr>
+				                            </c:forEach>
+				                    	</table>
+				                	</div>
+				           		</div>
 				       	 	</div>
                     </div>
 
