@@ -17,7 +17,7 @@
         </div>
         <div>
         <button class="pop_button" onclick="deleteConfirm()">확인</button>
-        <button class="pop_button" onclick="bdDelChkClosePopup()">취소</button>
+        <button class="pop_button" onclick="closePopup()">취소</button>
    </div>
 </c:if>
 
@@ -35,8 +35,8 @@
     </div>
 </div>
 <div>
-	<button class="pop_button" onclick="bdDelPwdChk()">확인</button>
-	<button class="pop_button" onclick="bdDelChkClosePopup()">취소</button>
+	<button class="pop_button" onclick="pwdChk()">확인</button>
+	<button class="pop_button" onclick="closePopup()">취소</button>
 </div>
 </c:if>
 

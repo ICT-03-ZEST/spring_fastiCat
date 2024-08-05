@@ -45,21 +45,21 @@
 	</security:http>
 		
 	<!-- 로그인 성공시 작동 -->
-	<bean id="userLoginSuccessHandler" class="com.spring.fasticat.security.UserLoginSuccessHandler">
+	<bean id="userLoginSuccessHandler" class="com.spring.ict03_fasticat.security.UserLoginSuccessHandler">
 		<constructor-arg name="sqlSession" ref="sqlSession"/>   <!-- dataSource-config.xml의  sqlSession 참조 -->
 	</bean>
 	
 	<!-- 로그인 실패시 작동 -->
-	<bean id="userLoginFailurerHandler" class="com.spring.fasticat.security.UserLoginFailurerHandler">
+	<bean id="userLoginFailurerHandler" class="com.spring.ict03_fasticat.security.UserLoginFailurerHandler">
 		<constructor-arg name="sqlSession" ref="sqlSession"/>  <!-- dataSource-config.xml의  sqlSession 참조 -->
 		<constructor-arg name="passwordEncoder" ref="bCryptPasswordEncoder" /> 
 	</bean>
 	
 	<!-- 접근 권한이 없는 경우 작동 -->
-	<bean id="userDeniedHandler" class="com.spring.fasticat.security.UserDeniedHandler" />
+	<bean id="userDeniedHandler" class="com.spring.ict03_fasticat.security.UserDeniedHandler" />
 	
 	<!-- 로그인 인증처리 클래스 : 비밀번호인증, 로그인 성공, 실패, 권한없음을 판단 -->
-	<bean id="userAuthenticationService" class="com.spring.fasticat.security.UserAuthenticationService">
+	<bean id="userAuthenticationService" class="com.spring.ict03_fasticat.security.UserAuthenticationService">
 		<constructor-arg name="sqlSession" ref="sqlSession" /> 
 	</bean>
 	

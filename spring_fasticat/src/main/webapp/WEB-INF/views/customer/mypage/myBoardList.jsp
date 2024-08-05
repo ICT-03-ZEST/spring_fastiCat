@@ -14,25 +14,12 @@
 	
     window.onload = function() {
     	
-    	//시작 테이블 토글
-    	<%-- let category = "<%= request.getAttribute("category") %>"
-    	let pageNum = "<%= request.getAttribute("pageNum") %>"
-    	
-    	if(category == null || category == ""){
-    		category = "review_table"
-    	}
-    	
-    	if(pageNum == null || pageNum == ""){
-    		pageNum = 1
-    	}
-    	
-    	toggleTable(category, pageNum); --%>
-    	
+    	//시작 테이블 토글	
     	toggleTable("review_table", 1);
         
     };
     
-	function bdDelPwdChk() {
+	function pwdChk() {
 		   
 		   let param = {
 			  "password": $('#pwd_chk').val(),
@@ -116,6 +103,22 @@
   	        });
     }
 	
+	//취소 버튼 누를 시
+	 function returnPwdChk() {
+	        
+	  		   $.ajax({
+	  	           url :'${path}/returnPwdChk.myp' ,         //3.
+	  	           type : 'POST',
+	  	           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+	  	        	  let result = document.getElementById("bd_del_chk_popup");
+	  	         	  result.innerHTML = data;
+	  	           },
+	  	           error : function(){
+	  	              alert('returnPwdChk() 오류');
+	  	           }
+	  	        });
+	    }
+	
 	
 	</script>
 </head>
@@ -148,7 +151,7 @@
 		    <div class="backMyPage" align="center">
 			    <div class="writing">
 			        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="window.location='${path}/myWriting.bc'">
-			        <input type="button" name="delete" class="delete" value="삭제" onclick="bdDelChkShowPopup()">
+			        <input type="button" name="delete" class="delete" value="삭제" onclick="openPopup()">
 			    </div>
 			    <!-- 목록으로 돌아가기  - 소연-->
 				<button class="btn_backmypage" onclick="window.location='${path}/mypage.myp'">마이페이지</button>
@@ -157,23 +160,7 @@
 	</div>
 	
 	<!-- 게시글 삭제 본인 확인 -->
-    <div id="bd_del_chk_popup" class="bd_del_chk_popup">
-        <div class="popup-header">비밀번호 확인</div>
-        
-        <div class="chk_popup-body"> 
-            비밀번호를 입력해주세요
-            <table>
-            	<tr>
-            		<td>비밀번호</td>
-            		<td><input id="pwd_chk" class="pwd_chk" type="text" placeholder="비밀번호확인"></td>
-            	</tr>
-            </table>
-        </div>
-        <div>
-            <button class="pop_button" onclick="bdDelPwdChk()">확인</button>
-            <button class="pop_button" onclick="bdDelChkClosePopup()">취소</button>
-        </div>
-    </div>
+    <div id="bd_del_chk_popup" class="bd_del_chk_popup"></div>
 	
   	<!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -181,13 +168,15 @@
 	
   <script type="text/javascript">
 	//게시글 삭제 확인 팝업
-	function bdDelChkShowPopup() {
+	function openPopup() {
+		returnPwdChk()
+		
 	    document.getElementById('bd_del_chk_popup').style.display = 'block';
 	    $('.dis_btn').prop('disabled', true);
 	    $(".page_out").css("opacity","30%");
 	}
 	
-	function bdDelChkClosePopup() {
+	function closePopup() {
 	    document.getElementById('bd_del_chk_popup').style.display = 'none';
 	    $('.dis_btn').prop('disabled', false);
 	    $(".page_out").css("opacity","");
