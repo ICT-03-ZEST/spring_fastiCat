@@ -17,7 +17,7 @@
 	  </select>
 	  
 	  <!--  show 목록 -->
-	  <select id="showList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.MainShowDTO">
+	  <select id="showList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.ShowDTO">
 		    SELECT *
 		    FROM 
 		    (
@@ -44,7 +44,7 @@
 
 	  
 	  <!--  show 상세페이지 -->
-	  <select id="showInfo" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.MainShowDTO">
+	  <select id="showInfo" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.ShowDTO">
 	  	
 	  	<if test='category == "festival"'>
 	  		SELECT * 

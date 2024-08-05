@@ -1,121 +1,108 @@
 package com.spring.ict03_fastiCat.dto;
 
 import java.sql.Date;
-import java.sql.Timestamp;
 
 public class ReservationDTO {
-	
-	private String userid;
-	private String password;
-	private String username;
-	private Date birthday;
-	private String address;
-	private String hp;
-	private String email;
-	private Timestamp regDate;
-	private Date reservation_date;    
-	private int reserv_count;
-	
-	public ReservationDTO() {}
+   
+   private int show_ResId;
+   private int showNum;
+   private String userID;
+   private int totalPrice;
+   private Date reservation_date;
+   private String reservation_check;
+   private Date reservation_dateNow;
+   private int reserv_count;
+   
+   public ReservationDTO() {}
 
-	public ReservationDTO(String userid, String password, String username, Date birthday, String address, String hp,
-			String email, Timestamp regDate) {
+	public ReservationDTO(int show_ResId, int showNum, String userID, int totalPrice, Date reservation_date,
+			String reservation_check, Date reservation_dateNow, int reserv_count) {
 		super();
-		this.userid = userid;
-		this.password = password;
-		this.username = username;
-		this.birthday = birthday;
-		this.address = address;
-		this.hp = hp;
-		this.email = email;
-		this.regDate = regDate;
+		this.show_ResId = show_ResId;
+		this.showNum = showNum;
+		this.userID = userID;
+		this.totalPrice = totalPrice;
+		this.reservation_date = reservation_date;
+		this.reservation_check = reservation_check;
+		this.reservation_dateNow = reservation_dateNow;
+		this.reserv_count = reserv_count;
 	}
-
-	public String getUserid() {
-		return userid;
+	
+	public int getShow_ResId() {
+		return show_ResId;
 	}
-
-	public void setUserid(String userid) {
-		this.userid = userid;
+	
+	public void setShow_ResId(int show_ResId) {
+		this.show_ResId = show_ResId;
 	}
-
-	public String getPassword() {
-		return password;
+	
+	public int getShowNum() {
+		return showNum;
 	}
-
-	public void setPassword(String password) {
-		this.password = password;
+	
+	public void setShowNum(int showNum) {
+		this.showNum = showNum;
 	}
-
-	public String getUsername() {
-		return username;
+	
+	public String getUserID() {
+		return userID;
 	}
-
-	public void setUsername(String username) {
-		this.username = username;
+	
+	public void setUserID(String userID) {
+		this.userID = userID;
 	}
-
-	public Date getBirthday() {
-		return birthday;
+	
+	public int getTotalPrice() {
+		return totalPrice;
 	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
+	
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
 	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
-	public String getHp() {
-		return hp;
-	}
-
-	public void setHp(String hp) {
-		this.hp = hp;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Timestamp getRegDate() {
-		return regDate;
-	}
-
-	public void setRegDate(Timestamp regDate) {
-		this.regDate = regDate;
-	}
-
 	
 	public Date getReservation_date() {
 		return reservation_date;
 	}
-
+	
 	public void setReservation_date(Date reservation_date) {
 		this.reservation_date = reservation_date;
 	}
-
+	
+	public String getReservation_check() {
+		return reservation_check;
+	}
+	
+	public void setReservation_check(String reservation_check) {
+		this.reservation_check = reservation_check;
+	}
+	
+	public Date getReservation_dateNow() {
+		return reservation_dateNow;
+	}
+	
+	public void setReservation_dateNow(Date reservation_dateNow) {
+		this.reservation_dateNow = reservation_dateNow;
+	}
+	
 	public int getReserv_count() {
 		return reserv_count;
 	}
-
+	
 	public void setReserv_count(int reserv_count) {
 		this.reserv_count = reserv_count;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "ReservationDTO [userid=" + userid + ", password=" + password + ", username=" + username + ", address="
-				+ address + ", hp=" + hp + ", email=" + email + "]";
+		return "ReservationDTO [show_ResId=" + show_ResId + ", showNum=" + showNum + ", userID=" + userID + ", totalPrice="
+				+ totalPrice + ", reservation_date=" + reservation_date + ", reservation_check=" + reservation_check
+				+ ", reservation_dateNow=" + reservation_dateNow + ", reserv_count=" + reserv_count + "]";
 	}
+	   
+
+   
 	
+   
+   
+
 }
