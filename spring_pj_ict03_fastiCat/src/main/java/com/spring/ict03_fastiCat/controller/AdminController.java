@@ -17,6 +17,7 @@ import com.spring.ict03_fastiCat.service.AdminBannerServiceImpl;
 import com.spring.ict03_fastiCat.service.AdminBoardServiceImpl;
 import com.spring.ict03_fastiCat.service.AdminNoticeServiceImpl;
 import com.spring.ict03_fastiCat.service.AdminShowServiceImpl;
+import com.spring.ict03_fastiCat.service.ChartServiceImpl;
 import com.spring.ict03_fastiCat.service.CustomerServiceImpl;
 
 
@@ -45,11 +46,16 @@ public class AdminController {
 	@Autowired
 	private AdminShowServiceImpl service5;
 	
-	// 관리자 첫화면(대시보드)
+	//6.현황조회(차트) 서비스
+	@Autowired
+	private ChartServiceImpl chart;
+	
+	// 관리자 첫화면(현황조회)
 	@RequestMapping("ad_dashboard.ad")
 	public String ad_dashboard(HttpServletRequest request, Model model)
 			throws ServletException, IOException {
 		logger.info("<<< url ==> /ad_dashboard.ad >>>");
+		chart.chartCount(request, model);
 		return "admin/ad_main/ad_dashboard";
 	}
 	
