@@ -58,7 +58,7 @@
 												<input class="inputButton" type="reset" value="초기화">
 												<input class="inputButton" type="button" value="회원가입"
 													onclick="window.location='${path}/join.do'"> 
-											<a href="${path}/admin/ad_main/ad_dashboard.jsp" style="color:white">관리자</a>
+											<a href="${path}/ad_dashboard.ad" style="color:white">관리자</a>
 											</div></td>
 									</tr>
 
