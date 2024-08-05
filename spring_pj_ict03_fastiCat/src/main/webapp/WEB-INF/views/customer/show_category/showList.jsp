@@ -86,21 +86,21 @@ $(function() {
 	        <div>
 	        	<!-- 이전 버튼 활성화 -->
 				<c:if test="${paging.startPage > 3}"> <!-- 시작페이지가 4부터 시작할때 이전버튼이 보임-->
-					<a class="prev" href="${path}/contentList.pf?pageNum=${paging.prev}"> << </a>
+					<a class="prev" href="${path}/showList.pf?showCategory=${showCategory}&pageNum=${paging.prev}"> << </a>
 				</c:if>
 	        </div>
 	        
 	        <div>
 	        	<!-- 페이지 번호 처리 -->
 				<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
-					<a href="${path}/contentList.pf?pageNum=${num}">${num}</a>
+					<a href="${path}/showList.pf?showCategory=${showCategory}&pageNum=${num}">${num}</a>
 				</c:forEach>
 	        </div>
 	        
 	        <div>
 	        	<!-- 다음 버튼 활성화 -->	
 				<c:if test="${paging.endPage < paging.pageCount}"> <!-- 마지막페이지가 전체페이지수()보다 작을때 다음버튼이 보임-->
-					<a class="next"  href="${path}/contentList.pf?pageNum=${paging.next}"> >> </a>
+					<a class="next"  href="${path}/showList.pf?showCategory=${showCategory}&pageNum=${paging.next}"> >> </a>
 				</c:if>
 	        </div>
 	    </div> <!-- 페이징 처리 끝-->
