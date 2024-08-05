@@ -61,7 +61,7 @@
 				</tr>
 				<tr>
 					<td rowspan="6" colspan="5"><img class="table-img"
-						src="${path}/resources/images/show/${dto.showImage}.gif"
+						src="${dto.showImage}"
 						alt="Show Image"></td>
 					<td>장소</td>
 					<td colspan="2">${dto.showPlace}</td>
@@ -101,7 +101,7 @@
 	</div>
 	
 	<div class="imgContent">
-		<img class="table-imgPopup" src="${path}/resources/images/show/모달내용01.jpg" alt="Show Image">
+		<img class="table-imgPopup" width="1000px" src="${path}/resources/images/show/패스티켓예매상세정보.jpg" alt="Show Image">
 	</div>
 	<!-- 모달 구조 -->
 	<div id="showModal" class="modal">
