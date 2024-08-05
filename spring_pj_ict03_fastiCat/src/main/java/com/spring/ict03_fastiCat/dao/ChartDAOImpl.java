@@ -1,14 +1,14 @@
 package com.spring.ict03_fastiCat.dao;
 
-import java.util.List; 
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.spring.ict03_fastiCat.dto.BoardDTO;
+import com.spring.ict03_fastiCat.dto.ReservationDTO;
 import com.spring.ict03_fastiCat.dto.VisitDTO;
-import com.spring.ict03_fastiCat.dto.test_ShowReservationDTO;
 
 @Repository
 public class ChartDAOImpl implements ChartDAO {
@@ -58,9 +58,9 @@ public class ChartDAOImpl implements ChartDAO {
 	
 	//일일 예매 수량
 	@Override
-	public List<test_ShowReservationDTO> bookCountForday() {
+	public List<ReservationDTO> bookCountForday() {
 		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
-		List<test_ShowReservationDTO> list = dao.bookCountForday(); 
+		List<ReservationDTO> list = dao.bookCountForday(); 
 		return list;
 	}
 	

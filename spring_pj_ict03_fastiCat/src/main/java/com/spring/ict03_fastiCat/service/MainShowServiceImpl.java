@@ -1,6 +1,6 @@
 package com.spring.ict03_fastiCat.service;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.spring.ict03_fastiCat.dao.MainShowDAO;
-import com.spring.ict03_fastiCat.dto.MainShowDTO;
+import com.spring.ict03_fastiCat.dto.ShowDTO;
 import com.spring.ict03_fastiCat.page.ContentPaging;
 
 @Service
@@ -48,7 +48,7 @@ public class MainShowServiceImpl implements MainShowService{
 		map.put("category", showCategory);
 		map.put("start", start);
 		map.put("end", end);
-		List<MainShowDTO> list = dao.showList(map);
+		List<ShowDTO> list = dao.showList(map);
 		
 		// 6단계. jsp로 처리결과 전달
 		model.addAttribute("showCategory", showCategory);
@@ -72,7 +72,7 @@ public class MainShowServiceImpl implements MainShowService{
 		map.put("showNum", showNum);
 		
 		// 5단계
-		MainShowDTO dto = dao.showInfo(map);
+		ShowDTO dto = dao.showInfo(map);
 		
 		// 6단계. jsp로 처리결과 전달
 		model.addAttribute("showCategory", showCategory);

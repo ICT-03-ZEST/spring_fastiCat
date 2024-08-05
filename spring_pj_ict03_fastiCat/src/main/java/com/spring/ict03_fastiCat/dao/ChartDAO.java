@@ -1,10 +1,10 @@
 package com.spring.ict03_fastiCat.dao;
 
-import java.util.List;
+import java.util.List; 
 
 import com.spring.ict03_fastiCat.dto.BoardDTO;
+import com.spring.ict03_fastiCat.dto.ReservationDTO;
 import com.spring.ict03_fastiCat.dto.VisitDTO;
-import com.spring.ict03_fastiCat.dto.test_ShowReservationDTO;
 
 public interface ChartDAO {
 	
@@ -24,7 +24,7 @@ public interface ChartDAO {
 	public int bookingCountforWeek(); 
 		
 	//일일 예매 수량
-	public List<test_ShowReservationDTO> bookCountForday();
+	public List<ReservationDTO> bookCountForday();
 	
 	//인기 게시글 목록
 	public List<BoardDTO> popularBoard();

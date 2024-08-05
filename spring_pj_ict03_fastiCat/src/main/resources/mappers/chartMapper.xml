@@ -53,7 +53,7 @@
 	  </select>
 	  
 	  <!-- 일일  예매 수량 -->
-	   <select id="bookCountForday" resultType="com.spring.ict03_fastiCat.dto.test_ShowReservationDTO">
+	   <select id="bookCountForday" resultType="com.spring.ict03_fastiCat.dto.ReservationDTO">
 	  		SELECT TRUNC(Reservation_dateNow) AS reservation_date,  
 				   COUNT(Reservation_dateNow) AS reserv_count 
 			  FROM show_Reservation

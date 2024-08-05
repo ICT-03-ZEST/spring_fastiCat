@@ -1,6 +1,6 @@
 package com.spring.ict03_fastiCat.dao;
 
-import java.util.List;
+import java.util.List; 
 import java.util.Map;
 
 
@@ -8,7 +8,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.spring.ict03_fastiCat.dto.MainShowDTO;
+import com.spring.ict03_fastiCat.dto.ShowDTO;
+
 
 @Repository
 public class MainShowDAOImpl implements MainShowDAO {
@@ -27,19 +28,19 @@ public class MainShowDAOImpl implements MainShowDAO {
 	
 	// 메인 - 페스티벌 목록 내림차순 정렬
 	@Override
-	public List<MainShowDTO> showList(Map<String, Object> map) {
+	public List<ShowDTO> showList(Map<String, Object> map) {
 		System.out.println("DAO - showList() ");
 		MainShowDAO dao = sqlSession.getMapper(MainShowDAO.class);
-		List<MainShowDTO> list = dao.showList(map);
+		List<ShowDTO> list = dao.showList(map);
 		return list;
 	}
 
 	// 페스티벌 상세페이지
 	@Override
-	public MainShowDTO showInfo(Map<String, Object> map) {
+	public ShowDTO showInfo(Map<String, Object> map) {
 		System.out.println("DAO - showInfo() ");
 		MainShowDAO dao = sqlSession.getMapper(MainShowDAO.class);
-		MainShowDTO dto = dao.showInfo(map);
+		ShowDTO dto = dao.showInfo(map);
 		return dto;
 	}
 

@@ -13,6 +13,8 @@ public class ReservationDTO {
 	private String hp;
 	private String email;
 	private Timestamp regDate;
+	private Date reservation_date;    
+	private int reserv_count;
 	
 	public ReservationDTO() {}
 
@@ -91,6 +93,23 @@ public class ReservationDTO {
 
 	public void setRegDate(Timestamp regDate) {
 		this.regDate = regDate;
+	}
+
+	
+	public Date getReservation_date() {
+		return reservation_date;
+	}
+
+	public void setReservation_date(Date reservation_date) {
+		this.reservation_date = reservation_date;
+	}
+
+	public int getReserv_count() {
+		return reserv_count;
+	}
+
+	public void setReserv_count(int reserv_count) {
+		this.reserv_count = reserv_count;
 	}
 
 	@Override
