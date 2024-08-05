@@ -106,18 +106,18 @@
 	//취소 버튼 누를 시
 	 function returnPwdChk() {
 	        
-	  		   $.ajax({
-	  	           url :'${path}/returnPwdChk.myp' ,         //3.
-	  	           type : 'POST',
-	  	           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-	  	        	  let result = document.getElementById("bd_del_chk_popup");
-	  	         	  result.innerHTML = data;
-	  	           },
-	  	           error : function(){
-	  	              alert('returnPwdChk() 오류');
-	  	           }
-	  	        });
-	    }
+  		   $.ajax({
+  	           url :'${path}/returnPwdChk.myp' ,         //3.
+  	           type : 'POST',
+  	           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+  	        	  let result = document.getElementById("bd_del_chk_popup");
+  	         	  result.innerHTML = data;
+  	           },
+  	           error : function(){
+  	              alert('returnPwdChk() 오류');
+  	           }
+  	        });
+    }
 	
 	
 	</script>
@@ -145,6 +145,7 @@
 	            </label>
         	</div>
         	
+        	<!-- 테이블 컨테이너 -->
         	<div id="table-container" class="table-container">
         	</div>
 			

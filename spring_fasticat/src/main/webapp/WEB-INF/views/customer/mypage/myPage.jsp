@@ -42,11 +42,11 @@
 	function delPwdChk() {
 		
 	   let param = {
-		  "password": $('#del_pwd_chk').val(),
+		  "password": $('#pwd_chk').val(),
 		  "page": "withdraw"
 	   };
 	   
-	   $('#del_pwd_chk').val(''); // input값 비우기
+	   $('#pwd_chk').val(''); // input값 비우기
 	   
 	   $.ajax({
            url :'${path}/pwdChk.myp' ,         //3.
@@ -106,6 +106,22 @@
    function deleteConfirm() {
 	   window.location='${path}/deleteUserAction.myp';
    }
+   
+ //취소 버튼 누를 시
+	 function returnPwdChk() {
+	        
+		   $.ajax({
+	           url :'${path}/returnPwdChk.myp' ,         //3.
+	           type : 'POST',
+	           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+	        	  let result = document.getElementById("up_pwd_chk_popup");
+	         	  result.innerHTML = data;
+	           },
+	           error : function(){
+	              alert('returnPwdChk() 오류');
+	           }
+	        });
+  	}
    
 </script>
 <body> <!-- 수정 6/28  9:35 -->
@@ -203,7 +219,7 @@
     </div>
     
     <!-- 회원 탈퇴 본인 확인 -->
-    <div id="del_pwd_chk_popup" class="del_pwd_chk_popup">
+    <div id="pwd_chk_popup" class="pwd_chk_popup">
         <div class="popup-header">비밀번호 확인</div>
         
         <div class="chk_popup-body"> 
@@ -211,7 +227,7 @@
             <table>
             	<tr>
             		<td>비밀번호</td>
-            		<td><input id="del_pwd_chk" class="del_pwd_chk" type="text" placeholder="비밀번호확인"></td>
+            		<td><input id="pwd_chk" class="pwd_chk" type="text" placeholder="비밀번호확인"></td>
             	</tr>
             </table>
         </div>
@@ -299,7 +315,7 @@
 	}
 	
 	function delChkPopup() {
-		document.getElementById('del_pwd_chk_popup').style.display = 'block';
+		document.getElementById('pwd_chk_popup').style.display = 'block';
 		$('.dis_btn').prop('disabled', true);
 	    $(".page_out").css("opacity","30%");
 	}
@@ -311,7 +327,7 @@
 	}
 	
 	function delChkCancel() {
-		document.getElementById('del_pwd_chk_popup').style.display = 'none';
+		document.getElementById('pwd_chk_popup').style.display = 'none';
 	    $('.dis_btn').prop('disabled', false);
 	    $(".page_out").css("opacity","");
 	}
