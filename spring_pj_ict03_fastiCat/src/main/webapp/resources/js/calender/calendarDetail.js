@@ -117,6 +117,12 @@ document.addEventListener("DOMContentLoaded", function() {
                     const showNameElement = document.createElement("div"); // 공연 이름 요소
                     showNameElement.classList.add("show-name"); // 공연 이름 클래스 추가
                     showNameElement.textContent = show.showName; // 공연 이름 텍스트 추가
+
+                    // 공연이 매진된 경우
+                    if (show.curCapacity >= show.maxCapacity) {
+                        showNameElement.classList.add("full-capacity");
+                    }
+
                     showNameElement.addEventListener("click", () => openModal(show)); // 클릭 시 모달 열기
                     dateContainer.appendChild(showNameElement); // 날짜 컨테이너에 공연 이름 요소 추가
                 });
@@ -129,75 +135,56 @@ document.addEventListener("DOMContentLoaded", function() {
         calendarDates.appendChild(calendarDatesGrid); // 캘린더에 날짜 그리드 추가
     }
 
-    Calendar(); // 캘린더 초기 표시
+    Calendar(); // 캘린더 함수 호출
 
     prevBtn.addEventListener("click", () => {
-        currentMonth--; // 이전 달로 이동
+        currentMonth--;
         if (currentMonth < 0) {
-            currentMonth = 11; // 12월로 설정
-            currentYear--; // 연도 감소
+            currentMonth = 11;
+            currentYear--;
         }
-        Calendar(); // 캘린더 업데이트
+        Calendar();
     });
 
     nextBtn.addEventListener("click", () => {
-        currentMonth++; // 다음 달로 이동
+        currentMonth++;
         if (currentMonth > 11) {
-            currentMonth = 0; // 1월로 설정
-            currentYear++; // 연도 증가
+            currentMonth = 0;
+            currentYear++;
         }
-        Calendar(); // 캘린더 업데이트
+        Calendar();
     });
 
     function openModal(show) {
-        modalShowName.textContent = show.showName; // 모달에 공연 이름 표시
-        modalShowImage.src = `${path}/resources/images/show/${show.showImage}.gif`; // 모달에 공연 이미지 표시
-        modalShowPlace.textContent = show.showPlace; // 모달에 공연 장소 표시
-        modalShowDay.textContent = show.showDay; // 모달에 공연 날짜 표시
-        modalShowTime.textContent = `${show.showTime}분`; // 모달에 공연 시간 표시
-        modalShowAge.textContent = `${show.showAge}세 이상`; // 모달에 연령 제한 표시
-        modalShowPrice.textContent = show.showPrice; // 모달에 공연 가격 표시
-        modalShowBene.textContent = show.showBene; // 모달에 공연 혜택 표시
-        modalShowCapacity.textContent = `${show.curCapacity || 0} / ${show.maxCapacity || "미정"}`; // 모달에 수용 인원 표시
+        modalShowName.textContent = show.showName; // 공연 이름
+        modalShowImage.src = show.showImage; // 공연 이미지
+        modalShowPlace.textContent = show.showPlace; // 공연 장소
+        modalShowDay.textContent = show.showDay; // 공연 날짜
+        modalShowTime.textContent = show.showTime; // 공연 시간
+        modalShowAge.textContent = show.showAge; // 연령 제한
+        modalShowPrice.textContent = show.showPrice; // 가격
+        modalShowBene.textContent = show.showBene; // 혜택
+        modalShowCapacity.textContent = `${show.curCapacity} / ${show.maxCapacity}`; // 수용 인원
 
-        function calculateTotal() {
-            const quantity = parseInt(ticketQuantity.value, 10) || 0; // 티켓 수량 가져오기
-            const total = quantity * show.showPrice; // 총 가격 계산
-            modalShowTicketListTotal.textContent = total.toLocaleString(); // 모달에 총 가격 표시
-        }
+        let totalTicketPrice = show.showPrice * (parseInt(ticketQuantity.value) || 1); // 총 티켓 가격 계산
+        modalShowTicketListTotal.textContent = `총 ${totalTicketPrice}원`; // 총 가격 표시
 
-        ticketQuantity.addEventListener("input", calculateTotal); // 티켓 수량 변경 시 합계 업데이트
-        calculateTotal(); // 초기 합계 계산
-
-        showModal.style.display = "block"; // 모달 열기
-
-      reserveButton.onclick = function() {
-	    const quantity = parseInt(ticketQuantity.value, 10);
-	    const total = quantity * show.showPrice;
-	
-	    const reservationData = {
-	        showNum: show.showNum,
-	        quantity: quantity,
-	        totalPrice: total
-	    };
-//	alert(reservationData.showNum);
-//	alert(reservationData.quantity);
-//	alert(show.showDay);
-//	alert(reservationData.totalPrice);
-	
-	    const url = `/ict03_fastiCat/showTicketInsert.do?showNum=${reservationData.showNum}&sendShowDay=${show.showDay}&quantity=${reservationData.quantity}&totalPrice=${reservationData.totalPrice}`;
-   	 	window.location.href = url;
-
+        modalShowCapacity.classList.toggle("full-capacity", show.curCapacity >= show.maxCapacity); // 매진 여부에 따른 클래스 추가/제거
+        showModal.style.display = "block"; // 모달 창 표시
     }
 
-    closeModal.addEventListener("click", () => {
-        showModal.style.display = "none"; // 모달 닫기
-    });
+    closeModal.addEventListener("click", () => showModal.style.display = "none"); // 모달 닫기 버튼 클릭 시 모달 창 닫기
 
-    window.addEventListener("click", (event) => {
-        if (event.target == showModal) {
-            showModal.style.display = "none"; // 모달 외부 클릭 시 모달 닫기
+    ticketQuantity.addEventListener("input", function() {
+        if (showModal.style.display === "block") {
+            let showPrice = listdata.find(show => show.showName === modalShowName.textContent).showPrice; // 현재 모달에 표시된 공연의 가격 찾기
+            let quantity = parseInt(ticketQuantity.value) || 1; // 수량 값 가져오기
+            modalShowTicketListTotal.textContent = `총 ${showPrice * quantity}원`; // 총 가격 업데이트
         }
     });
-    }
+ 
+    reserveButton.addEventListener("click", () => {
+        // 예약 로직 추가 필요
+        alert("예약 기능은 추가 개발이 필요합니다.");
+    });
 });
