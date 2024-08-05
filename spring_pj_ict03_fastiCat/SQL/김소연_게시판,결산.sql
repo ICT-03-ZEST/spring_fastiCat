@@ -216,9 +216,10 @@ END;
 
 --=====================================테이블+데이터 끝==========================================
 
-------------------<sql문 총정리>-----------------------
-(1). 게시판
-(1).A - 게시글 목록조회(카테고리별)
+------------------<sql문 총정리>-----------------------(1)게시판 (2)조회,하트 (3)게시글 (4)댓글
+--[ boardMapper ]
+--(1). 게시판
+--(1).A - 게시글 목록조회(카테고리별)
 
 -- reviewBoard_tbl(후기)
 SELECT *
@@ -246,7 +247,7 @@ SELECT *
         )
 WHERE rn BETWEEN 1 AND 10
 
-(1).B - 게시글 개수
+--(1).B - 게시글 개수
 
 -- reviewBoard_tbl(후기)
 SELECT COUNT(*) AS cnt
@@ -258,7 +259,7 @@ SELECT COUNT(*) AS cnt
   FROM  freeBoard_tbl
  WHERE board_show = 'y'
 
-(1).C - 게시글 상세페이지
+--(1).C - 게시글 상세페이지
 
 -- reviewBoard_tbl(후기)
 SELECT * 
@@ -270,16 +271,16 @@ SELECT *
   FROM  freeBoard_tbl
  WHERE board_num = 30;
 
-(2) 부가 기능 (하트, 게시글조회, 조회수 증가)
+--(2) 부가 기능 (하트, 게시글조회, 조회수 증가)
 
-(2).A 하트 조회 (하트를 누른 적이 있는지 조회)
+--(2).A 하트 조회 (하트를 누른 적이 있는지 조회)
 SELECT COUNT(*) AS cnt
   FROM heart_tbl
  WHERE userID = 'user1'
    AND board_num = 30
    AND board_category = 'review'
 
-(2).B 회원 게시글 이력조회 (회원이 작성한 게시글인지 조회)
+--(2).B 회원 게시글 이력조회 (회원이 작성한 게시글인지 조회)
 
 -- reviewBoard_tbl(후기)
 SELECT COUNT(*) AS cnt
@@ -293,7 +294,7 @@ SELECT COUNT(*) AS cnt
  WHERE board_writer = 'user1'
    AND board_num = 30
 
-(2).C 조회수 증가
+--(2).C 조회수 증가
 -- reviewBoard_tbl(후기)
 UPDATE reviewBoard_tbl
    SET board_views = board_views + 1
@@ -304,7 +305,7 @@ UPDATE freeBoard_tbl
    SET board_views = board_views + 1
  WHERE board_num = 30
 
-(2).D 게시판 테이블에서 하트 수정
+--(2).D 게시판 테이블에서 하트 수정
 -- reviewBoard_tbl(후기)
 UPDATE reviewBoard_tbl
    SET board_heart = board_heart  (board_heart <= board_heart+1 OR board_heart-1)
@@ -315,19 +316,19 @@ UPDATE freeBoard_tbl
    SET board_heart = board_heart  (board_heart <= board_heart+1 OR board_heart-1)
  WHERE board_num = 30
 
-(2).F 하트 클릭 => 하트 insert
+--(2).F 하트 클릭 => 하트 insert
 INSERT INTO heart_tbl(heart_num, board_num, board_category, userID)
 VALUES ((SELECT NVL(MAX(heart_num)+1, 1) FROM heart_tbl), #{board_num}, #{board_category}, #{userID})
 
-(2).G 하트 취소 => 하트 delete 
+--(2).G 하트 취소 => 하트 delete 
 DELETE heart_tbl
  WHERE userID = #{userID}
    AND board_num = #{board_num}
    AND board_category = #{board_category}
 
-(3) 게시글 CRUD
+----(3) 게시글 CRUD
 
-(3).A 게시글 작성
+--(3).A 게시글 작성
 -- reviewBoard_tbl(후기)
 INSERT INTO reviewBoard_tbl(board_num, board_title, board_content, board_thumnail, board_image, board_writer) 
 VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM reviewBoard_tbl), #{board_title}, #{board_content}, #{board_thumnail}, #{board_image}, #{board_writer})
@@ -336,7 +337,7 @@ VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM reviewBoard_tbl), #{board_title}, 
 INSERT INTO freeBoard_tbl(board_num, board_title, board_content, board_thumnail, board_image, board_writer) 
 VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM freeBoard_tbl), #{board_title}, #{board_content}, #{board_thumnail}, #{board_image}, #{board_writer})
 
-(3).B 게시글 수정
+--(3).B 게시글 수정
 -- reviewBoard_tbl(후기)
 UPDATE reviewBoard_tbl 
    SET board_title = #{board_title}, board_content= #{board_content}, board_thumnail= #{board_thumnail}, board_image = #{board_image}
@@ -347,7 +348,7 @@ UPDATE freeBoard_tbl
    SET board_title = #{board_title}, board_content= #{board_content}, board_thumnail= #{board_thumnail}, board_image = #{board_image}
  WHERE board_num = #{board_num}
 
-(3).C 게시글 삭제
+--(3).C 게시글 삭제
 -- reviewBoard_tbl(후기)
  UPDATE reviewBoard_tbl 
     SET board_show = 'n'
@@ -358,8 +359,8 @@ UPDATE freeBoard_tbl
    SET board_show = 'n'
  WHERE board_num = 30
  
-(4) 댓글
-(4).A 댓글 목록조회
+--(4) 댓글
+--(4).A 댓글 목록조회
 -- reviewComment_tbl(후기)
 SELECT *
   FROM reviewComment_tbl
@@ -372,7 +373,7 @@ SELECT *
  WHERE board_num = 30
  ORDER BY comment_num DESC
 
-(4).B 댓글 작성
+--(4).B 댓글 작성
 -- reviewComment_tbl(후기)
 INSERT INTO reviewComment_tbl(comment_num, board_num, userID, content) 
 VALUES ((SELECT NVL(MAX(comment_num)+1, 1) FROM reviewComment_tbl), #{board_num}, #{userID}, #{content})
@@ -381,7 +382,7 @@ VALUES ((SELECT NVL(MAX(comment_num)+1, 1) FROM reviewComment_tbl), #{board_num}
 INSERT INTO freeComment_tbl(comment_num, board_num, userID, content) 
 VALUES ((SELECT NVL(MAX(comment_num)+1, 1) FROM freeComment_tbl), #{board_num}, #{userID}, #{content})
 
-(4).C 댓글 한건 조회
+--(4).C 댓글 한건 조회
 -- reviewComment_tbl(후기)
 SELECT *
   FROM reviewComment_tbl
@@ -392,7 +393,7 @@ SELECT *
   FROM freeComment_tbl
  WHERE comment_num = #{comment_num}
 
-(4).D 댓글 수정
+--(4).D 댓글 수정
 -- reviewComment_tbl(후기)
 UPDATE reviewComment_tbl 
    SET content = #{content}
@@ -403,7 +404,7 @@ UPDATE freeComment_tbl
    SET content = #{content}
  WHERE comment_num = #{comment_num}
 
-(4).F 댓글 삭제
+--(4).F 댓글 삭제
 -- reviewComment_tbl(후기)
 DELETE FROM reviewComment_tbl 
  WHERE comment_num = #{comment_num}
@@ -412,4 +413,125 @@ DELETE FROM reviewComment_tbl
 DELETE FROM freeComment_tbl 
  WHERE comment_num = #{comment_num}
 
+--[ mainShowMapper ]
+--(5) 컨텐츠 (공연/페스티벌)
+--(5).A 공연개수
+--show_tbl_fes(페스티벌)
+SELECT COUNT(*) as cnt
+ FROM show_tbl_fes
 
+--show_tbl(공연)
+SELECT COUNT(*) as cnt
+ FROM show_tbl
+
+--(5).B 공연 목록
+--show_tbl_fes(페스티벌)
+SELECT *
+  FROM 
+	(
+	SELECT showNum, showName, showCategory, showIndate, showPlace, showPrice, showTime, showAge, showBene, curCapacity, maxCapacity, showDay, showImage, show, ROWNUM AS rn
+	  FROM (
+        SELECT showNum, showName, showCategory, showIndate, showPlace, showPrice, showTime, showAge, showBene, curCapacity, maxCapacity, showDay, showImage, show,
+               ROW_NUMBER() OVER (PARTITION BY showName ORDER BY showNum DESC) as rn
+         FROM show_tbl_fes
+        WHERE show = 'y'
+    )
+    WHERE rn = 1
+) 
+WHERE rn BETWEEN TO_NUMBER(#{start}) AND TO_NUMBER(#{end})
+
+--show_tbl(공연)
+SELECT *
+  FROM 
+	(
+	SELECT showNum, showName, showCategory, showIndate, showPlace, showPrice, showTime, showAge, showBene, curCapacity, maxCapacity, showDay, showImage, show, ROWNUM AS rn
+	  FROM (
+        SELECT showNum, showName, showCategory, showIndate, showPlace, showPrice, showTime, showAge, showBene, curCapacity, maxCapacity, showDay, showImage, show,
+               ROW_NUMBER() OVER (PARTITION BY showName ORDER BY showNum DESC) as rn
+         FROM show_tbl
+        WHERE show = 'y'
+    )
+    WHERE rn = 1
+) 
+WHERE rn BETWEEN TO_NUMBER(#{start}) AND TO_NUMBER(#{end})
+
+--(5).C 공연 상세페이지
+--show_tbl_fes(페스티벌)
+SELECT * 
+  FROM show_tbl_fes
+ WHERE showNum=#{showNum}
+--show_tbl(공연)
+SELECT * 
+  FROM show_tbl
+ WHERE showNum=#{showNum}
+
+--[ chartMapper ]
+--(6) 현황차트
+--(6).A 전체 회원수 
+SELECT COUNT(*) AS cnt FROM mvc_customer_tbl
+ WHERE show='y'
+
+--(6).B 등록된 공연 및 페스티벌 수
+SELECT SUM(cnt)AS total 
+  FROM (
+		SELECT COUNT(*) AS cnt FROM show_tbl_fes
+		 WHERE show='y'
+		UNION ALL
+		SELECT COUNT(*) AS cnt FROM show_tbl
+		 WHERE show='y')
+
+--(6).C 일주일 간 등록된 게시물 수
+SELECT SUM(cnt) 
+  FROM (
+		SELECT COUNT(*) AS cnt FROM reviewBoard_tbl
+		 WHERE board_show = 'y'
+		   AND board_regDate BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE
+	    UNION ALL
+		SELECT COUNT(*) AS cnt FROM freeBoard_tbl
+		 WHERE board_show = 'y'
+		   AND board_regDate BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE)
+
+--(6).D 일일 등록 게시글 수	
+SELECT TRUNC(board_regDate) AS board_regDate, COUNT(board_regDate) AS board_count 
+  FROM (
+		SELECT * FROM reviewBoard_tbl
+		WHERE board_show = 'y'
+		UNION ALL
+		SELECT *  FROM freeBoard_tbl
+		WHERE board_show = 'y')
+GROUP BY TRUNC(board_regDate)	
+
+--(6).E 일주일 간 예매된 수량
+SELECT COUNT(*) AS cnt FROM show_Reservation
+ WHERE Reservation_dateNow BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE
+--(6).F 일일  예매 수량
+SELECT TRUNC(Reservation_dateNow) AS reservation_date,  
+	   COUNT(Reservation_dateNow) AS reserv_count 
+  FROM show_Reservation
+ GROUP BY TRUNC(Reservation_dateNow)
+ ORDER BY reservation_date ASC
+--(6).G 인기 게시글 목록
+SELECT * 
+  FROM (
+		SELECT A.*, rownum AS rn
+		  FROM (
+		        SELECT * FROM(
+		        SELECT * FROM reviewBoard_tbl
+		         WHERE board_show = 'y'
+        		 UNION ALL
+		        SELECT * FROM freeBoard_tbl
+		         WHERE board_show = 'y')
+		         ORDER BY board_views DESC
+        		) A )
+WHERE rn <= 5
+
+--(6).H 일일 방문자수
+SELECT TRUNC(visit_date) AS visit_date,  
+	   COUNT(visit_date) AS visit_count 
+  FROM visit_tbl
+GROUP BY TRUNC(visit_date)
+ORDER BY visit_date ASC
+
+--(6).I 방문자 수 추가
+INSERT INTO visit_tbl
+VALUES((SELECT NVL(MAX(visit_num)+1, 1) FROM visit_tbl), sysdate)
