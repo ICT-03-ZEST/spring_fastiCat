@@ -26,14 +26,15 @@ $(function() {
   	<!-- header 시작-->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- header 끝-->
-    <h3 class="h3_category">
-	    <c:if test="${showCategory == 'festival'}">
-	       	페스티벌 정보
-	     </c:if>
-	     <c:if test="${showCategory != 'festival'}">
-	      	공연 정보
-	     </c:if>
-     </h3>
+	    <h3 class="h3_category">
+		    <c:if test="${showCategory == 'festival'}">
+		       	페스티벌 정보
+		     </c:if>
+		     <c:if test="${showCategory != 'festival'}">
+		      	공연 정보
+		     </c:if>
+	     </h3>
+     
     <div class="info" id="detail1">
     <!--상세페이지1 시작-->
     
@@ -44,7 +45,8 @@ $(function() {
 	                <li><div class="photo"><img src="${dto.showImage}"></div></li>
 	                <%-- <li><div class="buy_ticket"><a href="${path}/showTicket_Detail.do">예매하기</a></div></li> --%>
 	            	<li class="showName">${dto.showName}</<li>
-	            </ul>   
+	            </ul>  
+	             
 				            
 	            <!--상세 정보-->  
 	            <table class="descript" cellspacing="0" cellpadding="0">
@@ -77,6 +79,7 @@ $(function() {
         </div>
         <!-- 목록으로 돌아가기 -->
 	    <div class="div_back">
+	    	<%--  <div><a class="reservationBtn" href="${path}/showTicket_Detail.do">예매하기</a></div> --%>
 	    	 <div class="btn_back_box">
 	        	<button class="btn_back" id="btn_back">목록</button>   
 	    	</div>
