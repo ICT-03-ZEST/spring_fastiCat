@@ -20,7 +20,7 @@
     </table>
 </div>
 <div>
-    <button class="pop_button" onclick="pwdChk()">확인</button>
+    <button class="pop_button" onclick="pwdChk('${page}')">확인</button>
     <button class="pop_button" onclick="closePopup()">취소</button>
 </div>
 </body>

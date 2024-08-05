@@ -41,7 +41,7 @@ public class UserAuthenticationService implements UserDetailsService {
    @Override
    public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
       
-      CustomerDTO dto = sqlSession.selectOne("com.spring.fasticat.dao.CustomerDAO.selectCustomer", userid);
+      CustomerDTO dto = sqlSession.selectOne("com.spring.ict03_fasticat.dao.CustomerDAO.selectCustomer", userid);
       System.out.println("시큐리티 로그인 체크 => " + dto);
       
       // 로그인 인증 실패시 인위적으로 예외를 생성해서 던진다.

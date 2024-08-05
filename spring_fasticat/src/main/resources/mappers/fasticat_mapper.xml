@@ -3,7 +3,7 @@
 	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	  
-	 <mapper namespace="com.spring.fasticat.dao.MyPageDAO">  <!-- namespace="패키지명.인터페이스" -->
+	 <mapper namespace="com.spring.ict03_fasticat.dao.MyPageDAO">  <!-- namespace="패키지명.인터페이스" -->
 					
 		<select id="idPasswordChk" parameterType="java.util.Map" resultType="int">
 			SELECT COUNT(*) FROM mvc_customer_tbl WHERE userid=#{strId, jdbcType=VARCHAR} and password=#{strPwd}
@@ -13,11 +13,11 @@
 			DELETE FROM mvc_customer_tbl WHERE userid = #{strId, jdbcType=VARCHAR}
 		</delete>
 		
-		<select id="getUserDetail" parameterType="String" resultType="com.spring.fasticat.dto.MyPageDTO">
+		<select id="getUserDetail" parameterType="String" resultType="com.spring.ict03_fasticat.dto.MyPageDTO">
 			SELECT * FROM mvc_customer_tbl WHERE userid= #{strId, jdbcType=VARCHAR}
 		</select>
 		
-		<update id="updateUser" parameterType="com.spring.fasticat.dto.MyPageDTO">
+		<update id="updateUser" parameterType="com.spring.ict03_fasticat.dto.MyPageDTO">
 			UPDATE mvc_customer_tbl 
 				SET password = #{password}, 
 					username = #{username} , 
@@ -28,7 +28,7 @@
 				WHERE userid = #{userid}
 		</update>
 		
-		<select id="myBoardList" parameterType="java.util.Map" resultType="com.spring.fasticat.dto.BoardDTO">
+		<select id="myBoardList" parameterType="java.util.Map" resultType="com.spring.ict03_fasticat.dto.BoardDTO">
 				SELECT * 
 				FROM ( 
 					SELECT A.*, 
@@ -54,7 +54,7 @@
 				WHERE rn BETWEEN #{start} AND #{end}
 		</select>
 		
-		<select id="myCommentList" parameterType="java.util.Map" resultType="com.spring.fasticat.dto.CommentDTO">
+		<select id="myCommentList" parameterType="java.util.Map" resultType="com.spring.ict03_fasticat.dto.CommentDTO">
 				SELECT * 
 					FROM (
 					    SELECT A.*, rownum AS rn 

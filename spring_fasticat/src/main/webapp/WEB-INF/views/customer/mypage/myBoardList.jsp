@@ -19,11 +19,11 @@
         
     };
     
-	function pwdChk() {
+	function pwdChk(page) {
 		   
 		   let param = {
 			  "password": $('#pwd_chk').val(),
-			  "page": "board"
+			  "page": page
 		   };
 		   
 		   $('#pwd_chk').val('');
@@ -33,11 +33,11 @@
 	           type : 'POST',
 	           data : param,                  //요청데이터 형식(html,xml,json,text)
 	           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-	        	  let result = document.getElementById("bd_del_chk_popup");
+	        	  let result = document.getElementById("chk_popup");
 	         	  result.innerHTML = data;
 	           },
 	           error : function(){
-	              alert('bdDelPwdChk() 오류');
+	              alert('pwdChk() 오류');
 	           }
 	        });
 		   
@@ -71,7 +71,8 @@
 	             data: { 'num_list': num_list, 'category': category },
 	             success: function(response) {
 	                 alert("삭제가 완료되었습니다.");
-	                 bdDelChkClosePopup();
+	                 
+	                 closePopup();
 	                 toggleTable(category, 1);
 	             },
 	             error: function(xhr, status, error) {
@@ -103,21 +104,26 @@
   	        });
     }
 	
-	//취소 버튼 누를 시
-	 function returnPwdChk() {
-	        
-  		   $.ajax({
-  	           url :'${path}/returnPwdChk.myp' ,         //3.
-  	           type : 'POST',
-  	           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-  	        	  let result = document.getElementById("bd_del_chk_popup");
-  	         	  result.innerHTML = data;
-  	           },
-  	           error : function(){
-  	              alert('returnPwdChk() 오류');
-  	           }
-  	        });
-    }
+	//비밀번호 확인 화면 되돌리기
+	function returnPwdChk(page) {
+		
+		let param = {
+		   	  "page" : page 
+		  };
+		    
+		  $.ajax({
+	         url :'${path}/returnPwdChk.myp' ,         //3.
+	         type : 'POST',
+	         data : param,         
+	         success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+	      	  let result = document.getElementById("chk_popup");
+	       	  result.innerHTML = data;
+	         },
+	         error : function(){
+	            alert('returnPwdChk() 오류');
+	         }
+		  });
+	}
 	
 	
 	</script>
@@ -152,7 +158,7 @@
 		    <div class="backMyPage" align="center">
 			    <div class="writing">
 			        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="window.location='${path}/myWriting.bc'">
-			        <input type="button" name="delete" class="delete" value="삭제" onclick="openPopup()">
+			        <input type="button" name="delete" class="delete" value="삭제" onclick="openPopup('board')">
 			    </div>
 			    <!-- 목록으로 돌아가기  - 소연-->
 				<button class="btn_backmypage" onclick="window.location='${path}/mypage.myp'">마이페이지</button>
@@ -161,24 +167,25 @@
 	</div>
 	
 	<!-- 게시글 삭제 본인 확인 -->
-    <div id="bd_del_chk_popup" class="bd_del_chk_popup"></div>
+    <div id="chk_popup" class="chk_popup"></div>
 	
   	<!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<!-- footer 끝-->
 	
   <script type="text/javascript">
-	//게시글 삭제 확인 팝업
-	function openPopup() {
-		returnPwdChk()
+	//팝업 열기
+	function openPopup(page) {
+		returnPwdChk(page)
 		
-	    document.getElementById('bd_del_chk_popup').style.display = 'block';
+	    document.getElementById('chk_popup').style.display = 'block';
 	    $('.dis_btn').prop('disabled', true);
 	    $(".page_out").css("opacity","30%");
 	}
 	
+	//팝업 닫기
 	function closePopup() {
-	    document.getElementById('bd_del_chk_popup').style.display = 'none';
+	    document.getElementById('chk_popup').style.display = 'none';
 	    $('.dis_btn').prop('disabled', false);
 	    $(".page_out").css("opacity","");
 	}

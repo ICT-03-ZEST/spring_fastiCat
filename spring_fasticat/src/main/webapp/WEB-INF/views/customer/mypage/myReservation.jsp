@@ -12,37 +12,51 @@
 
 	<script type="text/javascript">
 	
-    window.onload = function() {
-
-    };
-    
-	function resCancelPwdChk(resNum) {
-		   
-		   let param = {
-			  "password": $('#pwd_chk').val(),
-			  "page": "reservation"
-		   };
-		   
-		   $('#pwd_chk').val('');
-		   
-		   $.ajax({
-	           url :'${path}/pwdChk.myp' ,         //3.
-	           type : 'POST',
-	           data : param,                  //요청데이터 형식(html,xml,json,text)
-	           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-	        	  let result = document.getElementById("res_cancel_popup");
-	         	  result.innerHTML = data;
-	           	  
-	        	  resCancelChkClosePopup();
-	        	  resCancelShowPopup();
-	           },
-	           error : function(){
-	              alert('resCancelPwdChk() 오류');
-	           }
-	        });
-		   
-	   }
+   function pwdChk(page) {
+	   
+	   let param = {
+		  "password": $('#pwd_chk').val(),
+		  "page": page
+	   };
+	   
+	   $('#pwd_chk').val('');
+	   
+	   $.ajax({
+           url :'${path}/pwdChk.myp' ,         //3.
+           type : 'POST',
+           data : param,                  //요청데이터 형식(html,xml,json,text)
+           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+        	  let result = document.getElementById("chk_popup");
+         	  result.innerHTML = data;
+           },
+           error : function(){
+              alert('pwdChk() 오류');
+           }
+        });
+	   
+   }
+	   
+	//비밀번호 확인 화면 되돌리기
+	function returnPwdChk(page) {
 	
+	   let param = {
+	    	  "page" : page 
+	 	   };
+	       
+	   $.ajax({
+	          url :'${path}/returnPwdChk.myp' ,         //3.
+	          type : 'POST',
+	          data : param,         
+	          success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+	       	  let result = document.getElementById("chk_popup");
+	        	  result.innerHTML = data;
+	          },
+	          error : function(){
+	             alert('returnPwdChk() 오류');
+	          }
+	       });
+	}
+    
 	function resCancelConfirm() {
            
 		   let resNum = $('#hidden_res_num').val();
@@ -56,7 +70,7 @@
                 alert("취소가 완료되었습니다.");
                 
                 $('#hidden_res_num').val('');
-                resCancelClosePopup();
+                closePopup();
                 location.reload();
             },
             error: function(xhr, status, error) {
@@ -100,7 +114,7 @@
 			            <td class="resDate">${dto.resDate}</td>
 			            <td class="totalPrice">${dto.totalPrice}</td>
 			            <td class="td_cancel_btn">
-			            	<input type="button" name="cancel" class="cancel" value="예매취소" onclick="resCancelChkShowPopup(${dto.showId})">
+			            	<input type="button" name="cancel" class="cancel" value="예매취소" onclick="openPopup('reservation',${dto.showId})">
 			            </td>
 		        	</tr> 
            		</c:forEach>
@@ -136,28 +150,8 @@
 	</div>
 	
 	<!-- 게시글 삭제 확인 팝업 -->
-    <div id="res_cancel_popup" class="res_cancel_popup">
-        
-    </div>
+    <div id="chk_popup" class="chk_popup"></div>
     
-	<!-- 게시글 삭제 본인 확인 -->
-    <div id="res_cancel_chk_popup" class="res_cancel_chk_popup">
-        <div class="popup-header">비밀번호 확인</div>
-        
-        <div class="chk_popup-body"> 
-            비밀번호를 입력해주세요
-            <table>
-            	<tr>
-            		<td>비밀번호</td>
-            		<td><input id="pwd_chk" class="pwd_chk" type="text" placeholder="비밀번호확인"></td>
-            	</tr>
-            </table>
-        </div>
-        <div>
-            <button class="pop_button" onclick="resCancelPwdChk()">확인</button>
-            <button class="pop_button" onclick="resCancelChkClosePopup()">취소</button>
-        </div>
-    </div>
 	
   	<!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
@@ -165,16 +159,17 @@
 	
   <script type="text/javascript">
 	//예매 취소 확인 팝업
-	function resCancelChkShowPopup(resNum) {
+	function openPopup(page, resNum) {
 		$('#hidden_res_num').val(resNum);
+		returnPwdChk(page);
 		  
-	    document.getElementById('res_cancel_chk_popup').style.display = 'block';
+	    document.getElementById('chk_popup').style.display = 'block';
 	    $('.dis_btn').prop('disabled', true);
 	    $(".page_out").css("opacity","30%");
 	}
 	
-	function resCancelChkClosePopup() {
-	    document.getElementById('res_cancel_chk_popup').style.display = 'none';
+	function closePopup() {
+	    document.getElementById('chk_popup').style.display = 'none';
 	    $('.dis_btn').prop('disabled', false);
 	    $(".page_out").css("opacity","");
 	}

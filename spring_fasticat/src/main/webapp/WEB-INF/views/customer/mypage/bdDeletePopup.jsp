@@ -10,15 +10,15 @@
 <body>
 
 <c:if test="${selectCnt == 1}">
-	<div class="popup-header">회원탈퇴 확인</div>
-        <div class="del_popup-body"> 
-            회원탈퇴시 회원님의 게시글은 바로 삭제가 되며 복구할 수 없습니다. <br>
-            회원탈퇴를 하시겠습니까? 
+	<div class="popup-header">회원수정 확인</div>
+        <div class="chk_popup-body"> 
+            삭제한 게시물은 복구 하실 수 없습니다. <br>
+            선택한 게시물을 삭제 하시겠습니까?
         </div>
         <div>
-        	<button class="pop_button" onclick="deleteConfirm()">탈퇴</button>
-            <button class="pop_button" onclick="deleteCancel()">취소</button>
-        </div>
+        <button class="pop_button" onclick="deleteConfirm()">확인</button>
+        <button class="pop_button" onclick="closePopup()">취소</button>
+   </div>
 </c:if>
 
 <c:if test="${selectCnt != 1}">
@@ -29,14 +29,14 @@
 	    <table>
 	    	<tr>
 	    		<td>비밀번호</td>
-	    		<td><input id="del_pwd_chk" class="del_pwd_chk" type="text" placeholder="비밀번호확인"></td>
+	    		<td><input id="pwd_chk" class="pwd_chk" type="text" placeholder="비밀번호확인"></td>
 	    	</tr>
 	    </table>
     </div>
 </div>
 <div>
-    <button class="pop_button" onclick="delPwdChk()">확인</button>
-    <button class="pop_button" onclick="deleteCancel()">취소</button>
+	<button class="pop_button" onclick="pwdChk('board')">확인</button>
+	<button class="pop_button" onclick="closePopup()">취소</button>
 </div>
 </c:if>
 

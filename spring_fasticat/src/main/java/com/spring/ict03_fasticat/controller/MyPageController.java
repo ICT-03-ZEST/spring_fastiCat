@@ -140,7 +140,7 @@ public class MyPageController {
 		
 		// 게시물 삭제 비밀번호 인증
 		if("board".equals(page)) {
-		return "customer/mypage/bdDelete";
+		return "customer/mypage/bdDeletePopup";
 		// 나의 예매 내역 취소 비밀번호 확인
 		} else if ("reservation".equals(page)) {
 		return "customer/mypage/myResCancelPopup";
@@ -162,6 +162,10 @@ public class MyPageController {
 	public String returnPwdChk(HttpServletRequest request, HttpServletResponse response , Model model)
     		throws ServletException, IOException {
 		logger.info("<<< url ==> /returnPwdChk.myp >>>");
+		
+		String page = request.getParameter("page");
+		
+		model.addAttribute("page", page);
 		
 		return "customer/mypage/pwdChkPopup";
 	}

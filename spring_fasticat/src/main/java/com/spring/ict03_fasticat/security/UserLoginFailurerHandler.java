@@ -36,10 +36,10 @@ public class UserLoginFailurerHandler implements AuthenticationFailureHandler {
       String strId = request.getParameter("userid");
       String strPassword = request.getParameter("password");
       
-      int selectCnt = sqlSession.selectOne("com.spring.fasticat.dao.CustomerDAO.useridCheck", strId);
+      int selectCnt = sqlSession.selectOne("com.spring.ict03_fasticat.dao.CustomerDAO.useridCheck", strId);
       if(selectCnt != 0) {
          // 암호화된 비밀번호 가져오기(회원가입시 비밀번호 암호화 처리)
-         String encryptPassword = sqlSession.selectOne("com.spring.fasticat.dao.CustomerDAO.userPasswordCheck", strId);
+         String encryptPassword = sqlSession.selectOne("com.spring.ict03_fasticat.dao.CustomerDAO.userPasswordCheck", strId);
          System.out.println("화면에서 입력받은 비밀번호 : " + strPassword);
          System.out.println("암호화된 비밀번호 : " + encryptPassword);
          

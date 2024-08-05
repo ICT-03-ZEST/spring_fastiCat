@@ -28,7 +28,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 		String strId = (String) map.get("strId");
 		String strPwd = (String) map.get("strPwd");
 		
-        String encryptPassword = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.userPasswordCheck", strId);
+        String encryptPassword = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.userPasswordCheck", strId);
         System.out.println("화면에서 입력받은 비밀번호 : " + strPwd);
         System.out.println("암호화된 비밀번호 : " + encryptPassword);
         
@@ -46,7 +46,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int deleteUser(String strId) {
 		System.out.println("DAO - deleteUser");
 		
-		int deleteCnt = sqlSession.delete("com.spring.fasticat.dao.MyPageDAO.deleteUser", strId);	
+		int deleteCnt = sqlSession.delete("com.spring.ict03_fasticat.dao.MyPageDAO.deleteUser", strId);	
 		
 		return deleteCnt;
 	}
@@ -56,7 +56,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public MyPageDTO getUserDetail(String strId) {
 		System.out.println("DAO - getUserDetail");
 			
-		MyPageDTO dto = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.getUserDetail", strId);
+		MyPageDTO dto = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.getUserDetail", strId);
 		
 		// 5. CustomerDTO를 리턴한다.
 		return dto;
@@ -67,7 +67,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int updateUser(MyPageDTO dto) {
 		System.out.println("DAO - updateUser");
 		
-		int updateCnt = sqlSession.update("com.spring.fasticat.dao.MyPageDAO.updateUser", dto);
+		int updateCnt = sqlSession.update("com.spring.ict03_fasticat.dao.MyPageDAO.updateUser", dto);
 		
 		return updateCnt;
 	}
@@ -77,7 +77,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public List<BoardDTO> myBoardList(Map<String, Object> map) {
 		System.out.println("MyPageDAO - myBoardList");
 		
-		List<BoardDTO> list = sqlSession.selectList("com.spring.fasticat.dao.MyPageDAO.myBoardList", map);
+		List<BoardDTO> list = sqlSession.selectList("com.spring.ict03_fasticat.dao.MyPageDAO.myBoardList", map);
 				
 		System.out.println("list : " + list);
 		return list;
@@ -89,7 +89,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public List<BoardDTO> myCommentList(Map<String, Object> map) {
 		System.out.println("MyPageDAO - myCommentList");
 		
-		List<BoardDTO> list = sqlSession.selectList("com.spring.fasticat.dao.MyPageDAO.myCommentList", map);
+		List<BoardDTO> list = sqlSession.selectList("com.spring.ict03_fasticat.dao.MyPageDAO.myCommentList", map);
 				
 		System.out.println("list : " + list);
 		return list;
@@ -100,7 +100,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int myBoardCnt(Map<String, Object> map) {
 		System.out.println("MyPageDAO - myBoardCnt");
 
-		int total = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.myBoardCnt", map);
+		int total = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.myBoardCnt", map);
 			
 		// 5. CustomerDTO를 리턴한다.
 		return total;
@@ -112,7 +112,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int myCommentCnt(String strId) {
 		System.out.println("MyPageDAO - myCommentCnt");
 		
-		int total = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.myCommentCnt", strId);
+		int total = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.myCommentCnt", strId);
 			
 		// 5. CustomerDTO를 리턴한다.
 		return total;
@@ -123,7 +123,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int boardDelete(Map<String, Object> map) {
 		System.out.println("DAO - boardDelete");
 		
-		int deleteCnt = sqlSession.delete("com.spring.fasticat.dao.MyPageDAO.boardDelete", map);
+		int deleteCnt = sqlSession.delete("com.spring.ict03_fasticat.dao.MyPageDAO.boardDelete", map);
 			
 		return deleteCnt;
 	}
@@ -133,7 +133,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int resBoardCnt(String strId) {
 		System.out.println("MyPageDAO - resBoardCnt");
 		
-		int total = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.resBoardCnt", strId);
+		int total = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.resBoardCnt", strId);
 		
 		return total;
 	}
@@ -143,7 +143,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public List<MyReservationDTO> resBoardList(Map<String, Object> map) {
 		System.out.println("MyPageDAO - resBoardList");
 		
-		List<MyReservationDTO> list = sqlSession.selectList("com.spring.fasticat.dao.MyPageDAO.resBoardList", map);
+		List<MyReservationDTO> list = sqlSession.selectList("com.spring.ict03_fasticat.dao.MyPageDAO.resBoardList", map);
 			
 		return list;
 	}
@@ -152,7 +152,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int resDelete(Map<String, Object> map) {
 		System.out.println("DAO - resDelete");
 		
-		int deleteCnt = sqlSession.selectOne("com.spring.fasticat.dao.MyPageDAO.resDelete", map);
+		int deleteCnt = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.resDelete", map);
 		
 		return deleteCnt;
 	}

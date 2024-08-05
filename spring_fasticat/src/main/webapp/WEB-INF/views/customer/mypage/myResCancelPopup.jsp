@@ -17,7 +17,7 @@
         </div>
         <div>
         	<button class="pop_button" onclick="resCancelConfirm()">탈퇴</button>
-            <button class="pop_button" onclick="resCancelClosePopup()">취소</button>
+            <button class="pop_button" onclick="closePopup()">취소</button>
         </div>
 </c:if>
 
@@ -35,8 +35,8 @@
     </div>
 </div>
 <div>
-    <button class="pop_button" onclick="resCancelPwdChk()">확인</button>
-    <button class="pop_button" onclick="resCancelClosePopup()">취소</button>
+    <button class="pop_button" onclick="pwdChk('reservation')">확인</button>
+    <button class="pop_button" onclick="closePopup()">취소</button>
 </div>
 </c:if>
 

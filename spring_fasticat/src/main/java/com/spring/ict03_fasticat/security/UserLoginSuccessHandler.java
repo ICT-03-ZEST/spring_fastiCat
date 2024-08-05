@@ -35,7 +35,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
       
       String msg = authentication.getName() + "님 환영합니다.";
       
-      String authority = sqlSession.selectOne("com.spring.fasticat.dao.CustomerDAO.authorityCheck", authentication.getName());
+      String authority = sqlSession.selectOne("com.spring.ict03_fasticat.dao.CustomerDAO.authorityCheck", authentication.getName());
       
       request.setAttribute("msg", msg);
       request.getSession().setAttribute("sessionID", authentication.getName());  // 세션추가

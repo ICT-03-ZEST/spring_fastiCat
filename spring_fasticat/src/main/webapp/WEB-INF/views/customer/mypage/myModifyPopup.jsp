@@ -19,7 +19,7 @@ $(function(){	// 상세페이지가 로딩화면
 
 <c:if test="${selectCnt == 1}">
 
-	<span class="popup-close" onclick="upCancelPopup()">X</span>
+	<span class="popup-close" onclick="closePopup()">X</span>
 	    <div class="popup-header">회원정보 수정</div>
 	    <div class="popup-body"> 
 	        <div id="mod" class="mod">  
@@ -122,8 +122,8 @@ $(function(){	// 상세페이지가 로딩화면
 				        <td colspan="2" style="border-bottom: none">
 				            <br>
 				            <div align="right">
-				                 <button class="inputButton" onclick="confirmPopup()">저장</button>
-				                 <button class="inputButton" onclick="upCancelPopup()">취소</button>
+				                 <button class="inputButton" onclick="updateConfirm()">저장</button>
+				                 <button class="inputButton" onclick="closePopup()">취소</button>
 				            </div>
 				        </td>
 				    </tr>
@@ -149,8 +149,8 @@ $(function(){	// 상세페이지가 로딩화면
 			    </table>
 			</div>
 			<div>
-			    <button class="pop_button" onclick="upPwdChk()">확인</button>
-			    <button class="pop_button" onclick="updateCancel()">취소</button>
+			    <button class="pop_button" onclick="pwdChk('modify')">확인</button>
+			    <button class="pop_button" onclick="closePopup">취소</button>
 			</div>
 	        </div>
 	    </div>
