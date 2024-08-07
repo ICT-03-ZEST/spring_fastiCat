@@ -146,8 +146,7 @@ tbody tr:hover {
 }
 
 /* 팝업 창 */
-.bd_del_chk_popup, .bd_del_popup,
-.res_cancel_chk_popup, .res_cancel_popup{
+.chk_popup{
     display: none;
     position: fixed;
     left: 50%;

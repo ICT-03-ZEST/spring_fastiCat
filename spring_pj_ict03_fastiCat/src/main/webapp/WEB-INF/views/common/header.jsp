@@ -30,13 +30,13 @@
 			src="${path }/resources/images/festicat.PNG" width="155px"
 			height="50px" id="festicat"></a>
 		<ul class="navbar_menu">
-			<li><a href="${path}/showList.pf?showCategory=concert">국내공연</a></li>
-			<li><a href="${path}/showList.pf?showCategory=festival">국내 페스티벌</a></li>
+			<li><a href="${path}/concertList.cc">국내공연</a></li>
+			<li><a href="${path}/festivalList.fv">국내 페스티벌</a></li>
 			<li><a href="${path}/searchEvent.sc">공연 검색</a></li>
 			<li><a href="#">게시판</a>
 				<ul class="submenu">
-					<li><a href="${path}/board.bc?board_category=review">공연후기</a></li>
-					<li><a href="${path}/board.bc?board_category=free">자유게시판</a></li>
+					<li><a href="${path}/board.bc?board_category=공연후기">공연후기</a></li>
+					<li><a href="${path}/board.bc?board_category=자유">자유게시판</a></li>
 					<li><a href="${path}/notice_boardList.nb">공지사항 게시판</a></li>
 				</ul>
 		</ul>

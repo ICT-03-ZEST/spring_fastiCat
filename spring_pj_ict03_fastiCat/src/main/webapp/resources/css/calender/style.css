@@ -74,6 +74,53 @@ body {
     padding: 10px;
 }
 
+<<<<<<< HEAD
+/* 날짜 셀 스타일 */
+.date-container {
+    background-color: #fff;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    position: relative;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    overflow: hidden;
+}
+
+.date-number {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.date-week {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.empty {
+    background-color: #f0f0f0;
+}
+
+/* 공연 목록 스타일 */
+.show-list {
+    margin-top: 5px;
+    max-height: 70px; /* Ensure it fits within the date container */
+    overflow-y: auto;
+}
+
+.show-name {
+    background-color: #ffb01f;
+    color: #fff;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    margin-top: 2px;
+    text-align: left;
+    word-wrap: break-word;
+=======
 .date-container {
     background-color: #fff;
     padding: 10px;
@@ -125,4 +172,5 @@ body {
     background-color: #ccc; /* Gray background for full capacity */
     color: #999; /* Text color */
     cursor: not-allowed; /* Disabled cursor for non-clickable items */
+>>>>>>> refs/heads/main
 }

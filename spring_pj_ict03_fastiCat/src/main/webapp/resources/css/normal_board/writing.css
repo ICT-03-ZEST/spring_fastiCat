@@ -1,30 +1,45 @@
 @charset "UTF-8";
 /* border: 1px solid black;*/
 .outline {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-content: center;
-	margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    margin: 0 auto;
 }
 
 .container {
+<<<<<<< HEAD
+    font-size: 20px;
+    margin: 20px auto;
+    border: 1px solid gainsboro;
+    border-radius: 5px;
+=======
 	font-size: 20px;
 	margin: 20px auto;
 	border: 1px solid gainsboro;
 	border-radius: 5px;
 	width: 800px;
+>>>>>>> refs/heads/main
 }
-
 .nav_title h3 {
-	color: black;
-	font-size: 25px;
-	margin-top: 50px
+   color: black;
+   font-size: 25px;
+   margin-top: 50px
 }
 .td_title {
 	width: 100px;
 }
 .title {
+<<<<<<< HEAD
+    height: 50px;
+    margin: 20px;
+    font-size: 25px;
+    border: none;
+    border-bottom: 2px solid orange;
+    cursor: pointer;
+} 
+=======
 	height: 50px;
 	margin: 30px;
 	font-size: 25px;
@@ -32,12 +47,32 @@
 	border-bottom: 2px solid orange;
 	cursor: pointer;
 }
+>>>>>>> refs/heads/main
 
-.title:hover, .title:focus {
-	outline: none;
+.title :hover, .title :focus {
+       border: 3px solid rgba(255, 166, 0, 0.534);
+       border-radius: 4px;
+       outline: none;
+}
+.title ::placeholder {
+    color: gainsboro;
 }
 
 select {
+<<<<<<< HEAD
+    height: 40px;
+    width: 120px;
+    margin: 10px 30px 10px 20px;
+    font-size: 20px; 
+    border: none;
+    border-bottom: 1px solid orange;
+    border-radius: 5px;
+    cursor: pointer;
+}
+select:hover, select:focus {
+        border: 1px solid orange;
+        outline: none;
+=======
 	height: 40px;
 	width: 120px;
 	font-size: 20px;
@@ -45,98 +80,124 @@ select {
 	border-radius: 5px;
 	cursor: pointer;
 	margin-left: 30px;
+>>>>>>> refs/heads/main
 }
 
 .btn_upload {
-	width: 150px;
-	height: 30px;
-	background: #fff;
-	border: 1px solid orange;
-	border-radius: 5px;
-	font-weight: 300;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-left: 30px;
-}
-
+    width: 150px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid orange;
+    border-radius: 5px;
+    font-weight: 300;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 30px;
+  }
 .btn_upload:hover {
-	background: orange;
-	color: #fff;
-}
-
+   background: orange;
+   color: #fff;
+ }
+    
 .div_medium {
-	display: flex;
+    display: flex;
+    
 }
-
-.label_file>input {
-	margin-left: 30px;
+.label_file > input {
+   margin-left: 30px;
 }
-
+  
 .thumnail {
-	width: 150px;
-	height: 30px;
-	background: #fff;
-	border: 1px solid orange;
-	border-radius: 5px;
-	font-weight: 300;
-	cursor: pointer;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
+    width: 150px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid orange;
+    border-radius: 5px;
+    font-weight: 300;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+  }
+  
 .thumnail:hover {
-	background: orange;
-	color: #fff;
-}
-
+   background: orange;
+   color: #fff;
+ }
+ 
 .hr_between {
+<<<<<<< HEAD
+    width: 550px;
+    margin-top: 20px;
+    border: 1px solid gainsboro;
+
+=======
 	width: 750px;
 	margin-top: 30px;
 	border: 1px solid gainsboro;
+>>>>>>> refs/heads/main
 }
 
 textarea {
-	padding: 30px;
-	font-size: 20px;
-	outline: none;
-	border: none;
-	border-radius: 5px;
+    padding: 30px;
+    font-size: 20px;
+    outline: none;
+    margin: 20px 20px;
+    border: none;
+    background-color: antiquewhite;
+    border-radius: 5px;
 }
 
 /* 버튼 */
 .input_btn {
+<<<<<<< HEAD
+    width: 880px;
+    text-align: right;  
+    margin: 0 auto; 
+=======
 	width: 800px;
 	text-align: right;
 	margin: 0 auto;
+>>>>>>> refs/heads/main
 }
 
 .input_btn input {
-	margin-left: 20px;
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	background-color: #ffa5009c;
-	font-size: 15px;
-	color: white;
-	font-weight: bold;
+    margin-left: 20px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(235, 185, 235, 0.836);
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
 }
-
 .input_btn input:hover, .input_btn input:focus {
-	box-shadow: 0 0 6px gray;
-	cursor: pointer;
+    box-shadow: 0 0 6px gray;
+    cursor: pointer;
 }
 
 /* 이미지 파일 추가 */
 #imageContainer {
 	display: flex;
 	flex-direction: column;
+	
 }
 
 /* 파일버튼 */
 .btn_choice {
+<<<<<<< HEAD
+    padding: 5px;
+    border: 3px solid gray;
+    border-radius: 5px;
+    background: white;
+    font-size: 18px;
+    color: gray;
+    font-weight: bold;
+    margin-left: 20px;
+=======
 	padding: 5px;
 	border: 3px solid gray;
 	border-radius: 5px;
@@ -145,8 +206,8 @@ textarea {
 	color: gray;
 	font-weight: bold;
 	margin-left: 30px;
+>>>>>>> refs/heads/main
 }
-
 .btn_choice:hover {
 	background: gray;
 	color: white;
@@ -154,9 +215,19 @@ textarea {
 }
 
 .input_file {
-	display: none;
+	display: none;	
 }
 
 .file_name {
+<<<<<<< HEAD
+	margin-top: 10px;
+}
+
+
+
+
+ 
+=======
 	margin-left: 20px;
 }
+>>>>>>> refs/heads/main

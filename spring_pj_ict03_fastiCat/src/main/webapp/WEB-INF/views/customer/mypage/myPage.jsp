@@ -11,56 +11,9 @@
 <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
-   
-   function upPwdChk() {
-	   
-	   let param = {
-		  "password": $('#up_pwd_chk').val(),
-	   };
-	   
-	   $.ajax({
-           url :'${path}/modifyPwdChk.myp' ,         //3.
-           type : 'POST',
-           data : param,                  //요청데이터 형식(html,xml,json,text)
-           success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-        	  let result = document.getElementById("mod_popup");
-        	  result.innerHTML = data;
-           	  
-              upChkCancel();
-              showPopup();
-           },
-           error : function(){
-              alert('upPwdChk() 오류');
-           }
-        });
-	   
-   }
-   
-	function delPwdChk() {
-	   
-	   let param = {
-		  "password": $('#del_pwd_chk').val(),
-	   };
-	   
-	   $.ajax({
-           url :'${path}/deletePwdChk.myp' ,         //3.
-           type : 'POST',
-           data : param,                  //요청데이터 형식(html,xml,json,text)
-           success : function(data){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-        	  let result = document.getElementById("del_popup");
-         	  result.innerHTML = data;
-         	  
-              delChkCancel();
-              delPopup();
-           },
-           error : function(){
-              alert('delPwdChk() 오류');
-           }
-        });
-	   
-   }
-   
+
 	function updateConfirm() {
+	if(validate()){
 	   if($('#password').val() != $('#repassword').val()){
 		   alert("비밀번호가 일치하지 않습니다!! 다시 입력하세요");
 		   confirmCancel();
@@ -87,7 +40,6 @@
            success : function(){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
            	  alert("수정이 완료되었습니다.")
            	  
-              confirmCancel();
            	  closePopup();
            },
            error : function(){
@@ -95,11 +47,55 @@
            }
         });
 	   
+	 }else{
+		 return false;
+	 }
    }
-
-   function deleteConfirm() {
-	   window.location='${path}/deleteUserAction.myp';
+   
+   function pwdChk(page) {
+	   
+	   let param = {
+		  "password": $('#pwd_chk').val(),
+		  "page": page
+	   };
+	   
+	   $('#pwd_chk').val('');
+	   
+	   $.ajax({
+           url :'${path}/pwdChk.myp' ,         //3.
+           type : 'POST',
+           data : param,                  //요청데이터 형식(html,xml,json,text)
+           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+        	  let result = document.getElementById("chk_popup");
+         	  result.innerHTML = data;
+           },
+           error : function(){
+              alert('pwdChk() 오류');
+           }
+        });
+	   
    }
+   
+	//비밀번호 확인 화면 되돌리기
+	function returnPwdChk(page) {
+	
+	   let param = {
+	    	  "page" : page 
+	 	   };
+	       
+	   $.ajax({
+	          url :'${path}/returnPwdChk.myp' ,         //3.
+	          type : 'POST',
+	          data : param,         
+	          success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+	       	  let result = document.getElementById("chk_popup");
+	        	  result.innerHTML = data;
+	          },
+	          error : function(){
+	             alert('returnPwdChk() 오류');
+	          }
+	       });
+	}
    
 </script>
 <body> <!-- 수정 6/28  9:35 -->
@@ -113,16 +109,22 @@
             <div class="left_bar"> <!-- 사이드 바 -->
                 <div class="left_list">
                     <div>
-                        <button class="btn_board dis_btn" onclick="boardPopup()">나의 게시글</button>
+                        <button class="btn_board dis_btn" onclick="location.href='${path}/myBoardList.myp'">나의 게시글</button>
                     </div>
                     <div>
-                        <button class="btn_res dis_btn" onclick="resPopup()">예매내역 확인</button>
+                        <button class="btn_res dis_btn" onclick="location.href='${path}/myReservation.myp'">예매내역 확인</button>
                     </div>
                     <div>
-                        <button class="btn_mod dis_btn" onclick="upChkPopup()">회원정보 수정</button>
+                        <button class="btn_like dis_btn" onclick="location.href='${path}/myFavoriteList.myp'">좋아요한 게시글</button>
                     </div>
                     <div>
-                        <button class="btn_del dis_btn" onclick="delChkPopup()">회원 탈퇴</button>  <!-- 탈퇴시 팝업창 취소/ 확인 -->
+                        <button class="btn_like dis_btn" onclick="location.href='${path}/myReceivedCommentList.myp'">댓글 확인</button>
+                    </div>
+                    <div>
+                        <button class="btn_mod dis_btn" onclick="openPopup('modify')">회원정보 수정</button>
+                    </div>
+                    <div>
+                        <button class="btn_del dis_btn" onclick="openPopup('withdraw')">회원 탈퇴</button>  <!-- 탈퇴시 팝업창 취소/ 확인 -->
                     </div>
                 </div>
             </div>
@@ -141,172 +143,97 @@
         </div>
     </div>
     
-    <!-- 회원정보수정 팝업 -->
-	<div id="mod_popup" class="mod_popup">
-	    
-	</div>
+    <!-- 팝업 -->
+	<div id="chk_popup" class="chk_popup"></div>
 
-    <!-- 회원 수정 본인 확인 -->
-    <div id="up_pwd_chk_popup" class="up_pwd_chk_popup">
-        <div class="popup-header">비밀번호 확인</div>
-        
-        <div class="chk_popup-body"> 
-            비밀번호를 입력해주세요
-            <table>
-            	<tr>
-            		<td>비밀번호</td>
-            		<td><input id="up_pwd_chk" class="up_pwd_chk" type="password" placeholder="비밀번호확인"></td>
-            	</tr>
-            </table>
-        </div>
-        <div>
-            <button class="pop_button" onclick="upPwdChk()">확인</button>
-            <button class="pop_button" onclick="upChkCancel()">취소</button>
-        </div>
-        
-    </div>
-    
-    <!-- 회원 수정 확인 팝업 -->
-    <div id="up_chk_popup" class="up_chk_popup">
-        <div class="popup-header">회원수정 확인</div>
-        <div class="chk_popup-body"> 
-            회원 내용을 수정하시겠습니까? <br>
-        </div>
-        <div>
-            <button class="pop_button" onclick="updateConfirm()">확인</button>
-            <button class="pop_button" onclick="confirmCancel()">취소</button>
-        </div>
-    </div>
-    
-    <!-- 회원 수정 취소 팝업 -->
-    <div id="up_can_chk_popup" class="up_can_chk_popup">
-        <div class="popup-header">회원수정 취소</div>
-        <div class="chk_popup-body"> 
-            작성하신 내용은 저장되지 않습니다. <br>
-            취소하시겠습니까?
-        </div>
-        <div>
-            <button class="pop_button" onclick="updateCancel()">확인</button>
-            <button class="pop_button" onclick="updateReturn()">취소</button>
-        </div>
-    </div>
-    
-    <!-- 회원 탈퇴 본인 확인 -->
-    <div id="del_pwd_chk_popup" class="del_pwd_chk_popup">
-        <div class="popup-header">비밀번호 확인</div>
-        
-        <div class="chk_popup-body"> 
-            비밀번호를 입력해주세요
-            <table>
-            	<tr>
-            		<td>비밀번호</td>
-            		<td><input id="del_pwd_chk" class="del_pwd_chk" type="text" placeholder="비밀번호확인"></td>
-            	</tr>
-            </table>
-        </div>
-        <div>
-            <button class="pop_button" onclick="delPwdChk()">확인</button>
-            <button class="pop_button" onclick="delChkCancel()">취소</button>
-        </div>
-    </div>
-    
-    <!-- 회원탈퇴 팝업 -->
-    <div id="del_popup" class="del_popup">
-       
-    </div>
-    
     <!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<!-- footer 끝-->
 	
 <script>
-	function boardPopup() {
-		location.href = "${path}/myBoardList.myp"; 
-	}
 	
-	function resPopup() {
-			location.href = "${path}/myReservation.myp"; 
-	}
-	
-	// 회원수정
-	function showPopup() {
-	    document.getElementById('mod_popup').style.display = 'block';
+	//비밀번호 확인 팝업 열기
+	function openPopup(page) {
+		returnPwdChk(page)
+		
+	    document.getElementById('chk_popup').style.display = 'block';
 	    $('.dis_btn').prop('disabled', true);
 	    $(".page_out").css("opacity","30%");
 	}
 	
+	//비밀번호 확인 팝업 닫기
 	function closePopup() {
-	    document.getElementById('mod_popup').style.display = 'none';
+	    document.getElementById('chk_popup').style.display = 'none';
 	    $('.dis_btn').prop('disabled', false);
 	    $(".page_out").css("opacity","");
 	}
 	
-	//회원탈퇴
-	function delPopup() {
-	    document.getElementById('del_popup').style.display = 'block';
-	    $('.dis_btn').prop('disabled', true);
-	    $(".page_out").css("opacity","30%");
-	 
-	}
+	//input 체크	
+	function validate() {
+        const password = $('#password').val();
+        const repassword = $('#repassword').val();
+        const username = $('#username').val();
+        const birthday = $('#birthday').val();
+        const address = $('#address').val();
+        const hp1 = $('#hp1').val();
+        const hp2 = $('#hp2').val();
+        const hp3 = $('#hp3').val();
+        const email1 = $('#email1').val();
+        const email2 = $('#email2').val();
+
+        if (!password) {
+            alert("비밀번호를 입력해 주세요.");
+            $('#password').focus();
+            return false;
+        }
+        if (!repassword) {
+            alert("비밀번호 확인을 입력해 주세요.");
+            $('#repassword').focus();
+            return false;
+        }
+        if (password !== repassword) {
+            alert("비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+            $('#repassword').focus();
+            return false;
+        }
+        if (!username) {
+            alert("이름을 입력해 주세요.");
+            $('#username').focus();
+            return false;
+        }
+        if (!birthday) {
+            alert("생년월일을 입력해 주세요.");
+            $('#birthday').focus();
+            return false;
+        }
+        if (!address) {
+            alert("주소를 입력해 주세요.");
+            $('#address').focus();
+            return false;
+        }
+        if (!hp1 || !hp2 || !hp3) {
+            alert("연락처를 입력해 주세요.");
+            if (!hp1) {
+                $('#hp1').focus();
+            } else if (!hp2) {
+                $('#hp2').focus();
+            } else {
+                $('#hp3').focus();
+            }
+            return false;
+        }
+        if (!email1 || !email2) {
+            alert("이메일을 입력해 주세요.");
+            if (!email1) {
+                $('#email1').focus();
+            } else {
+                $('#email2').focus();
+            }
+            return false;
+        }
+        return true; // 모든 입력 필드가 올바르게 입력되었을 경우
+    }
 	
-	function deleteCancel() {
-	    document.getElementById('del_popup').style.display = 'none';
-	    $('.dis_btn').prop('disabled', false);
-	    $(".page_out").css("opacity","");
-	}
-	
-	function upCancelPopup() {
-		  document.getElementById('up_can_chk_popup').style.display = 'block';
-	  $('.dis_btn').prop('disabled', true);
-	  $(".page_out").css("opacity","30%");
-	}
-	
-	function updateReturn() {
-	    document.getElementById('up_can_chk_popup').style.display = 'none';
-	    $('.dis_btn').prop('disabled', false);
-	    $(".page_out").css("opacity","");
-	}
-	
-	function updateCancel() {
-		updateReturn();
-		closePopup();
-	}
-	
-	function confirmPopup() {
-		document.getElementById('up_chk_popup').style.display = 'block';
-		$('.dis_btn').prop('disabled', true);
-	    $(".page_out").css("opacity","30%");
-	}     
-	
-	function confirmCancel() {
-		document.getElementById('up_chk_popup').style.display = 'none';
-	    $('.dis_btn').prop('disabled', false);
-	    $(".page_out").css("opacity","");
-	}
-	
-	function upChkPopup() {
-		document.getElementById('up_pwd_chk_popup').style.display = 'block';
-		$('.dis_btn').prop('disabled', true);
-	    $(".page_out").css("opacity","30%");
-	}
-	
-	function delChkPopup() {
-		document.getElementById('del_pwd_chk_popup').style.display = 'block';
-		$('.dis_btn').prop('disabled', true);
-	    $(".page_out").css("opacity","30%");
-	}
-	
-	function upChkCancel() {
-		document.getElementById('up_pwd_chk_popup').style.display = 'none';
-		$('.dis_btn').prop('disabled', false);
-	    $(".page_out").css("opacity","");
-	}
-	
-	function delChkCancel() {
-		document.getElementById('del_pwd_chk_popup').style.display = 'none';
-	    $('.dis_btn').prop('disabled', false);
-	    $(".page_out").css("opacity","");
-	}
 
 </script>
     

@@ -180,6 +180,8 @@ th, td {
 	background-color: #f8fbc0;
 	padding-top: 100px;
 	padding-bottom: 100px;
+<<<<<<< HEAD
+=======
 }
 
 /* Full capacity styling */
@@ -187,4 +189,5 @@ th, td {
     background-color: #ccc; /* Gray background for full capacity */
     color: #999; /* Text color */
     cursor: not-allowed; /* Disabled cursor for non-clickable items */
+>>>>>>> refs/heads/main
 }

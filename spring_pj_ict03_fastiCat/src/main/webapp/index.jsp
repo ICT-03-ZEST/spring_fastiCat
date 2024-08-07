@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FastiCat</title>
 </head>
 <body>
 	<!--소스위치 : webapp > index.html -->

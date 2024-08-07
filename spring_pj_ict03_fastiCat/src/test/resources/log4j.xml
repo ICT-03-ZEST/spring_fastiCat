@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.spring.ict03_fastiCat">
+	<logger name="com.spring.ict03_fasticat">
 		<level value="info" />
 	</logger>
 	

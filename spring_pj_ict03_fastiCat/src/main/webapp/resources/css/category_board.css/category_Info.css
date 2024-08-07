@@ -3,38 +3,22 @@
 li {
     list-style: none;
 }
-.h3_category {
-    margin: 30px auto;
-    width: 800px;
-}
-.info {
-	width: 800px;
-    margin: 0 auto;
-}
 .info_box {
+    width: 1000px;
+    margin: 0 auto;
     display: flex;
     justify-content: center;
     align-content: center;
-    border-top: 1px solid #80808080;
-    border-bottom: 1px solid #80808080;
 }
 
-.info_content {
-    display: flex;
-    justify-content: center;
-    align-content: center;
-}
-.showName {
-	text-align: center;
-}
 .info_box > ul {
+    margin: 50px 20px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin: 50px 10px;
 }
-
+ 
 .photo {
     margin-bottom: 30px; 
 }
@@ -72,17 +56,16 @@ li {
     line-height: 35px;
     margin-top: 120px;
     height: 200px;
-    margin: auto 30px;
 }
 
 .descript th {
-    width: 100px;
+    width: 150px;
     padding-right: 15px;
     text-align: right;
   
 }
 .descript td {
-    width: 150px;
+    width: 300px;
 }
 
 /* 목록버튼 시작 */
@@ -129,7 +112,7 @@ li {
 }
 .btn_back_box {
     display: flex;
-    justify-content: right;
+    justify-content: center;
 }
 
 .btn_back, .reservationBtn {
