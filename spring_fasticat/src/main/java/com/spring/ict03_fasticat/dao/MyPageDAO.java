@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.spring.ict03_fasticat.dto.BoardDTO;
+import com.spring.ict03_fasticat.dto.CommentDTO;
 import com.spring.ict03_fasticat.dto.MyPageDTO;
 import com.spring.ict03_fasticat.dto.MyReservationDTO;
 
@@ -42,5 +43,18 @@ public interface MyPageDAO {
 		// 게시물 목록
 		public List<MyReservationDTO> resBoardList(Map<String, Object> map);
 		
+		// 예매 취소
 		public int resDelete(Map<String, Object> map);
+		
+		// 내가 좋아요한 게시물 갯수
+		public int myFavoriteCnt(String strId);
+		
+		// 내가 좋아요한 게시물 목록
+		public List<BoardDTO> myFavoriteList(Map<String, Object> map);
+		
+		// 내가 좋아요한 게시물 갯수
+		public int myReceivedCommentCnt(String strId);
+		
+		// 내가 좋아요한 게시물 목록
+		public List<CommentDTO> myReceivedCommentList(Map<String, Object> map);
 }

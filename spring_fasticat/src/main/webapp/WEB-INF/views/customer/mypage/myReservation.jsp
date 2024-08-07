@@ -174,19 +174,6 @@
 	    $(".page_out").css("opacity","");
 	}
 	
-	//게시글 삭제 확인 팝업
-	function resCancelShowPopup() {
-	    document.getElementById('res_cancel_popup').style.display = 'block';
-	    $('.dis_btn').prop('disabled', true);
-	    $(".page_out").css("opacity","30%");
-	}
-	
-	function resCancelClosePopup() {
-	    document.getElementById('res_cancel_popup').style.display = 'none';
-	    $('.dis_btn').prop('disabled', false);
-	    $(".page_out").css("opacity","");
-	}
-	
   </script>
 		
 </body>

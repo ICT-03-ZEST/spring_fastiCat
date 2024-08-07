@@ -115,6 +115,12 @@
                         <button class="btn_res dis_btn" onclick="location.href='${path}/myReservation.myp'">예매내역 확인</button>
                     </div>
                     <div>
+                        <button class="btn_like dis_btn" onclick="location.href='${path}/myFavoriteList.myp'">좋아요한 게시글</button>
+                    </div>
+                    <div>
+                        <button class="btn_like dis_btn" onclick="location.href='${path}/myReceivedCommentList.myp'">댓글 확인</button>
+                    </div>
+                    <div>
                         <button class="btn_mod dis_btn" onclick="openPopup('modify')">회원정보 수정</button>
                     </div>
                     <div>

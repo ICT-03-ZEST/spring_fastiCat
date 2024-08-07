@@ -54,18 +54,18 @@
 			<!-- 페이징 처리 -->
 			<!-- 이전 버튼 활성화 -->
 			<c:if test="${paging.startPage > 10}">
-				<button onclick="toggleTable('${category}', '${num}')">[이전]</button>
+				<button onclick="toggleTable('${category}', '${num}', '${keyword}')">[이전]</button>
 			</c:if>
 			<!-- 페이지 번호 처리 -->
 			<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
 				<c:if test="${num != 0}">
-					<button onclick="toggleTable('${category}', '${num}')">${num}</button>
+					<button onclick="toggleTable('${category}', '${num}', '${keyword}')">${num}</button>
 				</c:if>
 			</c:forEach>
 			
 			<!-- 다음 버튼 활성화 -->
 			<c:if test="${paging.endPage < paging.pageCount}">
-				<button onclick="toggleTable('${category}', '${num}')">[다음]</button>
+				<button onclick="toggleTable('${category}', '${num}', '${keyword}')">[다음]</button>
 			</c:if>
 		</td>
 	</tr>
@@ -93,7 +93,7 @@
 			        <td class="serialNum"> ${dto.comment_num} </td>
 			        
 		           	<td class="category">${dto.board_category}</td>
-		           	<td class="writer">${dto.userID}</td>
+		           	<td class="writer">${dto.board_writer}</td>
 		           	<td class="content">
 			           	
 						<a href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1">
@@ -112,18 +112,18 @@
 			<!-- 페이징 처리 -->
 			<!-- 이전 버튼 활성화 -->
 			<c:if test="${paging.startPage > 10}">
-				<button onclick="toggleTable('${category}', '${num}')">[이전]</button>
+				<button onclick="toggleTable('${category}', '${num}', '${keyword}')">[이전]</button>
 			</c:if>
 			<!-- 페이지 번호 처리 -->
 			<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
 				<c:if test="${num != 0}">
-					<button onclick="toggleTable('${category}', '${num}')">${num}</button>
+					<button onclick="toggleTable('${category}', '${num}', '${keyword}')">${num}</button>
 				</c:if>
 			</c:forEach>
 			
 			<!-- 다음 버튼 활성화 -->
 			<c:if test="${paging.endPage < paging.pageCount}">
-				<button onclick="toggleTable('${category}', '${num}')">[다음]</button>
+				<button onclick="toggleTable('${category}', '${num}', '${keyword}')">[다음]</button>
 			</c:if>
 		</td>
 	</tr>

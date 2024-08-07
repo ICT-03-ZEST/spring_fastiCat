@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.spring.ict03_fasticat.dto.BoardDTO;
+import com.spring.ict03_fasticat.dto.CommentDTO;
 import com.spring.ict03_fasticat.dto.MyPageDTO;
 import com.spring.ict03_fasticat.dto.MyReservationDTO;
 
@@ -155,6 +156,45 @@ public class MyPageDAOImpl implements MyPageDAO{
 		int deleteCnt = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.resDelete", map);
 		
 		return deleteCnt;
+	}
+
+
+	@Override
+	public int myFavoriteCnt(String strId) {
+		System.out.println("MyPageDAO - myFavoriteCnt");
+		
+		int total = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.myFavoriteCnt", strId);
+		
+		return total;
+	}
+
+
+	@Override
+	public List<BoardDTO> myFavoriteList(Map<String, Object> map) {
+		System.out.println("MyPageDAO - myFavoriteList");
+		
+		List<BoardDTO> list = sqlSession.selectList("com.spring.ict03_fasticat.dao.MyPageDAO.myFavoriteList", map);
+		
+		return list;
+	}
+	
+	@Override
+	public int myReceivedCommentCnt(String strId) {
+		System.out.println("MyPageDAO - myReceivedCommentCnt");
+		
+		int total = sqlSession.selectOne("com.spring.ict03_fasticat.dao.MyPageDAO.myReceivedCommentCnt", strId);
+		
+		return total;
+	}
+
+
+	@Override
+	public List<CommentDTO> myReceivedCommentList(Map<String, Object> map) {
+		System.out.println("MyPageDAO - myReceivedCommentList");
+		
+		List<CommentDTO> list = sqlSession.selectList("com.spring.ict03_fasticat.dao.MyPageDAO.myReceivedCommentList", map);
+		
+		return list;
 	}
 
 }

@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -17,6 +16,7 @@ import org.springframework.ui.Model;
 
 import com.spring.ict03_fasticat.dao.MyPageDAOImpl;
 import com.spring.ict03_fasticat.dto.BoardDTO;
+import com.spring.ict03_fasticat.dto.CommentDTO;
 import com.spring.ict03_fasticat.dto.MyPageDTO;
 import com.spring.ict03_fasticat.dto.MyReservationDTO;
 import com.spring.ict03_fasticat.page.Paging;
@@ -33,7 +33,7 @@ public class MyPageServiceImpl implements MyPageService {
 
 		// 회원정보 인증처리 및 탈퇴처리
 		@Override
-		public void deleteUserAction(HttpServletRequest request, HttpServletResponse response, Model model)
+		public void deleteUserAction(HttpServletRequest request, Model model)
 				throws ServletException, IOException{
 			
 			System.out.println("서비스 - deleteUserAction()");
@@ -53,7 +53,7 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		// 회원정보 수정처리
 		@Override
-		public void modifyUserAction(HttpServletRequest request, HttpServletResponse response, Model model)
+		public void modifyUserAction(HttpServletRequest request, Model model)
 				throws ServletException, IOException{
 			
 			System.out.println("서비스 - modifyUserAction()");
@@ -106,27 +106,32 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		// 게시글 목록 - 공연후기
 		@Override
-		public void boardListAction(HttpServletRequest request, HttpServletResponse response, Model model)
+		public void boardListAction(HttpServletRequest request, Model model)
 				throws ServletException, IOException {
 			System.out.println("서비스 - boardListAction");
 			
 			// 3단계. 화면에서 입력받은 값을 가져오기
 			String pageNum = request.getParameter("pageNum");
 			String category = request.getParameter("category");
+			String keyword = request.getParameter("keyword");
 			System.out.println("category : " + category);
 			
 			String strId = (String) request.getSession().getAttribute("sessionID");
 			System.out.println("strId : " + strId);
 			
 			Map<String, Object> map = new HashMap<String, Object>();
+			
 			map.put("strId", strId); //아이디
+			
 			if(category.equals("review_table")) {
 				map.put("table", "REVIEWBOARD_TBL"); 
 			} else if(category.equals("free_table")) {
 				map.put("table", "FREEBOARD_TBL"); 
 			} else if(category.equals("comment_table")) {
 				map.put("table", "COMMENT_TBL");
-			}
+			} //테이블
+			
+			map.put("keyword", keyword);
 			
 			// 5-1단계. 전체 게시글 갯수 카운트
 			Paging paging = new Paging(pageNum);
@@ -167,13 +172,14 @@ public class MyPageServiceImpl implements MyPageService {
 			}
 			
 			model.addAttribute("category", category);
+			model.addAttribute("keyword", keyword);
 		}
 		
 
 		
 		// 게시물 삭제 처리
 		@Override
-		public void BoardDeleteAction(HttpServletRequest request, HttpServletResponse response, Model model)
+		public void BoardDeleteAction(HttpServletRequest request, Model model)
 				throws ServletException, IOException{
 				System.out.println("서비스 - BoardDeleteAction()");
 			
@@ -201,7 +207,7 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		// 게시글 목록 
 		@Override
-		public void reservationListAction(HttpServletRequest request, HttpServletResponse response, Model model)
+		public void reservationListAction(HttpServletRequest request, Model model)
 				throws ServletException, IOException {
 			System.out.println("서비스 - reservationListAction");
 			
@@ -236,7 +242,7 @@ public class MyPageServiceImpl implements MyPageService {
 		
 		//예매 취소 처리
 		@Override
-		public void reservationCancelAction(HttpServletRequest request, HttpServletResponse response, Model model)
+		public void reservationCancelAction(HttpServletRequest request, Model model)
 				throws ServletException, IOException{
 				System.out.println("서비스 - reservationCancelAction()");
 			
@@ -262,7 +268,7 @@ public class MyPageServiceImpl implements MyPageService {
 		// 비밀번호 확인
 		// 회원정보 인증처리 및 상세페이지
 		@Override
-		public void pwdChk(HttpServletRequest request, HttpServletResponse response, Model model)
+		public void pwdChk(HttpServletRequest request, Model model)
 				throws ServletException, IOException{
 				System.out.println("서비스 - pwdChk()");
 			
@@ -284,6 +290,82 @@ public class MyPageServiceImpl implements MyPageService {
 				MyPageDTO dto = dao.getUserDetail(strId);
 				model.addAttribute("dto", dto);
 			}
+		}
+
+
+
+		@Override
+		public void FavoriteListAction(HttpServletRequest request, Model model) throws ServletException, IOException {
+			System.out.println("서비스 - FavoriteListAction()");
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			System.out.println("strId : " + strId);
+			
+			String pageNum = request.getParameter("pageNum");
+			System.out.println("pageNum : " + pageNum);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("strId", strId); //아이디
+			
+			// 5-1단계. 전체 게시글 갯수 카운트
+			Paging paging = new Paging(pageNum);
+			int total = dao.myFavoriteCnt(strId);
+			System.out.println("total => " + total);
+
+			paging.setTotalCount(total);
+			
+			// 5-2단계. 게시글 목록 조회
+			int start = paging.getStartRow();
+			int end = paging.getEndRow();
+			
+			map.put("start", start); //비밀번호
+			map.put("end", end); //비밀번호
+			
+			System.out.println("map : " + map);
+			List<BoardDTO> list = dao.myFavoriteList(map);
+			System.out.println("list : " + list);
+			
+			// 6단계. jsp로 처리결과 전달
+			model.addAttribute("list", list);
+			model.addAttribute("paging", paging);
+		};
+		
+		@Override
+		public void ReceivedCommentListAction(HttpServletRequest request, Model model) throws ServletException, IOException {
+			System.out.println("서비스 - ReceivedCommentListAction()");
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			System.out.println("strId : " + strId);
+			
+			String pageNum = request.getParameter("pageNum");
+			System.out.println("pageNum : " + pageNum);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("strId", strId); //아이디
+			
+			// 5-1단계. 전체 게시글 갯수 카운트
+			Paging paging = new Paging(pageNum);
+			int total = dao.myReceivedCommentCnt(strId);
+			System.out.println("total => " + total);
+
+			paging.setTotalCount(total);
+			
+			// 5-2단계. 게시글 목록 조회
+			int start = paging.getStartRow();
+			int end = paging.getEndRow();
+			
+			map.put("start", start); //비밀번호
+			map.put("end", end); //비밀번호
+			
+			System.out.println("map : " + map);
+			List<CommentDTO> list = dao.myReceivedCommentList(map);
+			System.out.println("list : " + list);
+			
+			// 6단계. jsp로 처리결과 전달
+			model.addAttribute("list", list);
+			model.addAttribute("paging", paging);
 		};
 		
 }

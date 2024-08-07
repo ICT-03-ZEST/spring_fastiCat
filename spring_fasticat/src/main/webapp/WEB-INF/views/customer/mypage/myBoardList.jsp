@@ -15,7 +15,7 @@
     window.onload = function() {
     	
     	//시작 테이블 토글	
-    	toggleTable("review_table", 1);
+    	toggleTable("review_table", 1, "");
         
     };
     
@@ -73,7 +73,7 @@
 	                 alert("삭제가 완료되었습니다.");
 	                 
 	                 closePopup();
-	                 toggleTable(category, 1);
+	                 toggleTable(category, 1, "");
 	             },
 	             error: function(xhr, status, error) {
 	                 console.error(xhr.responseText); // 에러 응답 내용을 콘솔에 출력
@@ -83,11 +83,12 @@
 	   }
 	
 	//테이블 토글
-	 function toggleTable(category, pageNum) {
+	 function toggleTable(category, pageNum, keyword) {
         
         let param = {
         	  "pageNum" : pageNum,
-  			  "category": category
+  			  "category": category,
+  			  "keyword" : keyword,
   		};
   		   
   		   $.ajax({
@@ -125,6 +126,21 @@
 		  });
 	}
 	
+	function onKeyUp(e){
+		/** 버튼 클릭이나 엔터가 클릭되었을 때*/
+	    if (e.keyCode == 13){
+	    	doSearch();
+	    }
+	}
+
+	function doSearch(){
+		 let keyword = $('#search_input').val();
+		 let category = $('input[name="board_category"]:checked').val();
+		 
+		 toggleTable(category, 1, keyword);
+	}
+
+	
 	
 	</script>
 </head>
@@ -138,22 +154,25 @@
 		<div class="container">
            	<div class="board_category">
 	            <label>
-	                <input type="radio" id="review_category" name="board_category" value="review_table" onclick="toggleTable('review_table',1)" checked>
+	                <input type="radio" id="review_category" name="board_category" value="review_table" onclick="toggleTable('review_table',1, '')" checked>
 	               	 공연후기
 	            </label>
 	            <label>
-	                <input type="radio" id="free_category" name="board_category" value="free_table" onclick="toggleTable('free_table',1)">
+	                <input type="radio" id="free_category" name="board_category" value="free_table" onclick="toggleTable('free_table',1, '')">
 	                	자유
 	            </label>
 	            <label>
-	                <input type="radio" id="myComment_category" name="board_category" value="comment_table" onclick="toggleTable('comment_table',1)">
+	                <input type="radio" id="myComment_category" name="board_category" value="comment_table" onclick="toggleTable('comment_table',1, '')">
 	                	내 댓글
 	            </label>
         	</div>
+        	<div class="board_search">
+        		<input type="text" id="search_input" name="search_input" onkeyup="onKeyUp(event)">
+        		<button id="search_button" name="search_button" onclick="doSearch()">검색</button>
+        	</div>
         	
         	<!-- 테이블 컨테이너 -->
-        	<div id="table-container" class="table-container">
-        	</div>
+        	<div id="table-container" class="table-container"></div>
 			
 		    <div class="backMyPage" align="center">
 			    <div class="writing">

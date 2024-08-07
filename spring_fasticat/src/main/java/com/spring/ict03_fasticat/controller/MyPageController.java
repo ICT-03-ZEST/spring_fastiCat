@@ -56,7 +56,7 @@ public class MyPageController {
 			logger.info("<url --> /myBoardTable.myp>");
 
 			// 서비스 -> DAO(SELECT)
-			service.boardListAction(request, response, model);
+			service.boardListAction(request, model);
 		
 	   	 	return "customer/mypage/myBoardTable";
 		} 
@@ -69,7 +69,7 @@ public class MyPageController {
 		
 		request.getSession().setAttribute("myBoard","1");
 		
-		service.reservationListAction(request, response, model);
+		service.reservationListAction(request, model);
 		
 		return "customer/mypage/myReservation";
 	
@@ -83,7 +83,7 @@ public class MyPageController {
 		
 		request.getSession().setAttribute("myBoard","1");
 		
-		service.reservationCancelAction(request, response, model);
+		service.reservationCancelAction(request, model);
 		
 		return "customer/mypage/myReservation";
 	
@@ -96,7 +96,7 @@ public class MyPageController {
     		throws ServletException, IOException {
 		logger.info("<<< url ==> /modifyUserAction.myp >>>");
 		
-		service.modifyUserAction(request, response, model);
+		service.modifyUserAction(request, model);
 		
 		return "customer/mypage/myModifyAction";
 	}
@@ -109,7 +109,7 @@ public class MyPageController {
     		throws ServletException, IOException {
 		logger.info("<<< url ==> /deleteUserAction.myp >>>");
 		
-		service.deleteUserAction(request, response, model);
+		service.deleteUserAction(request, model);
 		
 		return "customer/mypage/myDeleteAction";
 	}
@@ -121,7 +121,7 @@ public class MyPageController {
     		throws ServletException, IOException {
 		logger.info("<<< url ==> /BoardDeleteAction.myp >>>");
 		
-		service.BoardDeleteAction(request, response, model);
+		service.BoardDeleteAction(request, model);
 		
 		return "customer/mypage/myBoardList";
 	}
@@ -133,7 +133,7 @@ public class MyPageController {
     		throws ServletException, IOException {
 		logger.info("<<< url ==> /bdDelPwdChk.myp >>>");
 		
-		service.pwdChk(request, response, model);
+		service.pwdChk(request, model);
 		
 		String page = request.getParameter("page");
 		System.out.println("page : " + page);
@@ -169,6 +169,29 @@ public class MyPageController {
 		
 		return "customer/mypage/pwdChkPopup";
 	}
+	
+	//내가 좋아요한 게시글 확인
+	@RequestMapping("/myFavoriteList.myp")
+	public String myFavoriteList(HttpServletRequest request, HttpServletResponse response , Model model)
+    		throws ServletException, IOException {
+		logger.info("<<< url ==> /myFavoriteList.myp >>>");
+		
+		service.FavoriteListAction(request, model);
+		
+		return "customer/mypage/myFavoriteList";
+	}
+	
+	//내가 좋아요한 게시글 확인
+	@RequestMapping("/myReceivedCommentList.myp")
+	public String myCommentList(HttpServletRequest request, HttpServletResponse response , Model model)
+    		throws ServletException, IOException {
+		logger.info("<<< url ==> /myReceivedCommentList.myp >>>");
+		
+		service.ReceivedCommentListAction(request, model);
+		
+		return "customer/mypage/myCommentList";
+	}
+	
 	
 	
 }
