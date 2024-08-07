@@ -181,7 +181,7 @@ public class MyPageController {
 		return "customer/mypage/myFavoriteList";
 	}
 	
-	//내가 좋아요한 게시글 확인
+	//내가 받은 댓글 목록
 	@RequestMapping("/myReceivedCommentList.myp")
 	public String myCommentList(HttpServletRequest request, HttpServletResponse response , Model model)
     		throws ServletException, IOException {
