@@ -13,12 +13,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.spring.ict03_fasticat.service.AdminBannerServiceImpl;
-import com.spring.ict03_fasticat.service.AdminBoardServiceImpl;
-import com.spring.ict03_fasticat.service.AdminNoticeServiceImpl;
-import com.spring.ict03_fasticat.service.AdminShowServiceImpl;
-import com.spring.ict03_fasticat.service.ChartServiceImpl;
-import com.spring.ict03_fasticat.service.CustomerServiceImpl;
+import com.spring.ict03_fastiCat.service.AdminBannerServiceImpl;
+import com.spring.ict03_fastiCat.service.AdminBoardServiceImpl;
+import com.spring.ict03_fastiCat.service.AdminNoticeServiceImpl;
+import com.spring.ict03_fastiCat.service.AdminShowServiceImpl;
+import com.spring.ict03_fastiCat.service.ChartServiceImpl;
+import com.spring.ict03_fastiCat.service.CustomerServiceImpl;
 
 
 @Controller
