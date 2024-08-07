@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- ID 중복확인 처리 호출 -->
+<mapper namespace="com.spring.ict03_fastiCat.dao.CustomerDAO">
+
+	<select id="useridCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM mvc_customer_tbl
+		WHERE userid= #{strId}
+	</select>
+
+	<!-- 회원가입 처리 호출 -->
+	<insert id="insertCustomer"
+		parameterType="com.spring.ict03_fastiCat.dto.CustomerDTO">
+		INSERT INTO mvc_customer_tbl(userid, password, username,
+		birthday, address,
+		hp, email, regDate)
+		VALUES(#{userid}, #{password},
+		#{username}, #{birthday} ,#{address}, #{hp}, #{email},
+		#{regDate})
+	</insert>
+
+	<!-- 로그인 처리/ 회원정보 인증(수정, 탈퇴) 호출 -->
+	<select id="idPasswordChk" parameterType="java.util.Map"
+		resultType="int">
+		SELECT COUNT(*) FROM mvc_customer_tbl
+		WHERE userid =
+		#{strId}
+		AND password = #{strPassword}
+	</select>
+
+	<!-- insert시 id,pwd 체크 -->
+	<select id="getpassword" parameterType="String" resultType="com.spring.ict03_fastiCat.dto.CustomerDTO">
+		SELECT userid, password
+		FROM mvc_customer_tbl WHERE
+		userid=#{strId}
+	</select>
+</mapper>

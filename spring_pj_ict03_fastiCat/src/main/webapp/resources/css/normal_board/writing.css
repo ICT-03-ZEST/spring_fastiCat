@@ -9,18 +9,29 @@
 }
 
 .container {
+<<<<<<< HEAD
     font-size: 20px;
     margin: 20px auto;
     border: 1px solid gainsboro;
     border-radius: 5px;
+=======
+	font-size: 20px;
+	margin: 20px auto;
+	border: 1px solid gainsboro;
+	border-radius: 5px;
+	width: 800px;
+>>>>>>> refs/heads/main
 }
 .nav_title h3 {
    color: black;
    font-size: 25px;
    margin-top: 50px
 }
-
+.td_title {
+	width: 100px;
+}
 .title {
+<<<<<<< HEAD
     height: 50px;
     margin: 20px;
     font-size: 25px;
@@ -28,6 +39,15 @@
     border-bottom: 2px solid orange;
     cursor: pointer;
 } 
+=======
+	height: 50px;
+	margin: 30px;
+	font-size: 25px;
+	border: none;
+	border-bottom: 2px solid orange;
+	cursor: pointer;
+}
+>>>>>>> refs/heads/main
 
 .title :hover, .title :focus {
        border: 3px solid rgba(255, 166, 0, 0.534);
@@ -39,6 +59,7 @@
 }
 
 select {
+<<<<<<< HEAD
     height: 40px;
     width: 120px;
     margin: 10px 30px 10px 20px;
@@ -51,6 +72,15 @@ select {
 select:hover, select:focus {
         border: 1px solid orange;
         outline: none;
+=======
+	height: 40px;
+	width: 120px;
+	font-size: 20px;
+	border: 2px solid orange;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-left: 30px;
+>>>>>>> refs/heads/main
 }
 
 .btn_upload {
@@ -99,10 +129,16 @@ select:hover, select:focus {
  }
  
 .hr_between {
+<<<<<<< HEAD
     width: 550px;
     margin-top: 20px;
     border: 1px solid gainsboro;
 
+=======
+	width: 750px;
+	margin-top: 30px;
+	border: 1px solid gainsboro;
+>>>>>>> refs/heads/main
 }
 
 textarea {
@@ -117,9 +153,15 @@ textarea {
 
 /* 버튼 */
 .input_btn {
+<<<<<<< HEAD
     width: 880px;
     text-align: right;  
     margin: 0 auto; 
+=======
+	width: 800px;
+	text-align: right;
+	margin: 0 auto;
+>>>>>>> refs/heads/main
 }
 
 .input_btn input {
@@ -146,6 +188,7 @@ textarea {
 
 /* 파일버튼 */
 .btn_choice {
+<<<<<<< HEAD
     padding: 5px;
     border: 3px solid gray;
     border-radius: 5px;
@@ -154,6 +197,16 @@ textarea {
     color: gray;
     font-weight: bold;
     margin-left: 20px;
+=======
+	padding: 5px;
+	border: 3px solid gray;
+	border-radius: 5px;
+	background: white;
+	font-size: 18px;
+	color: gray;
+	font-weight: bold;
+	margin-left: 30px;
+>>>>>>> refs/heads/main
 }
 .btn_choice:hover {
 	background: gray;
@@ -166,6 +219,7 @@ textarea {
 }
 
 .file_name {
+<<<<<<< HEAD
 	margin-top: 10px;
 }
 
@@ -173,3 +227,7 @@ textarea {
 
 
  
+=======
+	margin-left: 20px;
+}
+>>>>>>> refs/heads/main

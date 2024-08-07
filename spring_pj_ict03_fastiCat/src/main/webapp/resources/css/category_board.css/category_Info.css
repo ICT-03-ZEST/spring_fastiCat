@@ -106,29 +106,36 @@ li {
 
 /* 목록버튼 */
 .div_back {
-	 width: 500px;
-	 margin: 10px auto;
+	width: 600px;
+    display: flex;
+    justify-content: space-between;
 }
 .btn_back_box {
     display: flex;
     justify-content: center;
 }
 
-.btn_back {
-    width: 60px;
+.btn_back, .reservationBtn {
     border: 1px solid #FF9900;
     border-radius: 4px;
     background: none;
     font-size: 20px;
     color: #FF9900;
-    position: relative;
-    left: 130px;
-    top: 15px;
+    margin: 20px;
 }
 
 .btn_back:hover {
     box-shadow: 0 0 15px #FAC8C8;
     cursor: pointer;
+}
+.reservationBtn {
+    margin-left: 75px;
+    padding: 5px;
+}
+.reservationBtn:hover {
+	cursor: pointer;
+	background: #FF9900;
+	 color: white;
 }
 
 /* 페이지숨기기 */

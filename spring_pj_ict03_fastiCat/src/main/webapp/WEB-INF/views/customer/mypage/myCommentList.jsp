@@ -22,11 +22,11 @@
 				<thead>
 				      <tr>
 				      	<td style="width: 20px;" class="td_chk"></td>
-				          <th style="width: 40px;"class="serialNum">번호</th>
-				          <th style="width: 80px;"class="category">카테고리</th>
-				          <th style="width: 103px"class="writer">유저ID</th>
-				          <th style="width: 40%;"class="content">댓글 내용</th>
-				          <th style="width: 105px	;"class="regDate">작성일</th>
+				          <th style="width: 40px;" class="serialNum">번호</th>
+				          <th style="width: 80px;" class="category">카테고리</th>
+				          <th style="width: 103px" class="writer">유저ID</th>
+				          <th style="width: 40%;" class="content">댓글 내용</th>
+				          <th style="width: 105px; "class="regDate">작성일</th>
 				      </tr> 
 				</thead>
 				

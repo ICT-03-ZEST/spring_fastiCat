@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.ict03_fastiCat.dao.NoticeBoardDAO">
+    <resultMap id="noticeMap" type="com.spring.ict03_fastiCat.dto.NoticeDTO">
+        <id property="n_Board_Num" column="N_Board_Num"/>
+        <result property="n_Title" column="N_Title"/>
+        <result property="n_Content" column="N_Content"/>
+        <result property="n_Writer" column="N_Writer"/>
+        <result property="n_ReadCnt" column="N_ReadCnt"/>
+        <result property="n_WriteDate" column="N_WriteDate"/>
+    </resultMap>
+    
+    <!-- 공지사항 목록조회 -->
+    <select id="noticeBoardList" parameterType="map" resultMap="noticeMap">
+        <![CDATA[
+        SELECT * 
+        FROM (SELECT A.*,
+                     N_Board_Num AS rn 
+              FROM (SELECT *
+                      FROM mvc_Notice_TBL
+                     WHERE show = 'y'
+                     ORDER BY N_Board_Num DESC) A 
+             )
+        WHERE rn >= #{Start}
+          AND rn <= #{end}
+        ]]>
+    </select>
+
+	<!-- 공지사항 게시글 갯수 구하기 -->
+	<select id="NoticeBoardCnt" resultType="int">
+	SELECT COUNT(*)
+	  FROM mvc_Notice_TBL
+	</select>
+	
+	<!-- 공지사항 게시글 조회수 증가 -->
+	<update id="plusNoticeReadCnt" parameterType="int">
+	UPDATE mvc_Notice_TBL 
+	   SET N_readCnt = N_readCnt+1 
+	 WHERE N_Board_Num= #{n_Board_Num}
+	</update>
+	
+	<!-- 공지사항 상세페이지 -->
+	<select id="getNoticeBoardDetail" resultType="com.spring.ict03_fastiCat.dto.NoticeDTO">
+	 SELECT * FROM mvc_Notice_TBL 
+	  WHERE N_Board_Num= #{n_Board_Num}
+	</select>
+	
+	<!-- 공지사항 수정처리  -->
+	<update id="updateNoticeBoard" parameterType="com.spring.ict03_fastiCat.dto.NoticeDTO">
+	 UPDATE mvc_Notice_TBL 
+	    SET N_title = #{n_Title}
+	       ,N_content = #{n_Content}
+	  WHERE N_Board_Num= #{n_Board_Num}
+	</update>
+	
+	<!-- 공지사항 삭제처리  -->
+	<!-- show라는 컬럼을 N으로 변경, List에 출력되지 않게 하려고 update사용 -->
+	<update id="deleteNoticeBoard" parameterType="int">
+	UPDATE mvc_Notice_TBL 
+	   SET show = 'n'
+	 WHERE N_Board_Num= #{n_Board_Num}
+	</update>
+	
+	<!-- 공지사항 작성 -->
+	<insert id="insertNoticeBoard" parameterType="com.spring.ict03_fastiCat.dto.NoticeDTO">
+	 INSERT INTO mvc_Notice_TBL(N_Board_Num, N_Title, N_Content, N_Writer, N_WriteDate)
+	 VALUES((SELECT NVL(MAX(N_Board_Num)+1,1) FROM mvc_Notice_TBL), #{n_Title}, #{n_Content}, #{n_Writer}, sysdate)
+	</insert>
+	
+	
+</mapper> 

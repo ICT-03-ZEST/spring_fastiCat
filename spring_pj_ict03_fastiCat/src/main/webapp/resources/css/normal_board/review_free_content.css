@@ -219,11 +219,17 @@ li {
    margin-top: 50px
 }
 
+<<<<<<< HEAD
 /* .category {
     position: relative;
     top: 50px;
     left: 40%;
     font-size: 25px;
+=======
+.td_img {
+	padding: 20px;
+	font-weight: bold;
+>>>>>>> refs/heads/main
 }
  */
 .li_category {
@@ -273,19 +279,26 @@ li {
     justify-content: center;
 }
 
+<<<<<<< HEAD
 table.mod_table {
     margin: auto;
     width: 700px;
 }
 
 
+=======
+>>>>>>> refs/heads/main
 .mod_table {
+	width: 1000px;
 	border-collapse: collapse;
 }
-.mod_table th, td {
-	border-top: 1px solid grey;
-	border-right: 1px solid grey;
-	border-left: 1px solid grey;
+
+.hr_line {
+    margin-top: 50px;
+}
+
+.td_newImg {
+	height: 100px;
 }
 
 .td_bottom{
@@ -346,6 +359,7 @@ textarea#board_content {
 
 .file_name {
 	margin-top: 10px;
+	margin-left: 10px;
 }
 
 .td_newImg div {
