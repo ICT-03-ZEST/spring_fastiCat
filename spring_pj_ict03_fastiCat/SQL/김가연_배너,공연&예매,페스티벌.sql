@@ -37,19 +37,25 @@ SELECT * FROM show_tbl;
 COMMIT;
 
 -- show_tbl 시퀀스 생성
+DROP SEQUENCE SHOW_TBL_SEQ;
 CREATE SEQUENCE SHOW_TBL_SEQ
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
--- show_tbl 트리거 생성
+-- show_tbl 트리거 생성 
+DROP TRIGGER show_tbl_bi;
 CREATE OR REPLACE TRIGGER show_tbl_bi
 BEFORE INSERT ON show_tbl
 FOR EACH ROW
 BEGIN
-    :NEW.showNum := SHOW_TBL_SEQ.NEXTVAL;
+    IF :NEW.showNum IS NULL THEN
+        :NEW.showNum := SHOW_TBL_SEQ.NEXTVAL;
+    END IF;
 END;
-/ 
+/
+COMMIT;
+
 
 -- <페스티벌 테이블>
 DROP TABLE show_tbl_fes CASCADE CONSTRAINTS;
@@ -76,16 +82,21 @@ SELECT * FROM show_tbl_fes;
 COMMIT;
 
 -- show_tbl_fes 시퀀스 생성
+DROP SEQUENCE SHOW_TBL_FES_SEQ;
 CREATE SEQUENCE SHOW_TBL_FES_SEQ
 START WITH 1
 INCREMENT BY 1
 NOCACHE;
 
 -- show_tbl_fes 트리거 생성
+DROP TRIGGER show_tbl_fes_bi;
 CREATE OR REPLACE TRIGGER show_tbl_fes_bi
 BEFORE INSERT ON show_tbl_fes
 FOR EACH ROW
 BEGIN
-    :NEW.showNum := SHOW_TBL_FES_SEQ.NEXTVAL;
+    IF :NEW.showNum IS NULL THEN
+        :NEW.showNum := SHOW_TBL_FES_SEQ.NEXTVAL;
+    END IF;
 END;
 /
+COMMIT;
