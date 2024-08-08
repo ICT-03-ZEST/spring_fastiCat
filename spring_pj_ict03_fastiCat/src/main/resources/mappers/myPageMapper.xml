@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!DOCTYPE mapper
+	  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	  
+	 <mapper namespace="com.spring.ict03_fastiCat.dao.MyPageDAO">  <!-- namespace="패키지명.인터페이스" -->
+					
+		<select id="idPasswordChk" parameterType="java.util.Map" resultType="int">
+			SELECT COUNT(*) FROM mvc_customer_tbl WHERE userid=#{strId, jdbcType=VARCHAR} and password=#{strPwd}
+		</select>
+		
+		<delete id="deleteUser" parameterType="String">
+			DELETE FROM mvc_customer_tbl WHERE userid = #{strId, jdbcType=VARCHAR}
+		</delete>
+		
+		<select id="getUserDetail" parameterType="String" resultType="com.spring.ict03_fastiCat.dto.MyPageDTO">
+			SELECT * FROM mvc_customer_tbl WHERE userid= #{strId, jdbcType=VARCHAR}
+		</select>
+		
+		<update id="updateUser" parameterType="com.spring.ict03_fastiCat.dto.MyPageDTO">
+			UPDATE mvc_customer_tbl 
+				SET password = #{password}, 
+					username = #{username} , 
+					birthday = #{birthday}, 
+					address = #{address}, 
+					hp = #{hp}, 
+					email = #{email} 
+				WHERE userid = #{userid}
+		</update>
+		
+		<select id="myBoardList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.BoardDTO">
+				SELECT * 
+				FROM ( 
+					SELECT A.*, 
+					rownum as rn 
+						FROM 
+							(SELECT * FROM 
+								(SELECT * FROM 
+							         ${table}
+								) 
+							   	WHERE board_show = 'y' 
+								AND  board_writer = #{strId, jdbcType=VARCHAR}
+								<if test="keyword != '' and keyword != null">
+    								AND board_content LIKE '%' || #{keyword} || '%'
+								</if>
+						        ORDER BY board_num DESC 
+						) A 
+					) 
+				WHERE rn BETWEEN #{start} AND #{end}
+		</select>
+		
+		<select id="myCommentList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.CommentDTO">
+				SELECT * 
+					FROM (
+					    SELECT A.*, rownum AS rn 
+					    FROM (
+					        SELECT 
+					            COMMENT_NUM, 
+					            BOARD_NUM, 
+					            BOARD_CATEGORY, 
+					            USERID, 
+					            DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+					            REGDATE 
+					        FROM FREECOMMENT_TBL 
+					        UNION 
+					        SELECT 
+					            COMMENT_NUM, 
+					            BOARD_NUM, 
+					            BOARD_CATEGORY, 
+					            USERID, 
+					            DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+					            REGDATE 
+					        FROM REVIEWCOMMENT_TBL
+					    ) A 
+					    WHERE USERID = #{strId, jdbcType=VARCHAR} 
+					    ORDER BY BOARD_NUM DESC
+					) A 
+					WHERE rn BETWEEN #{start} AND #{end}
+		</select>
+		
+		<select id="myBoardCnt" parameterType="java.util.Map" resultType="int">
+				SELECT COUNT(*) FROM 
+		        ${table}
+				WHERE board_writer = #{strId, jdbcType=VARCHAR} 
+				<if test="keyword != '' and keyword != null">
+    				AND board_content LIKE '%' || #{keyword} || '%'
+				</if>
+		</select>
+		
+		<select id="myCommentCnt" parameterType="String" resultType="int">
+				SELECT COUNT(*) FROM 
+				(SELECT 
+				    COMMENT_NUM, 
+				    BOARD_NUM, 
+				    BOARD_CATEGORY, 
+				    USERID, 
+				    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+				    REGDATE 
+				FROM FREECOMMENT_TBL
+				UNION
+				SELECT 
+				    COMMENT_NUM, 
+				    BOARD_NUM, 
+				    BOARD_CATEGORY, 
+				    USERID, 
+				    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+				    REGDATE 
+				FROM REVIEWCOMMENT_TBL)
+				WHERE USERID = #{strId, jdbcType=VARCHAR} 
+		</select>
+		
+		<delete id="boardDelete" parameterType="java.util.Map" >
+			DELETE FROM 
+				<choose>
+		            <when test="category == 'review_table'">
+		                REVIEWBOARD_TBL
+		            </when>
+		            <when test="category == 'free_table'">
+		                FREEBOARD_TBL
+		            </when>
+		            <when test="category == 'comment_table'">
+		                (SELECT 
+						    COMMENT_NUM, 
+						    BOARD_NUM, 
+						    BOARD_CATEGORY, 
+						    USERID, 
+						    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+						    REGDATE 
+						FROM FREECOMMENT_TBL
+						UNION
+						SELECT 
+						    COMMENT_NUM, 
+						    BOARD_NUM, 
+						    BOARD_CATEGORY, 
+						    USERID, 
+						    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+						    REGDATE 
+						FROM REVIEWCOMMENT_TBL)
+		            </when>
+		        </choose>
+		        <choose>
+		            <when test="category == 'review_table' || category == 'free_table'">
+						WHERE board_writer = #{strId, jdbcType=VARCHAR} 
+					</when>
+					<when test="category == 'comment_table'">
+						WHERE USERID = #{strId, jdbcType=VARCHAR} 
+					</when>
+				</choose>
+				AND 
+				<choose>
+		            <when test="category == 'review_table' || category == 'free_table'">
+						BOARD_NUM
+					</when>
+					<when test="category == 'comment_table'">
+						COMMENT_NUM
+					</when>
+				</choose>
+				IN
+				<foreach item="num" index="index" collection="numList" open="(" separator="," close=")">
+					#{num}
+				</foreach>
+		</delete>
+		
+		<select id="resBoardCnt" parameterType="String" resultType="int">
+			SELECT COUNT(*) FROM SHOW_RESERVATION WHERE userid = #{strId, jdbcType=VARCHAR} AND Reservation_check = 'y'
+		</select>
+		
+		<select id="resBoardList" parameterType="java.util.Map" resultType="int">
+		SELECT *  
+	        FROM ( 
+	            SELECT A.*, 
+	                rownum as rn 
+	            FROM ( 
+	                SELECT sr.show_ResId showId, 
+	                        st.showName showName, 
+	                        mc.username userName, 
+	                        sr.totalPrice totalPrice, 
+	                        sr.Reservation_date showDate, 
+	                        sr.Reservation_dateNow resDate
+	                    FROM show_Reservation sr 
+	                    JOIN show_tbl st 
+	                        ON sr.showNum = st.showNum 
+	                    JOIN mvc_customer_tbl mc 
+	                        ON sr.userID = mc.userid 
+	                    WHERE sr.userID = #{strId, jdbcType=VARCHAR} 
+	                    AND sr.Reservation_check = 'y' 
+	                    ORDER BY sr.show_ResId DESC 
+	                ) A 
+	            ) 
+	        WHERE rn BETWEEN #{start, jdbcType=INTEGER} AND #{end, jdbcType=INTEGER}
+		</select>
+		
+		<update id="resDelete" parameterType="java.util.Map">
+			UPDATE SHOW_RESERVATION SET reservation_check = 'n' WHERE show_resid = #{strId, jdbcType=VARCHAR} AND userid = #{resNum}
+		</update>
+		
+		<select id="userPasswordCheck" parameterType="String" resultType="String">
+			SELECT password FROM mvc_customer_tbl WHERE userid=#{strId, jdbcType=VARCHAR}
+		</select>
+		
+		<select id="myFavoriteCnt" parameterType="String" resultType="int">
+			SELECT COUNT(*) FROM (
+				SELECT 
+				    H.BOARD_NUM board_num,
+				    H.BOARD_CATEGORY board_category,
+				    R.BOARD_TITLE board_title,
+				    R.BOARD_CONTENT board_content,
+				    R.BOARD_THUMNAIL board_thumnail,
+				    R.BOARD_IMAGE board_image,
+				    R.BOARD_WRITER board_writer,
+				    R.BOARD_REGDATE board_regDate,
+				    R.BOARD_VIEWS board_views,
+				    R.BOARD_HEART board_heart
+				FROM 
+				    HEART_TBL H
+				JOIN 
+				    REVIEWBOARD_TBL R ON H.BOARD_NUM = R.BOARD_NUM AND H.BOARD_CATEGORY = '공연후기'
+				WHERE 
+				    H.USERID = #{strId}
+				UNION ALL
+				SELECT 
+				    H.BOARD_NUM board_num,
+				    H.BOARD_CATEGORY board_category,
+				    F.BOARD_TITLE board_title, 
+				    F.BOARD_CONTENT board_content,
+				    F.BOARD_THUMNAIL board_thumnail,
+				    F.BOARD_IMAGE board_image,
+				    F.BOARD_WRITER board_writer,
+				    F.BOARD_REGDATE board_regDate,
+				    F.BOARD_VIEWS board_views,
+				    F.BOARD_HEART board_heart
+				FROM 
+				    HEART_TBL H
+				JOIN 
+				    FREEBOARD_TBL F ON H.BOARD_NUM = F.BOARD_NUM AND H.BOARD_CATEGORY = '자유'
+				WHERE 
+				    H.USERID = #{strId}
+			)
+		</select>
+		
+		<select id="myFavoriteList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.BoardDTO">   
+		SELECT *  
+	        FROM ( 
+	            SELECT A.*, 
+	                rownum as rn 
+	            FROM ( 
+	                SELECT 
+					    H.BOARD_NUM board_num,
+					    H.BOARD_CATEGORY board_category,
+					    R.BOARD_TITLE board_title,
+					    R.BOARD_CONTENT board_content,
+					    R.BOARD_THUMNAIL board_thumnail,
+					    R.BOARD_IMAGE board_image,
+					    R.BOARD_WRITER board_writer,
+					    R.BOARD_REGDATE board_regDate,
+					    R.BOARD_VIEWS board_views,
+					    R.BOARD_HEART board_heart
+					FROM 
+					    HEART_TBL H
+					JOIN 
+					    REVIEWBOARD_TBL R ON H.BOARD_NUM = R.BOARD_NUM AND H.BOARD_CATEGORY = '공연후기'
+					WHERE 
+					    H.USERID = #{strId}
+					UNION ALL
+					SELECT 
+					    H.BOARD_NUM board_num,
+					    H.BOARD_CATEGORY board_category,
+					    F.BOARD_TITLE board_title, 
+					    F.BOARD_CONTENT board_content,
+					    F.BOARD_THUMNAIL board_thumnail,
+					    F.BOARD_IMAGE board_image,
+					    F.BOARD_WRITER board_writer,
+					    F.BOARD_REGDATE board_regDate,
+					    F.BOARD_VIEWS board_views,
+					    F.BOARD_HEART board_heart
+					FROM 
+					    HEART_TBL H
+					JOIN 
+					    FREEBOARD_TBL F ON H.BOARD_NUM = F.BOARD_NUM AND H.BOARD_CATEGORY = '자유'
+					WHERE 
+					    H.USERID = #{strId}
+	                ) A 
+	            ) 
+	        WHERE rn BETWEEN #{start, jdbcType=INTEGER} AND #{end, jdbcType=INTEGER}
+		</select>
+		
+		<select id="myReceivedCommentCnt" parameterType="String" resultType="int">
+			SELECT COUNT(*) FROM (
+					SELECT 
+					    fc.COMMENT_NUM,
+					    fc.BOARD_NUM,
+					    fc.BOARD_CATEGORY,
+					    fc.USERID,
+					    fc.CONTENT,
+					    fc.REGDATE,
+					    fb.BOARD_WRITER
+					FROM
+					    FREECOMMENT_TBL fc
+					JOIN FREEBOARD_TBL fb
+					    ON fc.BOARD_NUM = fb.BOARD_NUM
+					WHERE
+					    fb.BOARD_WRITER = #{strId}
+					UNION ALL
+					SELECT 
+					    rc.COMMENT_NUM,
+					    rc.BOARD_NUM,
+					    rc.BOARD_CATEGORY,
+					    rc.USERID,
+					    rc.CONTENT,
+					    rc.REGDATE,
+					    rb.BOARD_WRITER
+					FROM
+					   REVIEWCOMMENT_TBL rc
+					JOIN REVIEWBOARD_TBL rb
+					    ON rc.BOARD_NUM = rb.BOARD_NUM
+					WHERE
+					    rb.BOARD_WRITER = #{strId}
+			)
+		</select>
+		
+		<select id="myReceivedCommentList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.CommentDTO">   
+		SELECT *  
+	        FROM ( 
+	            SELECT A.*, 
+	                rownum as rn 
+	            FROM ( 
+	                SELECT 
+					    fc.COMMENT_NUM,
+					    fc.BOARD_NUM,
+					    fc.BOARD_CATEGORY,
+					    fc.USERID,
+					    fc.CONTENT,
+					    fc.REGDATE,
+					    fb.BOARD_WRITER
+					FROM
+					    FREECOMMENT_TBL fc
+					JOIN FREEBOARD_TBL fb
+					    ON fc.BOARD_NUM = fb.BOARD_NUM
+					WHERE
+					    fb.BOARD_WRITER = #{strId}
+					UNION ALL
+					SELECT 
+					    rc.COMMENT_NUM,
+					    rc.BOARD_NUM,
+					    rc.BOARD_CATEGORY,
+					    rc.USERID,
+					    rc.CONTENT,
+					    rc.REGDATE,
+					    rb.BOARD_WRITER
+					FROM
+					   REVIEWCOMMENT_TBL rc
+					JOIN REVIEWBOARD_TBL rb
+					    ON rc.BOARD_NUM = rb.BOARD_NUM
+					WHERE
+					    rb.BOARD_WRITER = #{strId}
+	                ) A 
+	            ) 
+	        WHERE rn BETWEEN #{start, jdbcType=INTEGER} AND #{end, jdbcType=INTEGER}
+		</select>
+		
+	 </mapper> 

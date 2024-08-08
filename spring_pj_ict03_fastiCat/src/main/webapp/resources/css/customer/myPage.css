@@ -128,10 +128,6 @@ form input {
     margin-left: 10px;
 }
 
-input[name="newpassword"], input[name="repassword"] {
-    margin: 5px 10px;
-}
-
 /* 비밀번호 인증버튼 */
 .td_oldPwd input[type="button"] {
 	font-size: 15px;
@@ -165,11 +161,9 @@ select {
     cursor: pointer;
 }
 
-/* 회원 탈퇴 팝업창 */
+/* 팝업창 */
 
-.del_popup, .up_can_chk_popup, 
-.up_pwd_chk_popup, .up_chk_popup,
-.del_pwd_chk_popup {
+.chk_popup {
     display: none;
     position: fixed;
     left: 50%;
@@ -200,3 +194,60 @@ select {
 }
 
 /* 수정 6/28  9:35 */
+
+h1 {
+  text-align: center;
+  font-weight: bold;
+  margin: 0;
+}
+
+p {
+  font-family: verdana;
+  font-size: 20px;
+}
+
+input {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100%;
+}
+
+select {
+  background-color: #eee;
+  border: none;
+  padding: 12px 15px;
+  margin: 8px 0;
+  width: 100px;
+  height: 37px;
+  font-size: 12px;
+  
+}
+
+th {
+text-align: left;
+}
+
+td {
+	height: 57px;
+}
+
+table {
+	width : 500px;
+}
+
+.essential {
+color : red;
+}
+
+.centered-table {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.mod table {
+    margin: auto;
+}

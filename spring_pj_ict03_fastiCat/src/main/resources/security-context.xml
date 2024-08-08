@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.2.xsd
+                           http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<security:http pattern="/resources/**" security="none" />	
+	<security:http pattern="/common/**" security="none" />
+	<security:http auto-config="true" use-expressions="true" create-session="never">
+		<security:intercept-url pattern="/**.pd" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/**.bc" access="hasRole('ROLE_ADMIN')"/>
+		<security:intercept-url pattern="/**.do" access="permitAll"/>
+		<security:intercept-url pattern="/**.qa" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+		<security:form-login login-page="/login.do"
+				login-processing-url="/loginAction.do"
+				authentication-success-handler-ref="userLoginSuccessHandler"
+				authentication-failure-handler-ref="userLoginFailurerHandler"
+				username-parameter="userid" password-parameter="password" />
+		<security:session-management>
+			<security:concurrency-control max-sessions="2" 
+				expired-url="/login.do"
+				error-if-maximum-exceeded="true"/>
+		</security:session-management>	
+		<security:access-denied-handler ref="userDeniedHandler"/>
+	</security:http>
+		
+	<bean id="userLoginSuccessHandler" class="com.spring.ict03_fastiCat.security.UserLoginSuccessHandler">
+		<constructor-arg name="sqlSession" ref="sqlSession"/>   
+	</bean>
+	
+	<bean id="userLoginFailurerHandler" class="com.spring.ict03_fastiCat.security.UserLoginFailurerHandler">
+		<constructor-arg name="sqlSession" ref="sqlSession"/>  
+		<constructor-arg name="passwordEncoder" ref="bCryptPasswordEncoder" /> 
+	</bean>
+	
+	<bean id="userDeniedHandler" class="com.spring.ict03_fastiCat.security.UserDeniedHandler" />
+	
+	<bean id="userAuthenticationService" class="com.spring.ict03_fastiCat.security.UserAuthenticationService">
+		<constructor-arg name="sqlSession" ref="sqlSession" /> 
+	</bean>
+	
+	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+	
+</beans>
