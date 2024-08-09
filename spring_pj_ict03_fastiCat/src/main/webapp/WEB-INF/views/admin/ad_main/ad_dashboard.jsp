@@ -33,7 +33,7 @@
                     <div class="row">
 
 						<!-- 회원가입 수 card -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-2 col-md-6 mb-3">
                             <div class="card border-left-blue shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -49,14 +49,15 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- 등록된 공연 및 페스티벌 수 -->
-                        <div class="col-xl-3 col-md-6 mb-4">
-                            <div class="card border-left-success shadow h-100 py-2">
+                        
+                        <!-- 방문자수 -->
+                        <div class="col-xl-2 col-md-6 mb-3">
+                            <div class="card border-left-danger shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
                                         <div class="col mr-2">
-                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                                 등록된 공연 및 페스티벌 수</div>
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+              <a href="#" id="visitBtn">방문자 수(chart)</a></div>
                                             <div class="h5 mb-0 font-weight-bold text-gray-800">${showCnt}</div>
                                         </div>
                                         <div class="col-auto">
@@ -66,9 +67,27 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- 등록된 공연 및 페스티벌 수 -->
+                        <div class="col-xl-2 col-md-6 mb-3">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                 등록된 공연 및 페스티벌 수</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${showCnt}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-guitar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- 일주일간 등록된 게시글 수-->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-2 col-md-6 mb-3">
                        
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
@@ -88,7 +107,7 @@
                         </div>
 
                         <!-- 일주일 간 예매된 수량 -->
-                        <div class="col-xl-3 col-md-6 mb-4">
+                        <div class="col-xl-2 col-md-6 mb-3 ">
                         <a href="#" id="bookBtn">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
@@ -111,9 +130,9 @@
                     <!-- Content Row -->
 
                     <div class="row">
-						<div class="col-xl-8 col-lg-7" >
-							<div class="card shadow mb-4" style="width:800px">
-								<div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+						<div class="col-xl-6 col-lg-7" >
+							<div class="card shadow mb-6" >
+								<div class="card-header py-3 d-flex flex-row align-items-center ">
 						            <h6 class="m-0 font-weight-bold text-primary">
 					<a href="#" id="totalChart"> 웹사이트 현황 차트 </a>
 						            	<span style=margin:20px><i class="fa-solid fa-caret-left" onclick="changeWeek(-1)"></i></span>
@@ -150,10 +169,10 @@
 						        	<div id="chart_div"></div>
 						    	</div>
 						    </div>
-						    <a href="#" id="visitBtn">방문자 수</a>
 						</div>
   						
-       						<div class="card shadow mb-4">
+  						<div class="col-xl-6 col-lg-7 ">
+       						<div class="card shadow mb-6" >
 			            		<div class="card-header py-3">
 			                		<h6 class="m-0 font-weight-bold text-primary">인기 게시글 목록</h6>
 			            		</div>
@@ -180,8 +199,8 @@
 				                	</div>
 				           		</div>
 				       	 	</div>
-                    </div>
-
+				       	 </div>
+					</div>
                 </div>
                 <!-- /.container-fluid -->
             <!-- End of Main Content 현황조회 대시보드 끝-->
