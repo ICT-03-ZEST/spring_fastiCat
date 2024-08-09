@@ -89,6 +89,7 @@ $(function() {
           </div>  
         <div class="review_box">
         	<form name="updateForm" method="post" enctype="multipart/form-data">
+	        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	        	<input type="hidden" name="hiddenNum" value="${dto.board_num}">
 	        	<input type="hidden" name="hiddenThumnail" value="${dto.board_thumnail}">
 	        	<input type="hidden" name="hiddenImage" value="${dto.board_image}">

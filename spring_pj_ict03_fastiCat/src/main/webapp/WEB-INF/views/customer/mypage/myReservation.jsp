@@ -22,7 +22,7 @@
 	   $('#pwd_chk').val('');
 	   
 	   $.ajax({
-           url :'${path}/pwdChk.myp' ,         //3.
+           url :'${path}/pwdChk.myp?${_csrf.parameterName}=${_csrf.token}' ,         //3.
            type : 'POST',
            data : param,                  //요청데이터 형식(html,xml,json,text)
            success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
@@ -44,7 +44,7 @@
 	 	   };
 	       
 	   $.ajax({
-	          url :'${path}/returnPwdChk.myp' ,         //3.
+	          url :'${path}/returnPwdChk.myp?${_csrf.parameterName}=${_csrf.token}' ,         //3.
 	          type : 'POST',
 	          data : param,         
 	          success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
@@ -62,7 +62,7 @@
 		   let resNum = $('#hidden_res_num').val();
 		   
            $.ajax({
-         	    url: '${path}/myReservationCancelAction.myp',
+         	    url: '${path}/myReservationCancelAction.myp?${_csrf.parameterName}=${_csrf.token}',
           	 	type: 'POST',
             	traditional: true,
             	data: { 'resNum': resNum },

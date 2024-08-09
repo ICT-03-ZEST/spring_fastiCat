@@ -22,6 +22,8 @@ $(function() {
 <body>
     <!-- 댓글 목록.. 댓글 작성 ..  -->
     	<form name="cmt_modForm" action="comment_updateAction.bc" method="post">
+    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    		
     		<input type="hidden" name="h_pageNum" value="${pageNum}">
 	    	<input type="hidden" name="h_comment_num" value="${dto.comment_num}">
 	    	<input type="hidden" name="h_board_num" value="${dto.board_num}">

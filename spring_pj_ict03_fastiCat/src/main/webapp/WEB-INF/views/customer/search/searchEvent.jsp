@@ -46,6 +46,8 @@
 							<!-- 드롭다운 + 검색 창 시작 -->
 							<div align="right" id="searchfooter">
 								<form action="${path}/searchconcertList.sc" method="get">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								
 									<input id="searchInput" class="searchInputButton" type="text"
 										name="query" placeholder="검색어를 입력하세요" aria-label="Search">
 									<input id="searchInputButton" class="searchInputButton" type="submit"

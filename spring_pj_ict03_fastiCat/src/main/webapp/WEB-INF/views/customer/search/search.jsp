@@ -52,6 +52,8 @@
 											<div id="right">
 												<div class="table_div">
 													<form name="boardList">
+														<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+														
 														<table id="searchTable">
 															<tr>
 																<th class="searchth" style="width: 15%">카테고리</th>
@@ -119,6 +121,8 @@
 							<!-- 드롭다운 + 검색 창 시작 -->
 							<div align="right" id="searchfooter">
 								<form action="${path}/search_detailList.sc" method="get">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+									
 									<select name="searchItem" id="lang">
 										<option value="">세부검색</option>
 										<option value="writer">작성자</option>

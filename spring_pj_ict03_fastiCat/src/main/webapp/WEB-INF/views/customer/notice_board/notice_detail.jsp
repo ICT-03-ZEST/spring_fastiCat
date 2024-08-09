@@ -47,6 +47,8 @@ th {
     <!-- 컨텐츠 시작 -->
         <h2 align="center">공지사항</h2>
         <form name="detailForm" method="post">
+        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+        
         <table>
 			<tr>
 				<th style="width: 200px">공지사항 번호</th>

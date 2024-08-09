@@ -40,6 +40,8 @@
 					 <div class="card-body">
 		                  <div class="table_div">
 		                     <form name="ad_festivalAdd" action="ad_showAddAction.adshow?showCategory=페스티벌" method="post" enctype="multipart/form-data">
+		                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		                        
 		                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                      	  
 		                       <tr>

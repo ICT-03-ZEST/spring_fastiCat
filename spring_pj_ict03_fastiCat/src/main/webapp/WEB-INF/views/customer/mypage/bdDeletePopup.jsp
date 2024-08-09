@@ -9,6 +9,9 @@
 </head>
 <body>
 
+<form id="bdDeletePopup">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
 <c:if test="${selectCnt == 1}">
 	<div class="popup-header">회원수정 확인</div>
         <div class="chk_popup-body"> 
@@ -39,6 +42,7 @@
 	<button class="pop_button" onclick="closePopup()">취소</button>
 </div>
 </c:if>
+</form>
 
 </body>
 </html>

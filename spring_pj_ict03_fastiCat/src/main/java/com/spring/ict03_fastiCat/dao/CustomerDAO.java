@@ -37,4 +37,13 @@ public interface CustomerDAO {
 	// 회원비밀번호정보 가져오기
 	public CustomerDTO getpassword(String strId);
 
+	// 시큐리티 - 회원가입 성공시 이메일 인증을 위한 이메일 정보 전송
+	public void sendEmail(String email, String key);
+	 
+	// 시큐리티 - 로그인전에 이메일 인증을 한다.
+	public int selectKey(String key);
+	 
+	// 시큐리티 - enabled를 1로 update
+	public int updateGrade(String key);
+
 }

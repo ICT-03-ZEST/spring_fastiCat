@@ -12,19 +12,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.spring.ict03_fastiCat.dao.CustomerDAO;
 import com.spring.ict03_fastiCat.dto.CustomerDTO;
 import com.spring.ict03_fastiCat.page.Paging;
+import com.spring.ict03_fastiCat.util.EmailChkHandler;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
 	@Autowired
 	private CustomerDAO dao;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;// 비밀번호 암호화 클래스
+	
 	// ID 중복확인 처리
 	@Override
 	public void idConfirmAction(HttpServletRequest request, Model model) throws ServletException, IOException {
@@ -56,8 +61,17 @@ public class CustomerServiceImpl implements CustomerService {
 		// dto.setUserid(strId);
 
 		dto.setUserid(request.getParameter("userid"));
-		dto.setPassword(request.getParameter("password"));
-		dto.setUsername(request.getParameter("username"));
+		
+		// 시큐리티 - 비밀번호 암호화
+		String password = request.getParameter("password");
+		System.out.println("암호화 전의 비밀번호 : " + password);
+		
+		String encriptPassword = bCryptPasswordEncoder.encode(password);
+	    System.out.println("암호화 후의 비밀번호 : " + encriptPassword);
+	    
+	    dto.setPassword(encriptPassword); // 주의 !!! dto.setPassword(암호화된 비밀번호)
+		
+	    dto.setUsername(request.getParameter("username"));
 		dto.setBirthday(Date.valueOf(request.getParameter("birthday")));
 		dto.setAddress(request.getParameter("address"));
 
@@ -76,44 +90,71 @@ public class CustomerServiceImpl implements CustomerService {
 		String email2 = request.getParameter("email2");
 		String email = email1 + "@" + email2;
 		dto.setEmail(email);
+		
+		// 시큐리티 - 이메일인증키 추가(랜덤발생)
+	    String key = EmailChkHandler.getKey();
+	    dto.setKey(key);
 
 		// 등록일
 		dto.setRegDate(new Timestamp(System.currentTimeMillis()));
 
 		// 5단계. 회원가입 처리
 		int insertCnt = dao.insertCustomer(dto);
+		System.out.println("insertCnt : " + insertCnt);
+	      
+		// 시큐리티 - 회원가입시 이메일 인증
+		if(insertCnt == 1) {
+			dao.sendEmail(email, key);
+		}
 
 		// 6단계. jsp로 처리결과 전달
 		model.addAttribute("insertCnt", insertCnt);
 
 	}
+	
+	// 시큐리티 - 메일 인증후 권한(enabled) update
+   public void emailChkAction(HttpServletRequest request, Model model) 
+         throws ServletException, IOException {
+      
+      System.out.println("서비스 - emailChkAction");
+      
+      String key = request.getParameter("key");
+      int selectCnt = dao.selectKey(key);
+      
+      int insertCnt = 0;
+      if(selectCnt == 1) {
+         insertCnt = dao.updateGrade(key);  // enabled를 1로 update
+         System.out.println("emailChkAction - insertCnt : " + insertCnt);
+      }
+      model.addAttribute("insertCnt", insertCnt);
+   }
 
 	// 로그인 처리 / 회원정보 인증(수정, 탈퇴)
-	@Override
-	public void loginAction(HttpServletRequest request, Model model) throws ServletException, IOException {
-
-		System.out.println("서비스 - loginAction");
-
-		// 3단계. 화면에서 입력받은 값을 가져오기
-		String strId = request.getParameter("userid");
-		String strPassword = request.getParameter("password");
-
-		// 4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("strId", strId);
-		map.put("strPassword", strPassword);
-
-		int selectCnt = dao.idPasswordChk(map);
-		// 로그인 성공시 세션ID를 설정
-		if (selectCnt == 1) {
-			// 2줄표현
-			HttpSession session = request.getSession();
-			session.setAttribute("sessionID", strId);
-
-			// 1줄표현
-			model.addAttribute("selectCnt", selectCnt);
-		}
-	}
+//	@Override
+//	public void loginAction(HttpServletRequest request, Model model) throws ServletException, IOException {
+//
+//		System.out.println("서비스 - loginAction");
+//
+//		// 3단계. 화면에서 입력받은 값을 가져오기
+//		String strId = request.getParameter("userid");
+//		String strPassword = request.getParameter("password");
+//
+//		// 4단계. 싱글톤 방식으로 DAO 객체 생성, 다형성 적용
+//		Map<String, Object> map = new HashMap<String, Object>();
+//		map.put("strId", strId);
+//		map.put("strPassword", strPassword);
+//
+//		int selectCnt = dao.idPasswordChk(map);
+//		// 로그인 성공시 세션ID를 설정
+//		if (selectCnt == 1) {
+//			// 2줄표현
+//			HttpSession session = request.getSession();
+//			session.setAttribute("sessionID", strId);
+//
+//			// 1줄표현
+//			model.addAttribute("selectCnt", selectCnt);
+//		}
+//	}
 
 	// 관리자 - 회원목록 조회
 	@Override

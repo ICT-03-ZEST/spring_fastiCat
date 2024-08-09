@@ -52,8 +52,10 @@
 					 <div class="card-body">
 	                  <div class="table_div">
 	                     <form name="ad_concertModify" action="ad_showModifyAction.adshow?showCategory=공연" method="post" enctype="multipart/form-data">
-		                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-		                        <!-- hidden : 직접 input 태그에서 입력받지 못한 값들을 전달할 때 사용 -->
+		                       <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		                       
+		                       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+		                       <!-- hidden : 직접 input 태그에서 입력받지 못한 값들을 전달할 때 사용 -->
 	                           <input type="hidden" name="hiddenPageNum" value="${pageNum}">
 	                           <input type="hidden" name="hiddenShowNum" value="${dto.showNum}">
 	                           <input type="hidden" name="hiddenShowImage" value="${dto.showImage}">  <!-- 기존 상품이미지 -->

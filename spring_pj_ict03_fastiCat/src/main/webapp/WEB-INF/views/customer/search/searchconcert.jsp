@@ -52,6 +52,8 @@
 											<div id="right">
 												<div class="table_div">
 													<form name="boardList">
+													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+														
 														<table id="searchTable" style="width: 1000px;">
 															<tr>
 																<th class="searchth" style="width: 30%">카테고리</th>
@@ -102,6 +104,8 @@
 							<!-- 드롭다운 + 검색 창 시작 -->
 							<div align="right" id="searchfooter">
 								<form action="${path}/searchconcertList.sc" method="get">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								
 									<input id="searchInput" class="searchInputButton" type="text"
 										name="query" placeholder="검색어를 입력하세요" aria-label="Search">
 									<input id="searchInputButton" class="searchInputButton"

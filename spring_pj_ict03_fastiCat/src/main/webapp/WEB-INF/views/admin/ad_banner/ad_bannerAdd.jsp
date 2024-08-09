@@ -54,6 +54,9 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             	<form name="ad_bannerAdd" action="ad_bannerAddAction.adban" method="post" enctype="multipart/form-data">
+	                                <!--  서큐리티 - UserLoginFailureHandler 에서 넘긴 msg 받기 -->
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+									
 	                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                                    <tr>
 				                            <th> * 배너분류 </th>

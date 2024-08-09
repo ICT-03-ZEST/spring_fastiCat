@@ -26,11 +26,21 @@
 
 </head>
 <body>
-
+	
 	<div class="wrap">
 		<!-- header 시작 -->
 		<%@include file="header.jsp"%>
 		<!-- header 끝 -->
+		
+		<!--  서큐리티 - UserLoginFailureHandler 에서 넘긴 msg 받기 -->
+		<c:if test="${msg != null }">
+			<script type="text/javascript">
+				alert("${msg}");
+			</script>
+		</c:if>
+		
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		
 		<br>
 		<%
 			int activeBannerCount = 0;

@@ -52,6 +52,8 @@
     <!-- 컨텐츠 시작 -->
 	<div align="center" id="table">
 		<form name="editForm" method="post">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		
 		<table>
 			<tr>
 				<th style="width: 200px">공지사항 번호</th>

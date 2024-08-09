@@ -8,6 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<form name="myBoardTable">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
 <!-- 자유 -->
 <c:if test="${category != 'comment_table'}">
 <table id="table">  <!-- 가능하면 자유/ 후기 나누기-->
@@ -130,7 +134,7 @@
 	</tfoot>
 </table>
 </c:if>
-
+</form>
 
 </body>
 </html>

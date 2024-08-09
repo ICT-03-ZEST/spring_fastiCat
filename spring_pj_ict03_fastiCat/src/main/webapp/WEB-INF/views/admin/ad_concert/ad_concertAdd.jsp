@@ -41,6 +41,7 @@
 
                         <div class="card-body">
 	                     <form name="ad_concertAdd" action="ad_showAddAction.adshow?showCategory=공연" method="post" enctype="multipart/form-data">
+	                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	                        <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                      	  <tr>

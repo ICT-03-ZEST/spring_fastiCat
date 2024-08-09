@@ -40,6 +40,7 @@
       				<div class="join">
       					<form name="joinform" action="joinAction.do" method="post"
       						onsubmit="return signInCheck()">
+      						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
       						
       						<!-- 2-1. 중복확인 -->
       						<input type="hidden" name="hiddenUserid" value="0">
