@@ -15,7 +15,10 @@
 	<!-- header 시작-->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- header 끝-->
-	
+
+<form name="myCommentList">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
     <div class="container_box">
 		<div class="container">
 			<table id="comment_table" class="table-container">
@@ -82,7 +85,7 @@
 	
 	<!-- 게시글 삭제 확인 팝업 -->
     <div id="chk_popup" class="chk_popup"></div>
-    
+</form>    
 	
   	<!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
