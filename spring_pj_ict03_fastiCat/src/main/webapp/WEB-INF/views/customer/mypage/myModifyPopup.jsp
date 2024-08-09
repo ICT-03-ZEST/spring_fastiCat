@@ -17,6 +17,8 @@ $(function(){	// 상세페이지가 로딩화면
 </head>
 <body>
 
+<form name="myModifyPopup">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 <c:if test="${selectCnt == 1}">
 
 	<span class="popup-close" onclick="closePopup()">X</span>
@@ -155,6 +157,7 @@ $(function(){	// 상세페이지가 로딩화면
 	        </div>
 	    </div>
 </c:if>
+</form>
 
 </body>
 </html>

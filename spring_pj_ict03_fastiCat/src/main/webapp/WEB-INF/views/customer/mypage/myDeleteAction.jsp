@@ -8,6 +8,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form name="myDeleteAction">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
 	<c:choose>
 	    <c:when test="${deleteCnt eq 1}">
 	        <script type="text/javascript">
@@ -22,6 +25,7 @@
 	        </script>
 	    </c:otherwise>
 	</c:choose>
-	
+</form>
+
 </body>
 </html>
