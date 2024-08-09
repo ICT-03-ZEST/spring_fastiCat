@@ -35,6 +35,7 @@
       				<div class="join">
       					<form name="confirmform" action="idConfirmAction.do" method="post"
       						onsubmit="return idConfirmCheck()">
+      						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
       					
       						<%
       						String userid = (String)request.getAttribute("strId");

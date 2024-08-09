@@ -40,6 +40,7 @@
     <!-- 드롭다운 => 카테고리 공연 ,페스티벌-->
     <div class="outline">
         <form id="myWritingForm" action="boardInsertAction.bc" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
                 <table class="container" cellspacing="0" cellpadding="0">
                     <tr><!-- 제목  -->
                         <td class="td_title"><input class="title" type="text" name="board_title" id="board_title" size="30px" placeholder="제목을 입력하세요" required autofocus></td>   

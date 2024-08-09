@@ -36,7 +36,8 @@
       			<div class="s2_inner">
       				<div class="join">
       					<form name="loginform" action="loginAction.do" method="post">
-					
+						<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+						
 						<!--  // 세션이 없는 경우 : 로그인 실패 --> 
      					<c:if test="${sessionScope.sessionID == null}">
       					<script type="text/javascript">

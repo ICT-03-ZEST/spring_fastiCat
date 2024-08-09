@@ -45,6 +45,8 @@
 			<!-- 로그인 안한 경우  -->
 			<c:if test="${sessionScope.sessionID == null}">
 				<form action="${path}/search.sc" method="get">
+					<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					
 					<input id="searchInput" class="searchInputButton" type="search"
 						name="query" placeholder="검색어를 입력하세요" aria-label="Search">
 					<button id="searchInputButton" class="searchInputButton" type="submit">
@@ -58,6 +60,8 @@
 			<!-- 로그인 한 경우  -->
 			<c:if test="${sessionScope.sessionID != null}">
 				<form action="${path}/search.sc" method="get">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+				
 					<input id="searchInput" class=searchInputButton type="search"
 						name="query" placeholder="검색어를 입력하세요" aria-label="Search">
 					<button id="searchInputButton" class="searchInputButton" type="submit">

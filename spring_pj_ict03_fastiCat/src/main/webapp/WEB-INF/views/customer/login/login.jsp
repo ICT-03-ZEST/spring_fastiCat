@@ -23,6 +23,13 @@
 		<!-- header 시작 -->
 		<%@ include file="../../common/header.jsp"%>
 		<!-- header 끝 -->
+		
+		<!--  서큐리티 - UserLoginFailureHandler 에서 넘긴 msg 받기 -->
+		<c:if test="${msg != null }">
+			<script type="text/javascript">
+				alert("${msg}");
+			</script>
+		</c:if>
 
 		<!-- 컨텐츠 시작 -->
 		<div id="container">
@@ -37,6 +44,8 @@
 					<div class="s2_inner">
 						<div class="join">
 							<form name="loginform" action="loginAction.do" method="post">
+								<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+								
 								<table>
 									<tr>
 										<th>* 아이디</th>

@@ -15,18 +15,21 @@
 	<!-- header 시작-->
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- header 끝-->
-	
+
+<form name="myCommentList">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
     <div class="container_box">
 		<div class="container">
 			<table id="comment_table" class="table-container">
 				<thead>
 				      <tr>
 				      	<td style="width: 20px;" class="td_chk"></td>
-				          <th style="width: 40px;" class="serialNum">번호</th>
-				          <th style="width: 80px;" class="category">카테고리</th>
-				          <th style="width: 103px" class="writer">유저ID</th>
-				          <th style="width: 40%;" class="content">댓글 내용</th>
-				          <th style="width: 105px; "class="regDate">작성일</th>
+				          <th style="width: 40px;"class="serialNum">번호</th>
+				          <th style="width: 80px;"class="category">카테고리</th>
+				          <th style="width: 103px"class="writer">유저ID</th>
+				          <th style="width: 40%;"class="content">댓글 내용</th>
+				          <th style="width: 105px	;"class="regDate">작성일</th>
 				      </tr> 
 				</thead>
 				
@@ -82,7 +85,7 @@
 	
 	<!-- 게시글 삭제 확인 팝업 -->
     <div id="chk_popup" class="chk_popup"></div>
-    
+</form>    
 	
   	<!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>

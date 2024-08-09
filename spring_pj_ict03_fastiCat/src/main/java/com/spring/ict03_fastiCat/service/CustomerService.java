@@ -16,7 +16,7 @@ public interface CustomerService {
 	public void signInAction(HttpServletRequest request, Model model) throws ServletException, IOException;
 
 	// 로그인 처리/ 회원정보 인증(수정, 탈퇴)
-	public void loginAction(HttpServletRequest request, Model model) throws ServletException, IOException;
+//	public void loginAction(HttpServletRequest request, Model model) throws ServletException, IOException;
 
 	// 관리자 - 회원목록 조회
 	public void memberListAction(HttpServletRequest request, Model model) throws ServletException, IOException;

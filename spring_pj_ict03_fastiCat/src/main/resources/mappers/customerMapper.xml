@@ -7,6 +7,23 @@
 <!-- ID 중복확인 처리 호출 -->
 <mapper namespace="com.spring.ict03_fastiCat.dao.CustomerDAO">
 
+	<!-- 시큐리티 - 로그인 인증시 호출 -->
+   	<!-- UserAuthenticationService - loadUserByUsername(String userid)에서 호출 -->
+   	<select id="selectCustomer" parameterType="String" resultType="com.spring.ict03_fastiCat.dto.CustomerDTO">
+      	SELECT * FROM mvc_customer_tbl WHERE userid=#{userid}
+   	</select>
+   
+   	<!-- 시큐리티 - 로그인 성공시  UserLoginSuccessHandler - onAuthenticationSuccess()에서 호출 -->
+   	<select id="authorityCheck" parameterType="String" resultType="String">
+      	SELECT authority FROM mvc_customer_tbl WHERE userid=#{userid}
+   	</select>
+   
+   	<!-- 시큐리티 - 로그인 실패시  UserLoginFailurerHandler - onAuthenticationFailure()에서 호출 -->
+   	<select id="userPasswordCheck" parameterType="String" resultType="String">
+      	SELECT password FROM mvc_customer_tbl
+       	WHERE userid=#{strId}
+   	</select>
+
 	<select id="useridCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM mvc_customer_tbl
 		WHERE userid= #{strId}
@@ -17,20 +34,32 @@
 		parameterType="com.spring.ict03_fastiCat.dto.CustomerDTO">
 		INSERT INTO mvc_customer_tbl(userid, password, username,
 		birthday, address,
-		hp, email, regDate)
+		hp, email, regDate, key)
 		VALUES(#{userid}, #{password},
 		#{username}, #{birthday} ,#{address}, #{hp}, #{email},
-		#{regDate})
+		#{regDate}, #{key})
 	</insert>
+	
+	<!--  시큐리티 - 로그인전에 이메일 인증을 한다.  -->
+ 	<select id="selectKey" parameterType="String" resultType="int">
+ 		SELECT COUNT(*) FROM mvc_customer_tbl WHERE key=#{key}
+ 	</select>
+ 	
+ 	<!--  시큐리티 - enabled를 1로 update -->
+    <update id="updateGrade" parameterType="String">
+      UPDATE mvc_customer_tbl
+      SET enabled = 1 
+      WHERE key = #{key}
+    </update>
 
-	<!-- 로그인 처리/ 회원정보 인증(수정, 탈퇴) 호출 -->
-	<select id="idPasswordChk" parameterType="java.util.Map"
+	<!-- 로그인 처리 / 회원정보 인증 (수정, 탈퇴) - 시큐리티에서 사용안함 -->
+	<!-- <select id="idPasswordChk" parameterType="java.util.Map"
 		resultType="int">
 		SELECT COUNT(*) FROM mvc_customer_tbl
 		WHERE userid =
 		#{strId}
 		AND password = #{strPassword}
-	</select>
+	</select> -->
 
 	<!-- insert시 id,pwd 체크 -->
 	<select id="getpassword" parameterType="String" resultType="com.spring.ict03_fastiCat.dto.CustomerDTO">
