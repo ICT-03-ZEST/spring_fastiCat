@@ -27,6 +27,8 @@ $(document).ready(function() {
 </head>
 
 <body>
+<form name="myModifyAction">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	<c:choose>
 	    <c:when test="${updateCnt eq 1}">
 	        <script type="text/javascript">
@@ -41,5 +43,6 @@ $(document).ready(function() {
 	        </script>
 	    </c:otherwise>
 	</c:choose>
+</form>
 </body>
 </html>

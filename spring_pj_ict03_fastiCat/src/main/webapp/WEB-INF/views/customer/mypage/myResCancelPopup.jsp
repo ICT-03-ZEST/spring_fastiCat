@@ -9,6 +9,8 @@
 </head>
 <body>
 
+<form name="myResCancelPopup">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 <c:if test="${selectCnt == 1}">
 	<div class="popup-header">예매취소 확인</div>
         <div class="res_can_popup-body"> 
@@ -39,6 +41,6 @@
     <button class="pop_button" onclick="closePopup()">취소</button>
 </div>
 </c:if>
-
+</form>
 </body>
 </html>

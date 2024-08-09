@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form name="pwdChkPopup">
+<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 <div class="popup-header">비밀번호 확인</div>
         
 <div class="chk_popup-body"> 
@@ -23,5 +25,6 @@
     <button class="pop_button" onclick="pwdChk('${page}')">확인</button>
     <button class="pop_button" onclick="closePopup()">취소</button>
 </div>
+</form>
 </body>
 </html>
