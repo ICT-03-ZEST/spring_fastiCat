@@ -39,7 +39,7 @@
 						</div>
 
                         <div class="card-body">
-                          <form name="ad_noticeModify" action="ad_noticeModifyAction.adnot" method="post">
+                          <form name="ad_noticeModify" action="ad_noticeModifyAction.adnot?${_csrf.parameterName}=${_csrf.token}" method="post">
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                   <!-- hidden : 직접 input 태그에서 입력받지 못한 값들을 전달할 때 사용 -->

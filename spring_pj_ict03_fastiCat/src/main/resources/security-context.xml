@@ -12,6 +12,11 @@
 		
 		<!-- 관리자 권한 영역 -->
 		<security:intercept-url pattern="/**.ad" access="hasRole('ROLE_ADMIN')"/> <!-- 관리자 -->
+		<security:intercept-url pattern="/**.adban" access="hasRole('ROLE_ADMIN')"/> <!--배너관리-->
+		<security:intercept-url pattern="/**.adshow" access="hasRole('ROLE_ADMIN')"/> <!--공연관리-->
+		<security:intercept-url pattern="/**.adbc" access="hasRole('ROLE_ADMIN')"/> <!--게시판관리-->
+		<security:intercept-url pattern="/**.adnot" access="hasRole('ROLE_ADMIN')"/> <!--공지사항-->
+		<security:intercept-url pattern="/**.admember" access="hasRole('ROLE_ADMIN')"/> <!--회원관리-->
 		
 		<!-- 권한에 상관없이 접속 가능 영역(guest도 접속 가능) -->
 		<security:intercept-url pattern="/**.do" access="permitAll"/> <!-- 회원 -->

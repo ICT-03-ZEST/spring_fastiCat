@@ -40,8 +40,7 @@
 						</div>
 
                         <div class="card-body">
-	                     <form name="ad_concertAdd" action="ad_showAddAction.adshow?showCategory=공연" method="post" enctype="multipart/form-data">
-	                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+	                     <form name="ad_concertAdd" action="ad_showAddAction.adshow?showCategory=공연&${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 	                        <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	                      	  <tr>
@@ -57,7 +56,7 @@
 	                           <tr>
 	                              <th> * 공연명 </th>
 	                              <td>
-	                                 <input type="text" class="input" name="showName" id="showName" size="40" placeholder="페스티벌명 작성" required autofocus>
+	                                 <input type="text" class="input" name="showName" id="showName" size="40" placeholder="공연명 작성" required autofocus>
 	                              </td>
 	                           </tr>
 	                           <tr>

@@ -50,8 +50,7 @@
 					 
 					 <div class="card-body">
 		                  <div class="table_div">
-		                     <form name="ad_festivalModify" action="ad_showModifyAction.adshow?showCategory=페스티벌" method="post" enctype="multipart/form-data">
-		                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		                     <form name="ad_festivalModify" action="ad_showModifyAction.adshow?showCategory=페스티벌&${_csrf.parameterName}=${_csrf.token}" method="post" enctype="multipart/form-data">
 		                        
 		                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 		                        <!-- hidden : 직접 input 태그에서 입력받지 못한 값들을 전달할 때 사용 -->

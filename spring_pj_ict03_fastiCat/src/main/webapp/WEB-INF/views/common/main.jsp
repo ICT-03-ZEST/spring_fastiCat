@@ -122,6 +122,28 @@
 		<!-- footer 끝 -->
 
 	</div>
+	
+	<!-- 자동 슬라이드 전환 스크립트 -->
+    <script>
+        let currentSlide = 1;
+        const totalSlides = <%= activeBannerCount %>;
+		
+     	// 현재 슬라이드 화면표시하기 위해 라디오 버튼 체크 활성화
+        function showSlide(slideIndex) {
+            document.getElementById('slide0' + slideIndex).checked = true;
+        }
+		// 현재 current수가 total이면 다시 첫번째슬라이드로
+        function nextSlide() {
+            currentSlide = currentSlide >= totalSlides ? 1 : currentSlide + 1;
+            showSlide(currentSlide);
+        }
+
+        // 4초마다 슬라이드 전환
+        setInterval(nextSlide, 4000);
+    </script>
+	
+	
+	
 	<script>
 	  var shows = [
 	        <c:forEach var="item" items="${list}" varStatus="status">

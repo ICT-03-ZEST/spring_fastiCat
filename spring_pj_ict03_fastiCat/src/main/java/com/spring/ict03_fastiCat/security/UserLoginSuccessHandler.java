@@ -48,9 +48,13 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
          grade = 1;
          viewPage = "/main.do";
       }
+      else if(authority.equals("ROLE_ADMIN")) {
+          grade = 1;
+          viewPage = "/ad_dashboard.ad";
+       }
       else {
          grade = 0;
-         viewPage = "/board_list.bc";
+         viewPage = "/join.do";
       }
       
       RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);

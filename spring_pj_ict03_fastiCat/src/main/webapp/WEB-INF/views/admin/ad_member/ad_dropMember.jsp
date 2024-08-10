@@ -34,6 +34,11 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                
+                <!-- 시큐리티 -->
+				<!-- <form name="ad_dropMember"> -->
+				<%-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
+                
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">탈퇴회원 관리</h1>
@@ -100,6 +105,7 @@
                             </div>
                         </div>
                     </div>
+                    <!-- </form> -->
                 </div>
                 <!-- /.container-fluid -->
 

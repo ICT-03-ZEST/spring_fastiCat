@@ -39,7 +39,8 @@
 						</div>
 
                         <div class="card-body">
-                          <form name="noticeAdd" action="ad_noticeAddAction.adnot" method="post" >
+                          <form name="ad_noticeAdd" action="${path}/ad_noticeAddAction.adnot?${_csrf.parameterName}=${_csrf.token}" method="post" >
+                            
                             <div class="table-responsive">
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                    

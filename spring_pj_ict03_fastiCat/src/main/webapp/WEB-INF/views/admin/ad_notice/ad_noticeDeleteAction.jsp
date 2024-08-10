@@ -28,7 +28,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">배너 등록</h1>
+                        <h1 class="h3 mb-0 text-gray-800">공지사항 삭제</h1>
                     </div>
 					
 					
@@ -36,7 +36,7 @@
                 <c:if test="${deleteCnt == 1}">
 	                <script type="text/javascript">
 	                	setTimeout(function(){
-	                		alert('공연삭제 성공!!');
+	                		alert('공지사항 삭제 성공!!');
 	                		window.location="${path}/ad_noticeEdit.adnot";
 	                	}, 1000);
 	                </script>
@@ -45,7 +45,7 @@
                 <c:if test="${deleteCnt != 1}">
 	                <script type="text/javascript">
 	                	setTimeout(function(){
-	                		alert('공연삭제 실패!!');
+	                		alert('공지사항 삭제 실패!!');
 	                		window.location="${path}/ad_noticeEdit.adnot";
 	                	}, 1000);
 	                </script>

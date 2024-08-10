@@ -45,10 +45,10 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
+                
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">국내페스티벌 관리</h1>
-
 
 
                     <!-- DataTales Example -->

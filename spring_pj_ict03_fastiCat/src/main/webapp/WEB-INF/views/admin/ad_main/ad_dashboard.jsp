@@ -12,7 +12,6 @@
 <title>관리자 - 현황조회</title>
 <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script src="${path}/resources/js/jquery-3.7.1.min.js"></script>
 </head>
 <body id="page-top">
 
@@ -23,6 +22,10 @@
 
                 <!-- Begin Page Content 현황조회 대시보드 -->
                 <div class="container-fluid">
+                	
+                	<!-- 시큐리티 -->
+                	<form name="dashboard">
+                	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -201,6 +204,8 @@
 				       	 	</div>
 				       	 </div>
 					</div>
+					
+					</form>
                 </div>
                 <!-- /.container-fluid -->
             <!-- End of Main Content 현황조회 대시보드 끝-->
