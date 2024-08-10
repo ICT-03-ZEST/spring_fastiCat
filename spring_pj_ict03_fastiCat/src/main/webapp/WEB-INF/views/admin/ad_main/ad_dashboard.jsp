@@ -138,9 +138,9 @@
 						            	<span style=margin:20px><i class="fa-solid fa-caret-left" onclick="changeWeek(-1)"></i></span>
 	    								<span><i class="fa-solid fa-caret-right" onclick="changeWeek(1)"></i></span>
 						            </h6>
-						            <span id="numOfvisit" class="chartName_right" >방문자 수</span>
-						            <span id="numOfboard" class="chartName_right" >게시물 수</span>
-						            <span id="numOfreserv" class="chartName_right">예매 수량</span>
+						            <span id="numOfvisit" class="chartName_right" style="display: none">방문자 수</span>
+						            <span id="numOfboard" class="chartName_right" style="display: none">게시물 수</span>
+						            <span id="numOfreserv" class="chartName_right" style="display: none">예매 수량</span>
 						        </div>
 						        		
 						        	
@@ -154,7 +154,6 @@
 							        
 							        <div id="boardChart">
 								         <c:forEach var="dto" items="${boardCnt}"> <!-- 게시글 등록수 -->
-								         ${dto.board_regDate} : ${dto.board_count}
 								        	<input type="hidden" class="board_date" value="${dto.board_regDate}">
 								        	<input type="hidden" class="board_count" value="${dto.board_count}">
 								        </c:forEach> 
@@ -277,7 +276,7 @@ $(function() {
  	   charts(); 
  	}); 
  	
- 	$('.chartName_right').css('margin-left','30px');
+ 	$('.chartName_right').css('margin-left','30px'); 
  	
  	
 });
@@ -313,9 +312,11 @@ $(function() {
     function drawChart(visitDates, visitCounts, boardDates, boardCounts, reservDates, reservCounts) {
       let data = [['Date', '방문자 수','게시물 수', '예매 수량']];
       let uniqueDates = new Set(); 
-      let endOfWeek = new Date(currentWeekStart); 
+      let endOfWeek = new Date(currentWeekStart);
+      endOfWeek.setHours(23, 59, 59, 999);
       let startOfWeek = new Date(endOfWeek);
       startOfWeek.setDate(endOfWeek.getDate() - 7);
+      
       // 방문자수
       let visitMap = new Map();
       for (let i = 0; i < visitDates.length; i++) {
@@ -323,13 +324,17 @@ $(function() {
           let count = Number(visitCounts[i].value);
           visitMap.set(dateStr, count);
       }
+      
       //게시글 수
       let boardMap = new Map();
       for (let i = 0; i < boardDates.length; i++) {
           let dateStr = boardDates[i].value;
           let count = Number(boardCounts[i].value);
+          console.log("dateStr:", dateStr);
+          console.log("count:", count);
           boardMap.set(dateStr, count);
       }
+      
       //예매 수량
       let reservMap = new Map();
       for (let i = 0; i < reservDates.length; i++) {
@@ -343,7 +348,6 @@ $(function() {
           let visitCount  = showVisitChartOnly ? (visitMap.has(dateStr) ? visitMap.get(dateStr) : 0) : 0;
           let boardCount  = showBoardChartOnly ? (boardMap.has(dateStr) ? boardMap.get(dateStr) : 0) : 0;
           let reservCount = showReservChartOnly ? (reservMap.has(dateStr) ? reservMap.get(dateStr) : 0) : 0;
-
           data.push([new Date(d), visitCount, boardCount, reservCount]);
 
           // 고유한 날짜를 uniqueDates 배열에 추가
