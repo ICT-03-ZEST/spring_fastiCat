@@ -52,49 +52,49 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="table-layout: fixed;">
                                     <thead>
                                         <tr>
-                                            <th>번호</th>
-                                            <th>아이디</th>
-                                            <th>비밀번호</th>
-                                            <th>이름</th>
-                                            <th>생년월일</th>
-                                            <th>주소</th>
-                                            <th>전화번호</th>
-                                            <th>이메일</th>
-                                            <th>가입일</th>
-                                            <th>회원복구</th>
+                                            <th style="width:5%">번호</th>
+                                            <th style="width:10%">아이디</th>
+                                            <th style="width:15%">비밀번호</th>
+                                            <th style="width:10%">이름</th>
+                                            <th style="width:10%">생년월일</th>
+                                            <th style="width:10%">주소</th>
+                                            <th style="width:10%">전화번호</th>
+                                            <th style="width:10%">이메일</th>
+                                            <th style="width:10%">가입일</th>
+                                            <th style="width:10%">회원복구</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>번호</th>
-                                            <th>아이디</th>
-                                            <th>비밀번호</th>
-                                            <th>이름</th>
-                                            <th>생년월일</th>
-                                            <th>주소</th>
-                                            <th>전화번호</th>
-                                            <th>이메일</th>
-                                            <th>가입일</th>
-                                            <th>회원복구</th>
+                                            <th style="width:5%">번호</th>
+                                            <th style="width:10%">아이디</th>
+                                            <th style="width:15%">비밀번호</th>
+                                            <th style="width:10%">이름</th>
+                                            <th style="width:10%">생년월일</th>
+                                            <th style="width:10%">주소</th>
+                                            <th style="width:10%">전화번호</th>
+                                            <th style="width:10%">이메일</th>
+                                            <th style="width:10%">가입일</th>
+                                            <th style="width:10%">회원복구</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     	<!-- 회원목록이 있으면 -->
                                     	<c:forEach var="dto" items="${list}" varStatus="status">
                                         <tr>
-                                            <td>${status.index + 1}</td>
-                                            <td>${dto.userid}</td>
-                                            <td>${dto.password}</td>
-                                            <td>${dto.username}</td>
-                                            <td>${dto.birthday}</td>
-                                            <td>${dto.address}</td>
-                                            <td>${dto.hp}</td>
-                                            <td>${dto.email}</td>
-                                            <td>${dto.regDate}</td>
-                                            <td> <!-- 회원복구 모달 -->
+                                            <td style="width:5%">${status.index + 1}</td>
+                                            <td style="width:10%">${dto.userid}</td>
+                                            <td style="width:15%">${dto.password}</td>
+                                            <td style="width:10%">${dto.username}</td>
+                                            <td style="width:10%">${dto.birthday}</td>
+                                            <td style="width:10%">${dto.address}</td>
+                                            <td style="width:10%">${dto.hp}</td>
+                                            <td style="width:10%">${dto.email}</td>
+                                            <td style="width:10%">${dto.regDate}</td>
+                                            <td style="width:10%"> <!-- 회원복구 모달 -->
 					    					<button class="btn btn-danger" id="btnDelete" href="#" data-toggle="modal" data-target="#RestoreModal"
 				                              		onclick="setRestore('${dto.userid}')">회원복구</button>
 					                 		</td> 

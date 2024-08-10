@@ -48,12 +48,12 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="table-layout: fixed;">
                                     <thead>
                                         <tr>
-                                            <th style="width:10%">번호</th>
+                                            <th style="width:5%">번호</th>
                                             <th style="width:10%">아이디</th>
-                                            <th style="width:10%">비밀번호</th>
+                                            <th style="width:15%">비밀번호</th>
                                             <th style="width:10%">이름</th>
                                             <th style="width:10%">생년월일</th>
                                             <th style="width:10%">주소</th>
@@ -65,9 +65,9 @@
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th style="width:10%">번호</th>
+                                            <th style="width:5%">번호</th>
                                             <th style="width:10%">아이디</th>
-                                            <th style="width:10%">비밀번호</th>
+                                            <th style="width:15%">비밀번호</th>
                                             <th style="width:10%">이름</th>
                                             <th style="width:10%">생년월일</th>
                                             <th style="width:10%">주소</th>
@@ -81,9 +81,9 @@
                                     	<!-- 회원목록이 있으면 -->
                                     	<c:forEach var="dto" items="${list}" varStatus="status">
                                         <tr>
-                                            <td style="width:10%">${status.index + 1}</td>
+                                            <td style="width:5%">${status.index + 1}</td>
                                             <td style="width:10%">${dto.userid}</td>
-                                            <td style="width:10%">${dto.password}</td>
+                                            <td style="width:15%">${dto.password}</td>
                                             <td style="width:10%">${dto.username}</td>
                                             <td style="width:10%">${dto.birthday}</td>
                                             <td style="width:10%">${dto.address}</td>

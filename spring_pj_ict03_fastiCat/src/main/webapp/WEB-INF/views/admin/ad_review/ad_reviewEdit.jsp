@@ -44,23 +44,23 @@
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="table-layout: fixed;">
                                     <thead>
                                         <tr>
-                                        	<th>게시글번호</th>
-                                        	<th>썸네일</th>
-                                            <th>제목</th>
-                                            <th>내용</th>
-                                            <th>작성자</th>
-                                            <th>작성일</th>
-                                            <th>조회수</th>
-                                            <th>좋아요</th>
-                                            <th>게시글 삭제</th>
+                                        	<th style="width:5%">번호</th>
+                                        	<th style="width:7%">썸네일</th>
+                                            <th style="width:15%">제목</th>
+                                            <th style="width:20%">내용</th>
+                                            <th style="width:10%">작성자</th>
+                                            <th style="width:10%">작성일</th>
+                                            <th style="width:7%">조회수</th>
+                                            <th style="width:7%">좋아요</th>
+                                            <th style="width:10%">게시글 삭제</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>게시글번호</th>
+                                            <th>번호</th>
                                             <th>썸네일</th>
                                             <th>제목</th>
                                             <th>내용</th>
@@ -76,7 +76,7 @@
                                     <c:forEach var="dto" items="${list}">
                                         <tr>
                                             <td>${dto.board_num}</td>
-                                            <td> <img src="${dto.board_thumnail}" width="50px" height="50px"> </td>
+                                            <td align="center"> <img src="${dto.board_thumnail}" width="50px" height="50px"> </td>
                                             <td>${dto.board_title}</td>
                                             <td>${dto.board_content}</td>
                                             <td>${dto.board_writer}</td>

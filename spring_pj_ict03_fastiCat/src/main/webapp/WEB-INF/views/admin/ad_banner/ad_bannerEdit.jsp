@@ -62,7 +62,7 @@
 					                  <td>
 						                 ${dto.bannerArea}
                 					  </td>
-					                  <td>
+					                  <td align="center" >
 					                    <img src="${dto.bannerImg}" width="220px" height="100px" alt="배너 이미지">
 					                  </td>
 					                  <td>${dto.bannerStatus}</td>
