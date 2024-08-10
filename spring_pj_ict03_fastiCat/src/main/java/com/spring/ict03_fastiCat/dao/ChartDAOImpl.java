@@ -29,7 +29,6 @@ public class ChartDAOImpl implements ChartDAO {
 	public int showCount() {
 		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
 		int showCnt = dao.showCount(); 
-		System.out.println("showCnt: " + showCnt);
 		return showCnt;
 	}
 		
@@ -45,6 +44,7 @@ public class ChartDAOImpl implements ChartDAO {
 	public List<BoardDTO> regCountforday() {
 		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
 		List<BoardDTO> list = dao.regCountforday(); 
+		System.out.println("Boardlist: " + list);
 		return list;
 	}
 	
@@ -60,7 +60,8 @@ public class ChartDAOImpl implements ChartDAO {
 	@Override
 	public List<ReservationDTO> bookCountForday() {
 		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
-		List<ReservationDTO> list = dao.bookCountForday(); 
+		List<ReservationDTO> list = dao.bookCountForday();
+		System.out.println("reservList: " + list);
 		return list;
 	}
 	
@@ -71,6 +72,14 @@ public class ChartDAOImpl implements ChartDAO {
 		return list;
 	}
 
+	//주간 방문자수
+	@Override
+	public int visitForWeek() {
+		ChartDAO dao = sqlSession.getMapper(ChartDAO.class);
+		int visitCnt = dao.visitForWeek(); 
+		return visitCnt;
+	}
+	
 	//일별 방문자수(일주일 단위)
 	@Override
 	public List<VisitDTO> visitCount() {

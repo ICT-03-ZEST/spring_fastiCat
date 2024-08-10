@@ -13,7 +13,7 @@
 
 $(function() {
 	$('#cancel').click(function() { //댓글 수정 취소
-		location.href="${path}/boardDetail.bc?board_category=${dto.board_category}&board_num=${dto.board_num}&pageNum=${pageNum}";
+		location.href="${path}/boardDetail.bc?board_category=${dto.board_category}&board_num=${dto.board_num}&pageNum=${pageNum}&${_csrf.parameterName}=${_csrf.token}";
 	});
 });
 
@@ -21,8 +21,7 @@ $(function() {
 </head>
 <body>
     <!-- 댓글 목록.. 댓글 작성 ..  -->
-    	<form name="cmt_modForm" action="comment_updateAction.bc" method="post">
-    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+    	<form name="cmt_modForm" action="${path}/comment_updateAction.bc?${_csrf.parameterName}=${_csrf.token}" method="post">
     		
     		<input type="hidden" name="h_pageNum" value="${pageNum}">
 	    	<input type="hidden" name="h_comment_num" value="${dto.comment_num}">

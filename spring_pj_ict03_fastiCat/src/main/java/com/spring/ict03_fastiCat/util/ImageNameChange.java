@@ -50,12 +50,7 @@ public class ImageNameChange {
 		
 		if(imageName == null || imageName.equals("")) {
 			System.out.println("imageName == null");
-			if(category.equals("review")) {
-				this.thumnail = "/ict03_fastiCat/resources/upload/free.jfif";
-			}
-			else {
-				this.thumnail = "/ict03_fastiCat/resources/upload/default.jpg";
-			}
+			this.thumnail = "/ict03_fastiCat/resources/images/noimage.png";
 		}
 		else {
 			try {

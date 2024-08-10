@@ -135,7 +135,7 @@ public class BoardController {
 		logger.info("<< url => comment_insert.bc >>");
 		serv.commentAddAction(req, model);
 		
-		return "customer/normal_board/board/boardDetail";
+		return "customer/normal_board/boardDetail";
 	}	
 		
 		
@@ -194,15 +194,15 @@ public class BoardController {
 		return  "customer/show_category/showInfo";
 	}	
 	
-	//--------------------------현황조회-------------------------------------
-	@Autowired
-	private ChartServiceImpl chart;
-	@RequestMapping("ad_dashboard.bc")
-	public String ad_dashboard(HttpServletRequest req, Model model)
-			throws ServletException, IOException {
-		logger.info("<< url => ad_dashboard.bc >>");
-		chart.chartCount(req, model);
-		return  "admin/ad_main/ad_dashboard";
-	}	
+//	//--------------------------현황조회-------------------------------------
+//	@Autowired
+//	private ChartServiceImpl chart;
+//	@RequestMapping("ad_dashboard.bc")
+//	public String ad_dashboard(HttpServletRequest req, Model model)
+//			throws ServletException, IOException {
+//		logger.info("<< url => ad_dashboard.bc >>");
+//		chart.chartCount(req, model);
+//		return  "admin/ad_main/ad_dashboard";
+//	}	
 
 }

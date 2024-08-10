@@ -3,28 +3,12 @@
 section {
     display: flex;
     justify-content: center; /*가로 가운데 정렬*/
+	margin-top: 100px;
 }
 li {
     list-style: none;
 }
 /* 카테고리 */
-.nav_title {
-    width: 1000px;
-    margin: 0 auto;
-}    
-.h3_review {
-   color: #f0b9c8;
-   font-size: 30px;
-   margin-top: 100px;
-   text-align: left;
-}
-
-.h3_free {
-   color: #adccfb;
-   font-size: 30px;
-   margin-top: 100px;
-   text-align: left;
-}
 .review_box {
     width: 1000px;
 }
@@ -32,16 +16,21 @@ li {
 .head {
     display: flex;
     flex-direction: row;
-    border-radius: 4px;
-    margin-bottom: 30px;
-    justify-content: right;
+   	margin-bottom: 80px;
+    border-bottom: 1px solid lightgray;
 }
 
-.head ul{
-   justify-content: right;
-   margin-right: 30px;
+.head_inner {
+	display: flex;
 }
 
+.head_inner span {
+	margin-top: 30px;
+}
+
+.head_inner ul {
+	padding-left: 20px;
+}
 .category {
     position: relative;
     top: 50px;
@@ -55,21 +44,19 @@ li {
 }
 
 .writer span {
-    margin-left: 60%;
-    font-size: 50px;
+    font-size: 30px;
 }
 
-.writer ul {
-    width: 500px;
+.boardInfo {
     display: flex;
-    padding: 0 10px 10px 10px;
+    padding: 0 10px 0px 0px;
 }
 
-.writer ul li {
-    margin: 10px;
-    font-size: 20px;
-    color: white;
-    padding-top: 10px;
+.boardInfo span {
+    margin: 5px;
+    font-size: 18px;
+    color: gray;
+    font-weight: 100;
 }
 
 #board_heart {
@@ -208,63 +195,6 @@ li {
 }
 /* -------------게시글 수정페이지-----------------  */
 /* boardUpdate.jsp */
-.headMod {
-	height: 75px;
-}
-
-.mod_title h3 {
-   color: black;
-   font-size: 25px;
-   margin-top: 50px
-}
-
-.td_img {
-	padding: 20px;
-	font-weight: bold;
-}
-.li_category {
-    position: relative;
-    left: 50%;
-}
-
-.li_category > span {
-    position: relative;
-    top: 50px;
-    left: -200px;
-    font-size: 30px;
-    color: white;
-    font-weight: bold;
-}
-
-.writerMod {   
-    font-weight: bold;
-    display: flex;
-}
-
-.writerMod > span {
-    margin-left: 20px;
-    font-size: 30px;
-    position: relative;
-    top: 15px;
-}
-
-.writerMod ul {
-    width: 300px;
-    display: flex;
-   
-}
-
-.writerMod > .ul_list {
-    position: relative;
-    left: 15px;
-    top: 20px;
-}
-
-.ul_list li {
-    margin: 10px;
-    font-size: 16px;
-    color: black;
-}
 
 .mod_container {
     width: 100%;

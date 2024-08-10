@@ -41,13 +41,13 @@
 	
 	//수정
 	$('#btn_mod').click(function() {
-		location.href="${path}/boardUpdate.bc?board_category=${dto.board_category}&board_num=${dto.board_num}&pageNum=${pageNum}";
+		location.href="${path}/boardUpdate.bc?board_category=${dto.board_category}&board_num=${dto.board_num}&pageNum=${pageNum}&${_csrf.parameterName}=${_csrf.token}";
 	});
 	
 	//삭제 
 	$('#btn_del').click(function() {
 		if(confirm("삭제하시겠습니까?")) {
-			location.href="${path}/boardDeleteAction.bc?board_category=${dto.board_category}&board_num=${dto.board_num}";
+			location.href="${path}/boardDeleteAction.bc?board_category=${dto.board_category}&board_num=${dto.board_num}&${_csrf.parameterName}=${_csrf.token}";
 		}
 	});
 	
@@ -61,21 +61,6 @@
 		}
 	});	
 	
-	//닉네임 css
-	if(${dto.board_category == 'review'}) {
-		let style = {"background-image":"url('${path}/resources/images/6574814.jpg')"
-			,"background-repeat":"no-repeat"
-			,"background-size":"cover"}
-		$('.head').css(style);
-	}
-	else {
-		//닉네임 css
-		let style = {"background-image":"url('${path}/resources/images/lightBlue.jpg')"
-					,"background-repeat":"no-repeat"
-					,"background-size":"cover"}
-		$('.head').css(style);
-	}
-		
 }); 
  // 자동으로 댓글목록 호출
 function comment_list() { //(8)
@@ -86,7 +71,7 @@ function comment_list() { //(8)
 			"pageNum": "${pageNum}"
 	}  
 	$.ajax({
-		url:'${path}/comment_list.bc', 
+		url:'${path}/comment_list.bc?${_csrf.parameterName}=${_csrf.token}', 
 		type:'POST',
 		data: param,
 		success: function(result) { 
@@ -109,12 +94,12 @@ function comment_add() {
 			"content": $('#content').val()
 	}
 	$.ajax({
-		url: '${path}/comment_insert.bc', 
+		url: '${path}/comment_insert.bc?${_csrf.parameterName}=${_csrf.token}', 
 		type: 'POST',
 		data: param,
 		success: function() { 			
 			$('#content').val("");
-			comment_list(); 			
+			comment_list(); 	
 		},
 		error: function() {
 			alert('comment_add() 오류');
@@ -150,7 +135,7 @@ function updateLike(heart, count) {
 	}
 
 	$.ajax({
-		url: '${path}/heartClick.bc',
+		url: '${path}/heartClick.bc?${_csrf.parameterName}=${_csrf.token}',
 		type: 'POST',
 		data: param,
 		success: function() {
@@ -171,7 +156,7 @@ function newLoad() { //새로고침
 	}
 
 	$.ajax({
-		url:'${path}/boardDetail.bc',
+		url:'${path}/boardDetail.bc?${_csrf.parameterName}=${_csrf.token}',
 		type:'POST',
 		data: param,
 		success: function(result) { 
@@ -190,37 +175,30 @@ function newLoad() { //새로고침
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- header 끝-->
 	
-    <div class="nav_title" align="center">
-    	<h3 class="h3_review">
-    		<c:if test="${dto.board_category == 'review'}">
-	   	  		공연후기 게시판
-		    </c:if>
-		     <c:if test="${dto.board_category != 'review'}">
-		   	  		자유 게시판
-		    </c:if>
-    	</h3>
-    </div>
-    
+    <form name="detailForm" method="post">
+    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <section>
         <div class="review_box">
           <div class="head">
-                <ul>
-                    <li class="writer"><span>${dto.board_writer}</span>
-                        <ul>
-                            <li class="review_catgry">
-                             <c:if test="${dto.board_category == 'review'}">
-				   	  				공연후기
-					    	</c:if>
-					     	<c:if test="${dto.board_category != 'review'}">
-					   	  			자유
-					   		</c:if>
-                            </li>
-                            <li class="regDate">${dto.board_regDate}</li>
-                            <li class="views">조회수 ${dto.board_views}</li>
-                            <li><i id="board_heart" class="fa-regular fa-heart"></i>${dto.board_heart}</li>
-                        </ul>
-                    </li>
-                </ul>
+                <div class="head_inner">
+               		<span><img src="${path}/resources/images/orbit.png" width="60px" height="60px"></span>
+                	<ul>
+                    	<li class="writer"><span>${dto.board_writer}</span></li>
+	                        <li class="boardInfo">
+	                            <span class="review_catgry">
+	                             <c:if test="${dto.board_category == 'review'}">
+					   	  				공연후기
+						    	</c:if>
+						     	<c:if test="${dto.board_category != 'review'}">
+						   	  			자유
+						   		</c:if>
+	                            </span>
+	                            <span class="regDate">${dto.board_regDate}</span>
+	                            <span class="views">조회수 ${dto.board_views}</span>
+	                            <span><i id="board_heart" class="fa-regular fa-heart"></i>${dto.board_heart}</span>
+	                        </li>
+                     </ul>
+                </div>
           </div>  
           
 		  <div class="top_btn">	
@@ -254,21 +232,22 @@ function newLoad() { //새로고침
     
    <!-- 댓글 목록  -->
     <div class="comment_section">
-    	<div>	
-        	<div id="comment_list">
-        	</div>
-		</div>
-	
-		<div class="div_cmtAdd">	
-	        <!-- 댓글작성 창 -->
-	        <input type="hidden" name="sessionID" id="userID" value="${sessionID}"> <!-- **사용자 아이디(세션) -->
-	        <textarea name="content" class="content" id="content" placeholder="댓글을 입력하세요" required></textarea>
-	        
-	        <div class="div_btn" align="right"> <!-- 댓글작성버튼 -->
-	        	<input type="button" class="btnCommentAdd" id="btnCommentAdd" value="댓글 작성">
-	        </div>
-    	</div>
+	    	<div>	
+	        	<div id="comment_list">
+	        	</div>
+			</div>
+		
+			<div class="div_cmtAdd">	
+		        <!-- 댓글작성 창 -->
+		        <input type="hidden" name="sessionID" id="userID" value="${sessionID}"> <!-- **사용자 아이디(세션) -->
+		        <textarea name="content" class="content" id="content" placeholder="댓글을 입력하세요" required></textarea>
+		        
+		        <div class="div_btn" align="right"> <!-- 댓글작성버튼 -->
+		        	<input type="button" class="btnCommentAdd" id="btnCommentAdd" value="댓글 작성">
+		        </div>
+	    	</div>
     </div>
+    </form>
     
     <!-- 목록으로 돌아가기 -->
     <div class="div_back">

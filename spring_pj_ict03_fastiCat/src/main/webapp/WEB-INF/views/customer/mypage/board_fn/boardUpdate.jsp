@@ -14,7 +14,7 @@
 $(function() {
 
 		$('#mod_input').click(function() {
-			document.updateForm.action="${path}/boardUpdateAction.bc";
+			document.updateForm.action="${path}/boardUpdateAction.bc?${_csrf.parameterName}=${_csrf.token}";
 			document.updateForm.submit();
 		});
 
@@ -38,20 +38,6 @@ $(function() {
        			$('#image_name').html('<img src="' + url + '" alt="' + fileName + '" style="width:200px">');
        		}
         });
-      //닉네임 css
-    	if(${dto.board_category == 'review'}) {
-    		let style = {"background-image":"url('${path}/resources/images/6574814.jpg')"
-    			,"background-repeat":"no-repeat"
-    			,"background-size":"cover"}
-    		$('.head').css(style);
-    	}
-    	else {
-    		//닉네임 css
-    		let style = {"background-image":"url('${path}/resources/images/lightBlue.jpg')"
-    					,"background-repeat":"no-repeat"
-    					,"background-size":"cover"}
-    		$('.head').css(style);
-    	}
         
 });
 	
@@ -68,25 +54,6 @@ $(function() {
     
     <section>
     <div class="review_box">
-    	<div class="head">
-               <ul>
-                   <li class="writer"><span>${dto.board_writer}</span>
-                       <ul>
-                           <li class="review_catgry">
-	                            <c:if test="${dto.board_category == 'review'}">
-				   	  				공연후기
-					    		</c:if>
-					     		<c:if test="${dto.board_category != 'review'}">
-					   	  			자유
-					   			</c:if>
-                           </li>
-                           <li class="regDate">${dto.board_regDate}</li>
-                           <li class="views">조회수 ${dto.board_views}</li>
-                           <li><i id="board_heart" class="fa-regular fa-heart"></i>${dto.board_heart}</li>
-                       </ul>
-                   </li>
-               </ul>
-          </div>  
         <div class="review_box">
         	<form name="updateForm" method="post" enctype="multipart/form-data">
 	        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">

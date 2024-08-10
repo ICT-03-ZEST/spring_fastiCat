@@ -29,6 +29,9 @@ public interface ChartDAO {
 	//인기 게시글 목록
 	public List<BoardDTO> popularBoard();
 
+	//주간 방문자수
+	public int visitForWeek();
+	
 	//일별 방문자수(일주일 단위)
 	public List<VisitDTO> visitCount();
 	

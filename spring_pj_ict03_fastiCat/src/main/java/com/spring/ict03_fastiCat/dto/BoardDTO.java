@@ -112,9 +112,11 @@ public class BoardDTO {
 	@Override
 	public String toString() {
 		return "BoardDTO [board_num=" + board_num + ", board_category=" + board_category + ", board_title="
-				+ board_title + ", board_content=" + board_content + ", board_image=" + board_image + ", board_writer="
-				+ board_writer + ", board_regDate=" + board_regDate + ", board_views=" + board_views + ", board_heart="
-				+ board_heart + "]";
-	}  
+				+ board_title + ", board_content=" + board_content + ", board_thumnail=" + board_thumnail
+				+ ", board_image=" + board_image + ", board_writer=" + board_writer + ", board_regDate=" + board_regDate
+				+ ", board_views=" + board_views + ", board_heart=" + board_heart + ", board_count=" + board_count
+				+ "]";
+	}
+
     
 }

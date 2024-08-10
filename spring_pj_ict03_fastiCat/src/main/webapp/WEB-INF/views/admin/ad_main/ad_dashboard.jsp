@@ -61,7 +61,7 @@
                                         <div class="col mr-2">
                                             <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
               <a href="#" id="visitBtn">방문자 수(chart)</a></div>
-                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${showCnt}</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">${visitCnt}</div>
                                         </div>
                                         <div class="col-auto">
                                             <i class="fas fa-eye fa-2x text-gray-300"></i>
@@ -91,7 +91,6 @@
 
                         <!-- 일주일간 등록된 게시글 수-->
                         <div class="col-xl-2 col-md-6 mb-3">
-                       
                             <div class="card border-left-warning shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -111,7 +110,6 @@
 
                         <!-- 일주일 간 예매된 수량 -->
                         <div class="col-xl-2 col-md-6 mb-3 ">
-                        <a href="#" id="bookBtn">
                             <div class="card border-left-info shadow h-100 py-2">
                                 <div class="card-body">
                                     <div class="row no-gutters align-items-center">
@@ -126,7 +124,6 @@
                                     </div>
                                 </div>
                             </div>
-                           </a>
                         </div>
                     </div>
                     
@@ -141,32 +138,33 @@
 						            	<span style=margin:20px><i class="fa-solid fa-caret-left" onclick="changeWeek(-1)"></i></span>
 	    								<span><i class="fa-solid fa-caret-right" onclick="changeWeek(1)"></i></span>
 						            </h6>
-						            <span id="numOfvisit" style="display: none">방문자 수</span>
-						            <span id="numOfboard" style="display: none">게시물 수</span>
-						            <span id="numOfreserv" style="display: none">예매 수량</span>
+						            <span id="numOfvisit" class="chartName_right" >방문자 수</span>
+						            <span id="numOfboard" class="chartName_right" >게시물 수</span>
+						            <span id="numOfreserv" class="chartName_right">예매 수량</span>
 						        </div>
 						        		
 						        	
 						        <div class="card-body"> 
 							        <div id="visitChart">
-							        <c:forEach var="dto" items="${visit}"> <!-- 방문자수 -->
-							        	<input type="hidden" class="visit_date" value="${dto.visit_date}">
-							        	<input type="hidden" class="visit_count" value="${dto.visit_count}">
-							        </c:forEach>
+								        <c:forEach var="dto" items="${visit}"> <!-- 방문자수 -->
+								        	<input type="hidden" class="visit_date" value="${dto.visit_date}">
+								        	<input type="hidden" class="visit_count" value="${dto.visit_count}">
+								        </c:forEach>
 							        </div>
 							        
 							        <div id="boardChart">
-							         <c:forEach var="dto" items="${boardCnt}"> <!-- 게시글 등록수 -->
-							        	<input type="hidden" class="board_date" value="${dto.board_regDate}">
-							        	<input type="hidden" class="board_count" value="${dto.board_count}">
-							        </c:forEach> 
+								         <c:forEach var="dto" items="${boardCnt}"> <!-- 게시글 등록수 -->
+								         ${dto.board_regDate} : ${dto.board_count}
+								        	<input type="hidden" class="board_date" value="${dto.board_regDate}">
+								        	<input type="hidden" class="board_count" value="${dto.board_count}">
+								        </c:forEach> 
 							        </div>
 							        
 							        <div id="reservChart">
-							         <c:forEach var="dto" items="${reservCnt}"> <!-- 일일 예매수량 -->
-							        	<input type="hidden" class="reserv_date" value="${dto.reservation_date}">
-							        	<input type="hidden" class="reserv_count" value="${dto.reserv_count}">
-							        </c:forEach> 
+								         <c:forEach var="dto" items="${reservCnt}"> <!-- 일일 예매수량 -->
+								        	<input type="hidden" class="reserv_date" value="${dto.reservation_date}">
+								        	<input type="hidden" class="reserv_count" value="${dto.reserv_count}">
+								        </c:forEach> 
 							        </div> 
 						        
 						        	<div id="chart_div"></div>
@@ -228,6 +226,7 @@ $(function() {
 		 
 	    charts(); 
 	 }); 
+	
 	 //방문자수 차트
 	 $('#visitBtn').click(function() {
 	  
@@ -277,6 +276,10 @@ $(function() {
  	   showReservChartOnly= true;
  	   charts(); 
  	}); 
+ 	
+ 	$('.chartName_right').css('margin-left','30px');
+ 	
+ 	
 });
     google.charts.load('current', {packages: ['corechart']});
     google.charts.setOnLoadCallback(drawChart);

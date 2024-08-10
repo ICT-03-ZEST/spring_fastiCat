@@ -30,11 +30,13 @@ public class ChartServiceImpl implements ChartService {
 		int userCnt = dao.userCount();
 		// 등록된 공연 및 페스티벌 수
 		int showCnt = dao.showCount();
+		
 		// 일주일 간 등록된 게시글 수 
 		int regCnt = dao.regBoardCountforWeek();
 		
 		//일일 등록 게시글 수 list
 		List<BoardDTO> boardCnt = dao.regCountforday();
+		System.out.println("boardCnt:"+boardCnt);
 		
 		// 일주일 간 예매된 수량
 		int bookCnt = dao.bookingCountforWeek();
@@ -44,6 +46,9 @@ public class ChartServiceImpl implements ChartService {
 		
 		//인기 게시글 목록
 		List<BoardDTO> list = dao.popularBoard();
+		
+		//주간 방문자수
+		int visitCnt = dao.visitForWeek();
 		
 		//일별 방문자수(일주일 단위)
 		List<VisitDTO> visit = dao.visitCount();
@@ -55,6 +60,7 @@ public class ChartServiceImpl implements ChartService {
 		model.addAttribute("bookCnt", bookCnt);
 		model.addAttribute("reservCnt", reservCnt);
 		model.addAttribute("list", list);
+		model.addAttribute("visitCnt", visitCnt);
 		model.addAttribute("visit", visit);
 	}
 
