@@ -17,6 +17,11 @@ $(function() {
 	      let showNo = $(this).data('show_no');
 	     $(this).attr('href','${path}/showInfo.pf?showNum='+ showNo +'&pageNum=${paging.pageNum}&showCategory=${showCategory}');
 	});
+	
+	$('.nonList').css({'font-size':'30px',
+					   'font-weight':'bold',
+						'margin': '50px'		   
+					  });
 });
 </script>   
 </head>
@@ -27,60 +32,65 @@ $(function() {
 	
 	<section>
 	
-	<c:if test="{list != null}">
 		<!-- 컨텐츠 정렬 -->
-		<c:set var="totalSize" value="${fn:length(list)}"/>
-		<c:set var="rows" value="${totalSize / 4}" />
-		<c:if test="${totalSize % 4 != 0}">
-		    <c:set var="rows" value="${rows + 1}" />
-		</c:if>
+		<c:if test="${fn:length(list) > 0}">
+			<c:set var="totalSize" value="${fn:length(list)}"/>
+			<c:set var="rows" value="${totalSize / 4}" />
+			<c:if test="${totalSize % 4 != 0}">
+			    <c:set var="rows" value="${rows + 1}" />
+			</c:if>
+			
+		    
+		        <!-- 콘텐츠 시작 -->
+		        <div class="nav_title" align="center">
+		        	<span>
+		        		<c:if test="${showCategory == 'festival'}">
+		        			페스티벌
+		        		</c:if>
+		        		<c:if test="${showCategory != 'festival'}">
+		        			공연
+		        		</c:if>
+		        	</span>
+		        </div>
 		
-	    
-	        <!-- 콘텐츠 시작 -->
-	        <div class="nav_title" align="center">
-	        	<span>
-	        		<c:if test="${showCategory == 'festival'}">
-	        			페스티벌
-	        		</c:if>
-	        		<c:if test="${showCategory != 'festival'}">
-	        			공연
-	        		</c:if>
-	        	</span>
-	        </div>
-	
-	        <hr class="hr_line">
-	        <div class="catgry_tab"> 
-	            <div class="photo_container">
-	                <c:forEach var="rowIndex" begin="0" end="${rows - 1}">
-	    				<ul class="photo_list">
-					        <!-- 열 반복 -->
-					        <c:forEach var="colIndex" begin="0" end="3">
-					            <c:set var="itemIndex" value="${rowIndex * 4 + colIndex}" />
-					             <c:choose>
-					                <c:when test="${itemIndex < totalSize}">
-					                    <li class="photo_box">
-					                        <div class="photo">
-					                            <a class="link_conctInfo" data-show_no="${list[itemIndex].showNum}" data-show_category="${list[itemIndex].showCategory}">
-					                            	<img src="${list[itemIndex].showImage}"></a>
-					                        </div>
-					                        <div>${list[itemIndex].showName}</div>
-					                    </li>
-					                </c:when>
-					                
-					                <c:otherwise>
-					                    <li class="photo_box">
-					                        <div class="photo">
-					                            <img class="no-data">
-					                        </div>
-					                        <div></div>
-					                    </li>
-					                </c:otherwise>
-					            </c:choose>
-					        </c:forEach>
-			    		</ul>
-					</c:forEach>
+		        <hr class="hr_line">
+		        <div class="catgry_tab"> 
+		            <div class="photo_container">
+		                <c:forEach var="rowIndex" begin="0" end="${rows - 1}">
+		    				<ul class="photo_list">
+						        <!-- 열 반복 -->
+						        <c:forEach var="colIndex" begin="0" end="3">
+						            <c:set var="itemIndex" value="${rowIndex * 4 + colIndex}" />
+						             <c:choose>
+						                <c:when test="${itemIndex < totalSize}">
+						                    <li class="photo_box">
+						                        <div class="photo">
+						                            <a class="link_conctInfo" data-show_no="${list[itemIndex].showNum}" data-show_category="${list[itemIndex].showCategory}">
+						                            	<img src="${list[itemIndex].showImage}"></a>
+						                        </div>
+						                        <div>${list[itemIndex].showName}</div>
+						                    </li>
+						                </c:when>
+						                
+						                <c:otherwise>
+						                    <li class="photo_box">
+						                        <div class="photo">
+						                            <img class="no-data">
+						                        </div>
+						                        <div></div>
+						                    </li>
+						                </c:otherwise>
+						            </c:choose>
+						        </c:forEach>
+				    		</ul>
+						</c:forEach>
+					</div>
 				</div>
-			</div>
+			</c:if>
+			
+			<c:if test="${fn:length(list) == 0}">
+				<div align="center" class="nonList">페이지 준비중 입니다.</div>a
+			</c:if>
 	 		<!-- 콘텐츠 끝 -->
 	 	<hr class="hr_line">
 	 		
@@ -108,7 +118,6 @@ $(function() {
 		        </div>
 		    </div> <!-- 페이징 처리 끝-->
 		    
- 		</c:if>
        
         
        
