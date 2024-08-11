@@ -32,8 +32,8 @@ public class MyPageController {
     		throws ServletException, IOException {
 		logger.info("<url ==> /mypage.myp>");
 		
-		request.getSession().setAttribute("sessionID", "test");
-		request.getSession().setAttribute("myBoard", "1");// 게시글 추가,수정,삭제 후 나의게시글 목록으로 돌아오는 값
+		// request.getSession().setAttribute("sessionID", "test");
+		// request.getSession().setAttribute("myBoard", "1");// 게시글 추가,수정,삭제 후 나의게시글 목록으로 돌아오는 값
 		
 		return "customer/mypage/myPage";
 	}

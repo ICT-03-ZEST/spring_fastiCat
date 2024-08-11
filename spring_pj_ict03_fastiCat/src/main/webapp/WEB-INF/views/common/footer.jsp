@@ -34,7 +34,7 @@
     position: fixed;
     bottom: 90px;
     right: 20px;
-    width: 360px; /* Width increased */
+    width: 360px;
     height: 400px;
     background-color: white;
     border: 2px solid orange;
@@ -118,8 +118,10 @@
     var chatbot = document.getElementById('chatbot-interface');
     if (chatbot.style.display === 'none' || chatbot.style.display === '') {
       chatbot.style.display = 'block';
+      localStorage.setItem('chatbotState', 'open');
     } else {
       chatbot.style.display = 'none';
+      localStorage.setItem('chatbotState', 'closed');
     }
   }
 
@@ -133,6 +135,16 @@
       document.querySelector('.chatbot-body').appendChild(messageContainer);
       input.value = '';
       document.querySelector('.chatbot-body').scrollTop = document.querySelector('.chatbot-body').scrollHeight;
+    }
+  }
+
+  // 페이지 로드 시 챗봇 상태 초기화
+  window.onload = function() {
+    var chatbotState = localStorage.getItem('chatbotState');
+    if (chatbotState === 'open') {
+      document.getElementById('chatbot-interface').style.display = 'block';
+    } else {
+      document.getElementById('chatbot-interface').style.display = 'none';
     }
   }
 </script>
