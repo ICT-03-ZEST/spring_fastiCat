@@ -89,9 +89,9 @@ $(function() {
 			</c:if>
 			
 			<c:if test="${fn:length(list) == 0}">
-				<div align="center" class="nonList">페이지 준비중 입니다.</div>a
-			</c:if>
+				<div align="center" class="nonList">페이지 준비중 입니다.</div>
 	 		<!-- 콘텐츠 끝 -->
+	 		</c:if>
 	 	<hr class="hr_line">
 	 		
 	 		<!-- 페이징 처리 -->	
