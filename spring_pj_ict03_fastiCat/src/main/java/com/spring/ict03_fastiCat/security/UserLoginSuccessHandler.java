@@ -50,6 +50,7 @@ public class UserLoginSuccessHandler implements AuthenticationSuccessHandler {
       }
       else if(authority.equals("ROLE_ADMIN")) {
           grade = 1;
+          request.getSession().setAttribute("ROLE", authority);
           viewPage = "/ad_dashboard.ad";
        }
       else {

@@ -72,6 +72,9 @@
 				<li><a href="${path}/logout.do">LOGOUT</a></li>
 				<li><a href="${path}/mypage.myp"><i
 						class="fa-solid fa-user">myPage</i></a></li>
+				<c:if test="${sessionScope.ROLE == 'ROLE_ADMIN'}">
+					<li><a href="${path}/ad_dashboard.ad">관리자</a></li>
+				</c:if>		
 			</c:if>
 			<li><a href="main.html"><i class="fa-brands fa-twitter"></i></a></li>
 			<li><a href="main.html"><i class="fa-brands fa-facebook"></i></a></li>

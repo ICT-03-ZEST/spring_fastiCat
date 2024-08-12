@@ -178,7 +178,7 @@
 			
 		    <div class="backMyPage" align="center">
 			    <div class="writing">
-			        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="window.location='${path}/myWriting.bc'">
+			        <input type="button" name="boardWrite" class="write" value="글쓰기" onclick="window.location='${path}/boardInsert.bc'">
 			        <input type="button" name="delete" class="delete" value="삭제" onclick="openPopup('board')">
 			    </div>
 			    <!-- 목록으로 돌아가기  - 소연-->

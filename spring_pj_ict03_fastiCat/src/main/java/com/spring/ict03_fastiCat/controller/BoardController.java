@@ -32,7 +32,7 @@ public class BoardController {
 	public String board(HttpServletRequest req, Model model)
 			throws ServletException, IOException {
 		logger.info("<< url => boardList.bc >>");
-//		req.getSession().removeAttribute("myBoard"); // 게시판 목록으로 돌아오기위해 마이페이지 세션을 종료
+		req.getSession().removeAttribute("myBoard"); // 게시판 목록으로 돌아오기위해 마이페이지 세션을 종료
 		
 		serv.boardListAction(req, model);
 	 
