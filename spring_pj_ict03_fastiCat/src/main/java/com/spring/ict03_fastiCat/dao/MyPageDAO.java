@@ -26,16 +26,19 @@ public interface MyPageDAO {
 		public List<BoardDTO> myBoardList(Map<String, Object> map);
 		
 		// 내 댓글 목록
-		public List<BoardDTO> myCommentList(Map<String, Object> map);
+		public List<CommentDTO> myCommentList(Map<String, Object> map);
 		
 		// 게시물 갯수
 		public int myBoardCnt(Map<String, Object> map);
 		
 		// 내 댓글 갯수
-		public int myCommentCnt(String strId);
+		public int myCommentCnt(Map<String, Object> map);
 		
 		// 게시물 삭제
 		public int boardDelete(Map<String, Object> map);
+		
+		// 내 댓글 삭제
+		public int commentDelete(Map<String, Object> map);
 		
 		// 예매 내역 갯수
 		public int resBoardCnt(String strId);
@@ -57,4 +60,6 @@ public interface MyPageDAO {
 		
 		// 내가 좋아요한 게시물 목록
 		public List<CommentDTO> myReceivedCommentList(Map<String, Object> map);
+
+		
 }

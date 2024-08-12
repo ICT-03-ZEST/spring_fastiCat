@@ -9,21 +9,17 @@
 </head>
 <body>
 
-<form name="myBoardTable">
+<form name="myCommentTable">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-
 <table id="table">  <!-- 가능하면 자유/ 후기 나누기-->
 	<thead>
        <tr>
        	<td style="width: 20px;" class="td_chk"></td>
            <th style="width: 40px;"class="serialNum">번호</th>
-           <th style="width: 103px;"class="title">제목</th>
-           <th style="width: 60px;"class="image">이미지</th>
            <th style="width: 80px;"class="category">카테고리</th>
            <th style="width: 103px"class="writer">글쓴이</th>
+           <th style="width: 40%;"class="content">내용</th>
            <th style="width: 105px	;"class="regDate">작성일</th>
-           <th style="width: 40px;"class="views">조회</th>
-           <th style="width: 20px;"class="like"><i class="fa-regular fa-heart"></i></th>
        </tr> 
 	</thead>
 
@@ -31,22 +27,20 @@
        <tbody>
         	<c:forEach var="dto" items="${list}" varStatus="status"> 
          		<tr>
-					<td class="td_chk"><input type="checkbox" class="chkBox" id="${dto.board_num}_chkBox"></td>
-			           <td class="serialNum"> ${status.index + 1} </td>
-			           <td class="title">
+					<td class="td_chk"><input type="checkbox" class="chkBox" id="${dto.comment_num}_chkBox"></td>
+			        <td class="serialNum"> ${status.index + 1} </td>
+			        
+		           	<td class="category">${dto.board_category}</td>
+		           	<td class="writer">${dto.userID}</td>
+		           	<td class="content">
 			           	
 						<a href="${path}/boardDetail.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1">
-							${dto.board_title}
+							${dto.content}
 						</a>
 						
 					</td>
-					<td class="thumnail"><img src="${dto.board_thumnail}" alt="${dto.board_thumnail}" class="thumnailImg"></td>
-		           <td class="category">${dto.board_category}</td>
-		           <td class="writer">${dto.board_writer}</td>
-		           <td class="regDate">${dto.board_regDate}</td>
-		           <td class="views">${dto.board_views}</td>
-		           <td class="like"><i>${dto.board_heart}</i></td>
-			      </tr> 
+		           	<td class="regDate">${dto.regDate}</td>
+			    </tr> 
         	</c:forEach>
 	</tbody>
 	

@@ -124,8 +124,8 @@ $(function(){	// 상세페이지가 로딩화면
 				        <td colspan="2" style="border-bottom: none">
 				            <br>
 				            <div align="right">
-				                 <button class="inputButton" onclick="updateConfirm()">저장</button>
-				                 <button class="inputButton" onclick="closePopup()">취소</button>
+				                 <button type="button" class="inputButton" onclick="updateConfirm()">저장</button>
+				                 <button type="button" class="inputButton" onclick="closePopup()">취소</button>
 				            </div>
 				        </td>
 				    </tr>
@@ -137,27 +137,23 @@ $(function(){	// 상세페이지가 로딩화면
 
 <c:if test="${selectCnt != 1}">
 
-	<span class="popup-close" onclick="upCancelPopup()">X</span>
-	    <div class="popup-header">비밀번호 확인</div>
+	<span class="popup-close" onclick="closePopup()">X</span>
+	    <h3 class="popup-header">비밀번호 확인</h3>
 	    <div class="popup-body"> 
 	        <div id="mod" class="mod">  
 	        <div class="chk_popup-body"> 
 			    비밀번호가 일치하지 않습니다. 다시 입력해주세요
-			    <table>
-			    	<tr>
-			    		<td>비밀번호</td>
-			    		<td><input id="up_pwd_chk" class="up_pwd_chk" type="text" placeholder="비밀번호확인"></td>
-			    	</tr>
-			    </table>
+			    <div>
+    				<input id="pwd_chk" class="pwd_chk" type="text" placeholder="비밀번호확인">
+    			</div>
 			</div>
 			<div>
-			    <button class="pop_button" onclick="pwdChk('modify')">확인</button>
-			    <button class="pop_button" onclick="closePopup">취소</button>
+			    <button type="button" class="pop_button" onclick="pwdChk('modify')">확인</button>
+			    <button type="button" class="pop_button" onclick="closePopup()">취소</button>
 			</div>
 	        </div>
 	    </div>
 </c:if>
 </form>
-
 </body>
 </html>

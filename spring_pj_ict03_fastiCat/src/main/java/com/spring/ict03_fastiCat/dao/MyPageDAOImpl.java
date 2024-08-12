@@ -87,10 +87,10 @@ public class MyPageDAOImpl implements MyPageDAO{
 	
 	// 댓글 목록
 	@Override
-	public List<BoardDTO> myCommentList(Map<String, Object> map) {
+	public List<CommentDTO> myCommentList(Map<String, Object> map) {
 		System.out.println("MyPageDAO - myCommentList");
 		
-		List<BoardDTO> list = sqlSession.selectList("com.spring.ict03_fastiCat.dao.MyPageDAO.myCommentList", map);
+		List<CommentDTO> list = sqlSession.selectList("com.spring.ict03_fastiCat.dao.MyPageDAO.myCommentList", map);
 				
 		System.out.println("list : " + list);
 		return list;
@@ -110,10 +110,10 @@ public class MyPageDAOImpl implements MyPageDAO{
 	
 	// 댓글 갯수 구하기
 	@Override
-	public int myCommentCnt(String strId) {
+	public int myCommentCnt(Map<String, Object> map) {
 		System.out.println("MyPageDAO - myCommentCnt");
 		
-		int total = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.MyPageDAO.myCommentCnt", strId);
+		int total = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.MyPageDAO.myCommentCnt", map);
 			
 		// 5. CustomerDTO를 리턴한다.
 		return total;
@@ -124,7 +124,16 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int boardDelete(Map<String, Object> map) {
 		System.out.println("DAO - boardDelete");
 		
-		int deleteCnt = sqlSession.delete("com.spring.ict03_fastiCat.dao.MyPageDAO.boardDelete", map);
+		int deleteCnt = sqlSession.update("com.spring.ict03_fastiCat.dao.MyPageDAO.boardDelete", map);
+			
+		return deleteCnt;
+	}
+	
+	@Override
+	public int commentDelete(Map<String, Object> map) {
+		System.out.println("DAO - commentDelete");
+		
+		int deleteCnt = sqlSession.update("com.spring.ict03_fastiCat.dao.MyPageDAO.commentDelete", map);
 			
 		return deleteCnt;
 	}

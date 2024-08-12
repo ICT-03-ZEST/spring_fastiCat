@@ -55,22 +55,34 @@
 					    SELECT A.*, rownum AS rn 
 					    FROM (
 					        SELECT 
-					            COMMENT_NUM, 
-					            BOARD_NUM, 
-					            BOARD_CATEGORY, 
-					            USERID, 
-					            DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
-					            REGDATE 
-					        FROM FREECOMMENT_TBL 
-					        UNION 
-					        SELECT 
-					            COMMENT_NUM, 
-					            BOARD_NUM, 
-					            BOARD_CATEGORY, 
-					            USERID, 
-					            DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
-					            REGDATE 
-					        FROM REVIEWCOMMENT_TBL
+							    T.COMMENT_NUM, 
+							    T.BOARD_NUM, 
+							    T.BOARD_CATEGORY, 
+							    T.USERID, 
+							    T.CONTENT, 
+							    T.REGDATE 
+							FROM
+							<choose>
+					            <when test="table == 'REVIEWCOMMENT_TBL'">
+					                REVIEWCOMMENT_TBL T
+					            </when>
+					            <when test="table == 'FREECOMMENT_TBL'">
+					                FREECOMMENT_TBL T
+					            </when>
+				        	</choose>
+							JOIN 
+							<choose>
+					            <when test="table == 'REVIEWCOMMENT_TBL'">
+					                REVIEWBOARD_TBL B ON T.BOARD_NUM = B.BOARD_NUM
+					            </when>
+					            <when test="table == 'FREECOMMENT_TBL'">
+					                FREEBOARD_TBL B ON T.BOARD_NUM = B.BOARD_NUM
+					            </when>
+				        	</choose>
+							WHERE B.BOARD_SHOW = 'y'
+							<if test="keyword != '' and keyword != null">
+    							AND T.CONTENT LIKE '%' || #{keyword} || '%'
+							</if>
 					    ) A 
 					    WHERE USERID = #{strId, jdbcType=VARCHAR} 
 					    ORDER BY BOARD_NUM DESC
@@ -82,83 +94,89 @@
 				SELECT COUNT(*) FROM 
 		        ${table}
 				WHERE board_writer = #{strId, jdbcType=VARCHAR} 
+				AND board_show = 'y' 
 				<if test="keyword != '' and keyword != null">
     				AND board_content LIKE '%' || #{keyword} || '%'
 				</if>
 		</select>
 		
-		<select id="myCommentCnt" parameterType="String" resultType="int">
+		<select id="myCommentCnt" parameterType="java.util.Map" resultType="int">
 				SELECT COUNT(*) FROM 
+				(SELECT 
+				    T.COMMENT_NUM, 
+				    T.BOARD_NUM, 
+				    T.BOARD_CATEGORY, 
+				    T.USERID, 
+				    T.CONTENT, 
+				    T.REGDATE 
+				FROM
+				<choose>
+		            <when test="table == 'REVIEWCOMMENT_TBL'">
+		                REVIEWCOMMENT_TBL T
+		            </when>
+		            <when test="table == 'FREECOMMENT_TBL'">
+		                FREECOMMENT_TBL T
+		            </when>
+	        	</choose>
+				JOIN 
+				<choose>
+		            <when test="table == 'REVIEWCOMMENT_TBL'">
+		                REVIEWBOARD_TBL B ON T.BOARD_NUM = B.BOARD_NUM
+		            </when>
+		            <when test="table == 'FREECOMMENT_TBL'">
+		                FREEBOARD_TBL B ON T.BOARD_NUM = B.BOARD_NUM
+		            </when>
+	        	</choose>
+				WHERE B.BOARD_SHOW = 'y'
+				<if test="keyword != '' and keyword != null">
+					AND T.CONTENT LIKE '%' || #{keyword} || '%'
+				</if>
+				)
+				WHERE USERID = #{strId, jdbcType=VARCHAR} 
+		</select>
+		
+		<update id="boardDelete" parameterType="java.util.Map" >
+			UPDATE
+			<choose>
+	            <when test="category == 'review_table'">
+	                REVIEWBOARD_TBL
+	            </when>
+	            <when test="category == 'free_table'">
+	                FREEBOARD_TBL
+	            </when>
+	        </choose>
+	        SET BOARD_SHOW = 'n'
+	        WHERE board_writer = #{strId, jdbcType=VARCHAR} 
+			AND BOARD_NUM IN
+			<foreach item="num" index="index" collection="numList" open="(" separator="," close=")">
+				#{num}
+			</foreach>
+		</update>
+		
+		<delete id="commentDelete" parameterType="java.util.Map" >
+			DELETE FROM
 				(SELECT 
 				    COMMENT_NUM, 
 				    BOARD_NUM, 
 				    BOARD_CATEGORY, 
 				    USERID, 
-				    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
+				    CONTENT, 
 				    REGDATE 
-				FROM FREECOMMENT_TBL
-				UNION
-				SELECT 
-				    COMMENT_NUM, 
-				    BOARD_NUM, 
-				    BOARD_CATEGORY, 
-				    USERID, 
-				    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
-				    REGDATE 
-				FROM REVIEWCOMMENT_TBL)
-				WHERE USERID = #{strId, jdbcType=VARCHAR} 
-		</select>
-		
-		<delete id="boardDelete" parameterType="java.util.Map" >
-			DELETE FROM 
+				FROM 
 				<choose>
 		            <when test="category == 'review_table'">
-		                REVIEWBOARD_TBL
+		                REVIEWCOMMENT_TBL
 		            </when>
 		            <when test="category == 'free_table'">
-		                FREEBOARD_TBL
+		                FREECOMMENT_TBL
 		            </when>
-		            <when test="category == 'comment_table'">
-		                (SELECT 
-						    COMMENT_NUM, 
-						    BOARD_NUM, 
-						    BOARD_CATEGORY, 
-						    USERID, 
-						    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
-						    REGDATE 
-						FROM FREECOMMENT_TBL
-						UNION
-						SELECT 
-						    COMMENT_NUM, 
-						    BOARD_NUM, 
-						    BOARD_CATEGORY, 
-						    USERID, 
-						    DBMS_LOB.SUBSTR(CONTENT, 4000) AS CONTENT, 
-						    REGDATE 
-						FROM REVIEWCOMMENT_TBL)
-		            </when>
-		        </choose>
-		        <choose>
-		            <when test="category == 'review_table' || category == 'free_table'">
-						WHERE board_writer = #{strId, jdbcType=VARCHAR} 
-					</when>
-					<when test="category == 'comment_table'">
-						WHERE USERID = #{strId, jdbcType=VARCHAR} 
-					</when>
-				</choose>
-				AND 
-				<choose>
-		            <when test="category == 'review_table' || category == 'free_table'">
-						BOARD_NUM
-					</when>
-					<when test="category == 'comment_table'">
-						COMMENT_NUM
-					</when>
-				</choose>
-				IN
-				<foreach item="num" index="index" collection="numList" open="(" separator="," close=")">
-					#{num}
-				</foreach>
+	        	</choose>
+	        )
+	        WHERE USERID = #{strId, jdbcType=VARCHAR} 
+			AND COMMENT_NUM IN
+			<foreach item="num" index="index" collection="numList" open="(" separator="," close=")">
+				#{num}
+			</foreach>
 		</delete>
 		
 		<select id="resBoardCnt" parameterType="String" resultType="int">
@@ -214,9 +232,10 @@
 				FROM 
 				    HEART_TBL H
 				JOIN 
-				    REVIEWBOARD_TBL R ON H.BOARD_NUM = R.BOARD_NUM AND H.BOARD_CATEGORY = '공연후기'
-				WHERE 
-				    H.USERID = #{strId}
+				    REVIEWBOARD_TBL R ON H.BOARD_NUM = R.BOARD_NUM AND H.BOARD_CATEGORY = 'review'
+				WHERE 1=1
+				    AND H.USERID = #{strId}
+				    AND R.BOARD_SHOW = 'y' 
 				UNION ALL
 				SELECT 
 				    H.BOARD_NUM board_num,
@@ -232,9 +251,10 @@
 				FROM 
 				    HEART_TBL H
 				JOIN 
-				    FREEBOARD_TBL F ON H.BOARD_NUM = F.BOARD_NUM AND H.BOARD_CATEGORY = '자유'
-				WHERE 
-				    H.USERID = #{strId}
+				    FREEBOARD_TBL F ON H.BOARD_NUM = F.BOARD_NUM AND H.BOARD_CATEGORY = 'free'
+				WHERE 1=1
+				    AND H.USERID = #{strId}
+				    AND F.BOARD_SHOW = 'y'
 			)
 		</select>
 		
@@ -258,9 +278,10 @@
 					FROM 
 					    HEART_TBL H
 					JOIN 
-					    REVIEWBOARD_TBL R ON H.BOARD_NUM = R.BOARD_NUM AND H.BOARD_CATEGORY = '공연후기'
-					WHERE 
-					    H.USERID = #{strId}
+					    REVIEWBOARD_TBL R ON H.BOARD_NUM = R.BOARD_NUM AND H.BOARD_CATEGORY = 'review'
+					WHERE 1=1
+					    AND H.USERID = #{strId}
+					    AND R.BOARD_SHOW = 'y' 
 					UNION ALL
 					SELECT 
 					    H.BOARD_NUM board_num,
@@ -276,9 +297,10 @@
 					FROM 
 					    HEART_TBL H
 					JOIN 
-					    FREEBOARD_TBL F ON H.BOARD_NUM = F.BOARD_NUM AND H.BOARD_CATEGORY = '자유'
-					WHERE 
-					    H.USERID = #{strId}
+					    FREEBOARD_TBL F ON H.BOARD_NUM = F.BOARD_NUM AND H.BOARD_CATEGORY = 'free'
+					WHERE 1=1
+					    AND H.USERID = #{strId}
+					    AND F.BOARD_SHOW = 'y' 
 	                ) A 
 	            ) 
 	        WHERE rn BETWEEN #{start, jdbcType=INTEGER} AND #{end, jdbcType=INTEGER}
@@ -298,8 +320,9 @@
 					    FREECOMMENT_TBL fc
 					JOIN FREEBOARD_TBL fb
 					    ON fc.BOARD_NUM = fb.BOARD_NUM
-					WHERE
-					    fb.BOARD_WRITER = #{strId}
+					WHERE 1=1
+					    AND fb.BOARD_WRITER = #{strId}
+					    AND fb.BOARD_SHOW = 'y' 
 					UNION ALL
 					SELECT 
 					    rc.COMMENT_NUM,
@@ -313,8 +336,9 @@
 					   REVIEWCOMMENT_TBL rc
 					JOIN REVIEWBOARD_TBL rb
 					    ON rc.BOARD_NUM = rb.BOARD_NUM
-					WHERE
-					    rb.BOARD_WRITER = #{strId}
+					WHERE 1=1
+					    AND rb.BOARD_WRITER = #{strId}
+					    AND rb.BOARD_SHOW = 'y' 
 			)
 		</select>
 		
@@ -336,8 +360,9 @@
 					    FREECOMMENT_TBL fc
 					JOIN FREEBOARD_TBL fb
 					    ON fc.BOARD_NUM = fb.BOARD_NUM
-					WHERE
-					    fb.BOARD_WRITER = #{strId}
+					WHERE 1=1
+					    AND fb.BOARD_WRITER = #{strId}
+					    AND fb.BOARD_SHOW = 'y' 
 					UNION ALL
 					SELECT 
 					    rc.COMMENT_NUM,
@@ -351,8 +376,9 @@
 					   REVIEWCOMMENT_TBL rc
 					JOIN REVIEWBOARD_TBL rb
 					    ON rc.BOARD_NUM = rb.BOARD_NUM
-					WHERE
-					    rb.BOARD_WRITER = #{strId}
+					WHERE 1=1
+					    AND rb.BOARD_WRITER = #{strId}
+					    AND rb.BOARD_SHOW = 'y' 
 	                ) A 
 	            ) 
 	        WHERE rn BETWEEN #{start, jdbcType=INTEGER} AND #{end, jdbcType=INTEGER}

@@ -50,16 +50,38 @@ public class MyPageController {
 	} 
 	
 	// 나의 게시물 목록 (토글)
-		@RequestMapping("/myBoardTable.myp")
-		public String myBoardTable(HttpServletRequest request, HttpServletResponse response , Model model)
-	    		throws ServletException, IOException {
-			logger.info("<url --> /myBoardTable.myp>");
+	@RequestMapping("/myBoardTable.myp")
+	public String myBoardTable(HttpServletRequest request, HttpServletResponse response , Model model)
+    		throws ServletException, IOException {
+		logger.info("<url --> /myBoardTable.myp>");
 
-			// 서비스 -> DAO(SELECT)
-			service.boardListAction(request, model);
+		// 서비스 -> DAO(SELECT)
+		service.boardListAction(request, model);
+	
+   	 	return "customer/mypage/myBoardTable";
+	} 
+	
+	//내가 받은 댓글 목록 이동
+	@RequestMapping("/myCommentList.myp")
+	public String myCommentList(HttpServletRequest request, HttpServletResponse response , Model model)
+    		throws ServletException, IOException {
+		logger.info("<<< url ==> /myCommentList.myp >>>");
 		
-	   	 	return "customer/mypage/myBoardTable";
-		} 
+		request.getSession().setAttribute("myBoard","1");
+		
+		return "customer/mypage/myCommentList";
+	}
+	
+	//내가 받은 댓글 목록 (토글)
+	@RequestMapping("/myCommentTable.myp")
+	public String myCommentTable(HttpServletRequest request, HttpServletResponse response , Model model)
+    		throws ServletException, IOException {
+		logger.info("<<< url ==> /myCommentTable.myp >>>");
+		
+		service.commentListAction(request, model);
+		
+		return "customer/mypage/myCommentTable";
+	}
 	
 	// [나의 예매 내역]
 	@RequestMapping("/myReservation.myp")
@@ -126,12 +148,24 @@ public class MyPageController {
 		return "customer/mypage/myBoardList";
 	}
 	
+	// [게시물 삭제]
+	// 게시물 삭제 처리
+	@RequestMapping("/CommentDeleteAction.myp")
+	public String CommentDeleteAction(HttpServletRequest request, HttpServletResponse response , Model model)
+    		throws ServletException, IOException {
+		logger.info("<<< url ==> /CommentDeleteAction.myp >>>");
+		
+		service.CommentDeleteAction(request, model);
+		
+		return "customer/mypage/myCommentList";
+	}
+	
 	// 비밀번호 확인
 	
 	@RequestMapping("/pwdChk.myp")
 	public String bdDelPwdChk(HttpServletRequest request, HttpServletResponse response , Model model)
     		throws ServletException, IOException {
-		logger.info("<<< url ==> /bdDelPwdChk.myp >>>");
+		logger.info("<<< url ==> /pwdChk.myp >>>");
 		
 		service.pwdChk(request, model);
 		
@@ -141,12 +175,14 @@ public class MyPageController {
 		// 게시물 삭제 비밀번호 인증
 		if("board".equals(page)) {
 		return "customer/mypage/bdDeletePopup";
+		// 내 댓글 삭제 비밀번호 인증
+		} else if ("comment".equals(page)) {
+		return "customer/mypage/ctDeletePopup";
 		// 나의 예매 내역 취소 비밀번호 확인
 		} else if ("reservation".equals(page)) {
 		return "customer/mypage/myResCancelPopup";
 		// 회원수정 인증
 		} else if ("modify".equals(page)) {
-		
 		return "customer/mypage/myModifyPopup";
 		// 회원탈퇴 인증
 		} else if ("withdraw".equals(page)) {
@@ -181,15 +217,15 @@ public class MyPageController {
 		return "customer/mypage/myFavoriteList";
 	}
 	
-	//내가 좋아요한 게시글 확인
+	//내가 받은 댓글 확인
 	@RequestMapping("/myReceivedCommentList.myp")
-	public String myCommentList(HttpServletRequest request, HttpServletResponse response , Model model)
+	public String myReceivedCommentList(HttpServletRequest request, HttpServletResponse response , Model model)
     		throws ServletException, IOException {
 		logger.info("<<< url ==> /myReceivedCommentList.myp >>>");
 		
 		service.ReceivedCommentListAction(request, model);
 		
-		return "customer/mypage/myCommentList";
+		return "customer/mypage/myReceivedCommentList";
 	}
 	
 	

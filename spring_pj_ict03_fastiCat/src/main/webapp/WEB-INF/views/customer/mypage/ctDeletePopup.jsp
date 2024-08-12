@@ -9,18 +9,19 @@
 </head>
 <body>
 
-<form name=myDeletePopup">
+<form id="ctDeletePopup">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
 <c:if test="${selectCnt == 1}">
-	<div class="popup-header">회원탈퇴 확인</div>
-        <div class="del_popup-body"> 
-            회원탈퇴시 회원님의 정보는 바로 삭제가 되며 복구할 수 없습니다. <br>
-            회원탈퇴를 하시겠습니까? 
+	<div class="popup-header">회원수정 확인</div>
+        <div class="chk_popup-body"> 
+            삭제한 댓글은 복구 하실 수 없습니다. <br>
+            선택한 댓글을 삭제 하시겠습니까?
         </div>
         <div>
-        	<button type="button" class="pop_button" onclick="window.location='${path}/deleteUserAction.myp';">탈퇴</button>
-            <button type="button" class="pop_button" onclick="closePopup()">취소</button>
-        </div>
+        <button type="button" class="pop_button" onclick="deleteConfirm()">확인</button>
+        <button type="button" class="pop_button" onclick="closePopup()">취소</button>
+   </div>
 </c:if>
 
 <c:if test="${selectCnt != 1}">
@@ -30,14 +31,15 @@
 	    비밀번호가 일치하지 않습니다. 다시 입력해주세요
 	    <div>
  			<input id="pwd_chk" class="pwd_chk" type="text" placeholder="비밀번호확인">
-		</div>
+ 		</div>
     </div>
 </div>
 <div>
-    <button type="button" class="pop_button" onclick="pwdChk('withdraw')">확인</button>
-    <button type="button" class="pop_button" onclick="closePopup()">취소</button>
+	<button type="button" class="pop_button" onclick="pwdChk('comment')">확인</button>
+	<button type="button" class="pop_button" onclick="closePopup()">취소</button>
 </div>
 </c:if>
 </form>
+
 </body>
 </html>

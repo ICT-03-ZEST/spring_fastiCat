@@ -104,7 +104,7 @@ public class MyPageServiceImpl implements MyPageService {
 			
 		};
 		
-		// 게시글 목록 - 공연후기
+		// 게시글 목록
 		@Override
 		public void boardListAction(HttpServletRequest request, Model model)
 				throws ServletException, IOException {
@@ -127,20 +127,15 @@ public class MyPageServiceImpl implements MyPageService {
 				map.put("table", "REVIEWBOARD_TBL"); 
 			} else if(category.equals("free_table")) {
 				map.put("table", "FREEBOARD_TBL"); 
-			} else if(category.equals("comment_table")) {
-				map.put("table", "COMMENT_TBL");
-			} //테이블
+			} 
 			
 			map.put("keyword", keyword);
 			
 			// 5-1단계. 전체 게시글 갯수 카운트
 			Paging paging = new Paging(pageNum);
 			int total = 0;
-			if(!category.equals("comment_table")) {
-				total = dao.myBoardCnt(map);
-			} else {
-				total = dao.myCommentCnt(strId);
-			}
+			
+			total = dao.myBoardCnt(map);
 
 			System.out.println("total => " + total);
 
@@ -154,12 +149,8 @@ public class MyPageServiceImpl implements MyPageService {
 			map.put("end", end); //비밀번호
 			
 			System.out.println("map : " + map);
-			List<BoardDTO> list = null;
-			if(!category.equals("comment_table")) {
-				list = dao.myBoardList(map);
-			} else {
-				list = dao.myCommentList(map);
-			}
+			
+			List<BoardDTO> list = dao.myBoardList(map);
 			
 			System.out.println("list : " + list);
 			
@@ -175,7 +166,67 @@ public class MyPageServiceImpl implements MyPageService {
 			model.addAttribute("keyword", keyword);
 		}
 		
+		@Override
+		public void commentListAction(HttpServletRequest request, Model model) 
+				throws ServletException, IOException {
+			System.out.println("서비스 - commentListAction");
+			
+			// 3단계. 화면에서 입력받은 값을 가져오기
+			String pageNum = request.getParameter("pageNum");
+			String category = request.getParameter("category");
+			String keyword = request.getParameter("keyword");
+			System.out.println("category : " + category);
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			System.out.println("strId : " + strId);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("strId", strId); //아이디
+			
+			if(category.equals("review_table")) {
+				map.put("table", "REVIEWCOMMENT_TBL"); 
+			} else if(category.equals("free_table")) {
+				map.put("table", "FREECOMMENT_TBL"); 
+			} 
+			
+			map.put("keyword", keyword);
+			
+			// 5-1단계. 전체 게시글 갯수 카운트
+			Paging paging = new Paging(pageNum);
+			int total = 0;
+			
+			total = dao.myCommentCnt(map);
 
+			System.out.println("total => " + total);
+
+			paging.setTotalCount(total);
+			
+			// 5-2단계. 게시글 목록 조회
+			int start = paging.getStartRow();
+			int end = paging.getEndRow();
+			
+			map.put("start", start); //비밀번호
+			map.put("end", end); //비밀번호
+			
+			System.out.println("map : " + map);
+			
+			List<CommentDTO> list = dao.myCommentList(map);
+			
+			System.out.println("list : " + list);
+			
+			// 6단계. jsp로 처리결과 전달
+			model.addAttribute("list", list);
+			model.addAttribute("paging", paging);
+			
+			if(category == "" || category == null) {
+				category = "review_table";
+			}
+			
+			model.addAttribute("category", category);
+			model.addAttribute("keyword", keyword);
+			
+		};
 		
 		// 게시물 삭제 처리
 		@Override
@@ -197,13 +248,37 @@ public class MyPageServiceImpl implements MyPageService {
 			map.put("numList", numList); 
 			map.put("category", category); 
 			
-			// 5단계. 중복확인 처리
 			int deleteCnt = dao.boardDelete(map);
-			
+
 			// 6단계. jsp로 처리결과 전달
 			model.addAttribute("deleteCnt", deleteCnt);
 			
 		};
+		
+		@Override
+		public void CommentDeleteAction(HttpServletRequest request, Model model) 
+				throws ServletException, IOException{
+				System.out.println("서비스 - CommentDeleteAction()");
+			
+			String strId = (String) request.getSession().getAttribute("sessionID");
+			
+			String[] numList = request.getParameterValues("num_list");
+			String category = request.getParameter("category");
+			
+			System.out.println("numList : " + numList);
+			System.out.println("category : " + category);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("strId", strId); //아이디
+			map.put("numList", numList); 
+			map.put("category", category); 
+			
+			int deleteCnt = dao.commentDelete(map);
+
+			// 6단계. jsp로 처리결과 전달
+			model.addAttribute("deleteCnt", deleteCnt);
+			
+		}
 		
 		// 게시글 목록 
 		@Override
@@ -366,6 +441,6 @@ public class MyPageServiceImpl implements MyPageService {
 			// 6단계. jsp로 처리결과 전달
 			model.addAttribute("list", list);
 			model.addAttribute("paging", paging);
-		};
+		}
 		
 }

@@ -12,90 +12,90 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script type="text/javascript">
 
-	function updateConfirm() {
+function updateConfirm() {
 	if(validate()){
-	   if($('#password').val() != $('#repassword').val()){
-		   alert("비밀번호가 일치하지 않습니다!! 다시 입력하세요");
-		   confirmCancel();
-		   $('#repassword').focus();
-		   return false;
-	   }
-		   
-	   let param = {
-		  "password": $('#password').val(),
-		  "username": $('#username').val(),
-		  "birthday": $('#birthday').val(),
-		  "address": $('#address').val(),
-		  "hp1": $('#hp1').val(),
-		  "hp2": $('#hp2').val(),
-		  "hp3": $('#hp3').val(),
-		  "email1": $('#email1').val(),
-		  "email2": $('#email2').val(),
-	   };
+   		if($('#password').val() != $('#repassword').val()){
+	   	alert("비밀번호가 일치하지 않습니다!! 다시 입력하세요");
+	   	confirmCancel();
+	   	$('#repassword').focus();
+	   	return false;
+   	}
 	   
-	   $.ajax({
-           url :'${path}/modifyUserAction.myp?${_csrf.parameterName}=${_csrf.token}' ,         //3.
-           type : 'POST',
-           data : param,                  //요청데이터 형식(html,xml,json,text)
-           success : function(){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-           	  alert("수정이 완료되었습니다.")
-           	  
-           	  closePopup();
-           },
-           error : function(){
-              alert('updateConfirm() 오류');
-           }
-        });
-	   
-	 }else{
-		 return false;
-	 }
-   }
+   	let param = {
+	  	"password": $('#password').val(),
+	  	"username": $('#username').val(),
+	  	"birthday": $('#birthday').val(),
+	  	"address": $('#address').val(),
+	  	"hp1": $('#hp1').val(),
+	  	"hp2": $('#hp2').val(),
+	  	"hp3": $('#hp3').val(),
+	  	"email1": $('#email1').val(),
+	  	"email2": $('#email2').val(),
+   	};
    
-   function pwdChk(page) {
-	   
-	   let param = {
-		  "password": $('#pwd_chk').val(),
-		  "page": page
-	   };
-	   
-	   $('#pwd_chk').val('');
-	   
-	   $.ajax({
-           url :'${path}/pwdChk.myp?${_csrf.parameterName}=${_csrf.token}' ,         //3.
-           type : 'POST',
-           data : param,                  //요청데이터 형식(html,xml,json,text)
-           success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-        	  let result = document.getElementById("chk_popup");
-         	  result.innerHTML = data;
-           },
-           error : function(){
-              alert('pwdChk() 오류');
-           }
-        });
-	   
-   }
+   	$.ajax({
+       url :'${path}/modifyUserAction.myp?${_csrf.parameterName}=${_csrf.token}' ,         //3.
+       type : 'POST',
+       data : param,                  //요청데이터 형식(html,xml,json,text)
+       success : function(){            //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+       	  alert("수정이 완료되었습니다.")
+       	  
+       	  closePopup();
+       },
+       error : function(){
+          alert('updateConfirm() 오류');
+       }
+    });
    
-	//비밀번호 확인 화면 되돌리기
-	function returnPwdChk(page) {
-	
-	   let param = {
-	    	  "page" : page 
-	 	   };
-	       
-	   $.ajax({
-	          url :'${path}/returnPwdChk.myp?${_csrf.parameterName}=${_csrf.token}' ,         //3.
-	          type : 'POST',
-	          data : param,         
-	          success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
-	       	  let result = document.getElementById("chk_popup");
-	        	  result.innerHTML = data;
-	          },
-	          error : function(){
-	             alert('returnPwdChk() 오류');
-	          }
-	       });
-	}
+ }else{
+	 return false;
+ }
+}
+
+function pwdChk(page) {
+   
+   let param = {
+	  "password": $('#pwd_chk').val(),
+	  "page": page
+   };
+   
+   $('#pwd_chk').val('');
+   
+   $.ajax({
+       url :'${path}/pwdChk.myp?${_csrf.parameterName}=${_csrf.token}' ,         //3.
+       type : 'POST',
+       data : param,                  //요청데이터 형식(html,xml,json,text)
+       success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+    	  let result = document.getElementById("chk_popup");
+     	  result.innerHTML = data;
+       },
+       error : function(){
+          alert('pwdChk() 오류');
+       }
+    });
+   
+}
+
+//비밀번호 확인 화면 되돌리기
+function returnPwdChk(page) {
+
+   let param = {
+    	  "page" : page 
+ 	   };
+       
+   $.ajax({
+          url :'${path}/returnPwdChk.myp?${_csrf.parameterName}=${_csrf.token}' ,         //3.
+          type : 'POST',
+          data : param,         
+          success : function(data){      //6. 콜백함수 - 전송성공시의 결과가 result에 전달된다.
+       	  let result = document.getElementById("chk_popup");
+        	  result.innerHTML = data;
+          },
+          error : function(){
+             alert('returnPwdChk() 오류');
+          }
+       });
+}	
    
 </script>
 <body> <!-- 수정 6/28  9:35 -->
@@ -115,13 +115,16 @@
                         <input class="btn_board dis_btn" onclick="location.href='${path}/myBoardList.myp'" value="나의 게시글">
                     </div>
                     <div>
+                        <input class="btn_comment dis_btn" onclick="location.href='${path}/myCommentList.myp'" value="내가 쓴 댓글">
+                    </div>
+                    <div>
                         <input class="btn_res dis_btn" onclick="location.href='${path}/myReservation.myp'" value="예매내역 확인">
                     </div>
                     <div>
                         <input class="btn_like dis_btn" onclick="location.href='${path}/myFavoriteList.myp'" value="좋아요한 게시글">
                     </div>
                     <div>
-                        <input class="btn_like dis_btn" onclick="location.href='${path}/myReceivedCommentList.myp'" value="댓글 확인">
+                        <input class="btn_re_comment dis_btn" onclick="location.href='${path}/myReceivedCommentList.myp'" value="댓글 확인">
                     </div>
                     <div>
                         <input class="btn_mod dis_btn" onclick="openPopup('modify')" value="회원정보 수정">
@@ -145,10 +148,11 @@
             </div>
         </div>
     </div>
+</form>
     
     <!-- 팝업 -->
 	<div id="chk_popup" class="chk_popup"></div>
-</form>
+
 
     <!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
