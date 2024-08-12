@@ -149,7 +149,7 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- header 끝-->
 	
-<form id="myBoardList">
+<form id="myBoardList" name="myBoardList">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
     <div class="container_box">
@@ -182,7 +182,7 @@
 			        <input type="button" name="delete" class="delete" value="삭제" onclick="openPopup('board')">
 			    </div>
 			    <!-- 목록으로 돌아가기  - 소연-->
-				<button class="btn_backmypage" onclick="window.location='${path}/mypage.myp'">마이페이지</button>
+				<input class="btn_backmypage" onclick="window.location='${path}/mypage.myp'" value="마이페이지">
     		</div>
 		</div>
 	</div>

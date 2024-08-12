@@ -78,7 +78,7 @@
 			
          	<!-- 목록으로 돌아가기  - 소연-->
 		    <div class="backMyPage" align="center">
-				<button class="btn_backmypage" onclick="window.location='${path}/mypage.myp'">마이페이지</button>
+				<input type="button" class="btn_backmypage" onclick="window.location='${path}/mypage.myp'" value="마이페이지">
     		</div>
 		</div>
 	</div>

@@ -112,22 +112,22 @@
             <div class="left_bar"> <!-- 사이드 바 -->
                 <div class="left_list">
                     <div>
-                        <button class="btn_board dis_btn" onclick="location.href='${path}/myBoardList.myp'">나의 게시글</button>
+                        <input class="btn_board dis_btn" onclick="location.href='${path}/myBoardList.myp'" value="나의 게시글">
                     </div>
                     <div>
-                        <button class="btn_res dis_btn" onclick="location.href='${path}/myReservation.myp'">예매내역 확인</button>
+                        <input class="btn_res dis_btn" onclick="location.href='${path}/myReservation.myp'" value="예매내역 확인">
                     </div>
                     <div>
-                        <button class="btn_like dis_btn" onclick="location.href='${path}/myFavoriteList.myp'">좋아요한 게시글</button>
+                        <input class="btn_like dis_btn" onclick="location.href='${path}/myFavoriteList.myp'" value="좋아요한 게시글">
                     </div>
                     <div>
-                        <button class="btn_like dis_btn" onclick="location.href='${path}/myReceivedCommentList.myp'">댓글 확인</button>
+                        <input class="btn_like dis_btn" onclick="location.href='${path}/myReceivedCommentList.myp'" value="댓글 확인">
                     </div>
                     <div>
-                        <button class="btn_mod dis_btn" onclick="openPopup('modify')">회원정보 수정</button>
+                        <input class="btn_mod dis_btn" onclick="openPopup('modify')" value="회원정보 수정">
                     </div>
                     <div>
-                        <button class="btn_del dis_btn" onclick="openPopup('withdraw')">회원 탈퇴</button>  <!-- 탈퇴시 팝업창 취소/ 확인 -->
+                        <input class="btn_del dis_btn" onclick="openPopup('withdraw')" value="회원 탈퇴">  <!-- 탈퇴시 팝업창 취소/ 확인 -->
                     </div>
                 </div>
             </div>

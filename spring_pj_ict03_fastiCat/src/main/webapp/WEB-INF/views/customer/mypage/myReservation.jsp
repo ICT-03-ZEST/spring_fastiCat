@@ -86,66 +86,66 @@
 	<%@ include file="/WEB-INF/views/common/header.jsp"%>
 	<!-- header 끝-->
 	
+	
 <form name="myReservation">
 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
     <div class="container_box">
 		<div class="container">
 			<input type="hidden" id="hidden_res_num" name="hidden_res_num" class="hidden_res_num" value="">
-			<table id="res_table" class="table-container">
-				<thead>
-		        <tr>
-		            <th style="width: 40px;"class="resNum">번호</th>
-		            <th class="title">제목</th>
-		            <th class="resName">예약자</th>
-		            <th class="showDate">공연 날짜</th>
-		            <th class="resDate">예매 날짜</th>
-		            <th class="totalprice">결제금액</th>
-		            <td style="width: 40px;" class="td_cancel_btn"></td>
-		        </tr> 
-				</thead>
-
-		        <!-- 게시글이 있으면 -->
-		        <tbody>
-           		<c:forEach var="dto" items="${list}"> 
-            		<tr>
-			            <td class="resNum"> ${dto.showId} </td>
-			            <td class="title">${dto.showName}</td>
-			            <td class="resName">${dto.userName}</td>
-			            <td class="showDate">${dto.showDate}</td>
-			            <td class="resDate">${dto.resDate}</td>
-			            <td class="totalPrice">${dto.totalPrice}</td>
-			            <td class="td_cancel_btn">
-			            	<input type="button" name="cancel" class="cancel" value="예매취소" onclick="openPopup('reservation',${dto.showId})">
-			            </td>
-		        	</tr> 
-           		</c:forEach>
-				</tbody>
-				
-				<tfoot>
-				<tr>
-           			<td colspan="7" align="center">
-           				<!-- 페이징 처리 -->
-           				<!-- 이전 버튼 활성화 -->
-           				<c:if test="${paging.startPage > 10}">
-           					<a href="${path}/myReservation.myp?pageNum=${paging.prev}">[이전]</a>
-           				</c:if>
-           				<!-- 페이지 번호 처리 -->
-           				<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
-           					<a href="${path}/myReservation.myp?pageNum=${num}">${num}</a>
-           				</c:forEach>
-           				
-           				<!-- 다음 버튼 활성화 -->
-           				<c:if test="${paging.endPage < paging.pageCount}">
-           					<a href="${path}/myReservation.myp?pageNum=${paging.next}">[다음]</a>
-           				</c:if>
-           			</td>
-           		</tr>
-           		</tfoot>
-			</table>
-			
+				<table id="res_table" class="table-container">
+					<thead>
+			        <tr>
+			            <th style="width: 40px;"class="resNum">번호</th>
+			            <th class="title">제목</th>
+			            <th class="resName">예약자</th>
+			            <th class="showDate">공연 날짜</th>
+			            <th class="resDate">예매 날짜</th>
+			            <th class="totalprice">결제금액</th>
+			            <td style="width: 40px;" class="td_cancel_btn"></td>
+			        </tr> 
+					</thead>
+	
+			        <!-- 게시글이 있으면 -->
+			        <tbody>
+	           		<c:forEach var="dto" items="${list}"> 
+	            		<tr>
+				            <td class="resNum"> ${dto.showId} </td>
+				            <td class="title">${dto.showName}</td>
+				            <td class="resName">${dto.userName}</td>
+				            <td class="showDate">${dto.showDate}</td>
+				            <td class="resDate">${dto.resDate}</td>
+				            <td class="totalPrice">${dto.totalPrice}</td>
+				            <td class="td_cancel_btn">
+				            	<input type="button" name="cancel" class="cancel" value="예매취소" onclick="openPopup('reservation',${dto.showId})">
+				            </td>
+			        	</tr> 
+	           		</c:forEach>
+					</tbody>
+					
+					<tfoot>
+					<tr>
+	           			<td colspan="7" align="center">
+	           				<!-- 페이징 처리 -->
+	           				<!-- 이전 버튼 활성화 -->
+	           				<c:if test="${paging.startPage > 10}">
+	           					<a href="${path}/myReservation.myp?pageNum=${paging.prev}">[이전]</a>
+	           				</c:if>
+	           				<!-- 페이지 번호 처리 -->
+	           				<c:forEach var="num" begin="${paging.startPage}" end="${paging.endPage}">
+	           					<a href="${path}/myReservation.myp?pageNum=${num}">${num}</a>
+	           				</c:forEach>
+	           				
+	           				<!-- 다음 버튼 활성화 -->
+	           				<c:if test="${paging.endPage < paging.pageCount}">
+	           					<a href="${path}/myReservation.myp?pageNum=${paging.next}">[다음]</a>
+	           				</c:if>
+	           			</td>
+	           		</tr>
+	           		</tfoot>
+				</table>
          	<!-- 목록으로 돌아가기  - 소연-->
 		    <div class="backMyPage" align="center">
-				<button class="btn_backmypage" onclick="window.location='${path}/mypage.myp'">마이페이지</button>
+				<input type="button" class="btn_backmypage" onclick="window.location='${path}/mypage.myp'" value="마이페이지">
     		</div>
 		</div>
 	</div>
@@ -153,7 +153,7 @@
 	<!-- 게시글 삭제 확인 팝업 -->
     <div id="chk_popup" class="chk_popup"></div>
 </form>    
-	
+
   	<!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<!-- footer 끝-->

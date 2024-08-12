@@ -15,7 +15,8 @@ ul, li {
 .page_inner {
     display: flex;
     margin: auto 50x;
-    background: gainsboro;
+    border-top: 3px solid orange;
+    border-bottom: 3px solid orange;
 }
 
 /* 왼쪽 메뉴바 */
@@ -30,29 +31,30 @@ ul, li {
 
 .left_list {
     border: none;
-    height: 300px;
-    background-color: cornsilk;
+    height: 500px;
     display: flex;
     flex-direction: column;
     justify-content:center;
     align-content: center;
 }
 
-.left_list div button {
+.left_list div input {
     border: none;
     border-radius: 5px;
     margin: 15px auto;
-    padding: 10px;
-    background: rgba(238, 152, 53, 0.712);
+    padding: 20px;
+    background: orange;
     width: 200px;
     color: white;
     font-weight: bold;
     font-size: 20px;
+    text-align: center;
 }
 
-.left_list div button:hover, .left_list div button:focus {
+.left_list div input:hover, .left_list div input:focus {
     box-shadow: 0 0 4px rgb(87, 85, 85);
     cursor: pointer;
+    outline: none;
 } 
 
 
