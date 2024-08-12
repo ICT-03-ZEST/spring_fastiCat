@@ -25,7 +25,7 @@ DECLARE
 BEGIN
     WHILE i<=30 LOOP
         INSERT INTO reviewBoard_tbl(board_num, board_title, board_content, board_thumnail, board_writer)
-        VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM reviewBoard_tbl), '후기제목'||i, '후기내용'||i, '/ict03_fastiCat/resources/upload/free.jfif', 'user1');
+        VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM reviewBoard_tbl), '후기제목'||i, '후기내용'||i, '/ict03_fastiCat/resources/images/noimage.png', 'user1');
         i:=i+1;
     END LOOP;
 END;
@@ -67,7 +67,7 @@ DECLARE
 BEGIN
     WHILE i<=30 LOOP
         INSERT INTO freeBoard_tbl(board_num, board_title, board_content, board_thumnail, board_writer)
-        VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM freeBoard_tbl), '자유제목'||i, '자유내용'||i, '/ict03_fastiCat/resources/upload/default.jpg', 'user1');
+        VALUES ((SELECT NVL(MAX(board_num)+1, 1) FROM freeBoard_tbl), '자유제목'||i, '자유내용'||i, '/ict03_fastiCat/resources/images/noimage.png', 'user1');
         i:=i+1;
     END LOOP;
 END;

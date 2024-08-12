@@ -52,7 +52,7 @@
             <li class="views">조회</li>
             <li class="like"><i class="fa-regular fa-heart"> 11</i></li>
         </ul> 
-		
+	<c:if test="${list.size() != null}">
 		<c:forEach var="dto" items="${list}">
 	        <ul class="post_cover">
 	            <li><img src="${dto.board_thumnail}"></li> <!-- 사진 사이즈 조절 -->
@@ -70,6 +70,8 @@
 	            </li>
 	        </ul> 
 	     </c:forEach>
+	     
+	</c:if>	
 	</div>
     <!-- 컨텐츠 끝 -->
 
