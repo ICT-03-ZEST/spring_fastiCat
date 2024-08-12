@@ -42,10 +42,10 @@
 	pageContext.setAttribute("maxDay", maxDayValue);
 /* --임시 세션 저장값-------------------------------------------------------*/
     // 현재 세션을 가져옵니다. 세션이 없으면 새로 생성합니다.
-    HttpSession session1 = request.getSession(true);
+    //HttpSession session1 = request.getSession(true);
     
     // 세션에 sessionID를 hong1234로 저장합니다.
-    session1.setAttribute("sessionID", "hong1234");
+    //session1.setAttribute("sessionID", "hong1234");
 /* -------------------------------------------------------------*/
     
     
