@@ -37,7 +37,7 @@
 			           <td class="serialNum"> ${dto.board_num} </td>
 			           <td class="title">
 			           	
-						<a href="${path}/content.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1">
+						<a href="${path}/boardDetail.bc?board_num=${dto.board_num}&board_category=${dto.board_category}&pageNum=${paging.pageNum}&views=1">
 							${dto.board_title}
 						</a>
 						
