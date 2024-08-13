@@ -10,9 +10,9 @@
 	<select id="ResList" parameterType="String" resultType="com.spring.ict03_fastiCat.dto.ShowDTO">
 		SELECT showNum, showName, curCapacity, maxCapacity, showDay, show 
 		FROM show_tbl 
-		WHERE LPAD(TO_CHAR(showDay, 'MM'), 2, '0') = LPAD(#{curMonth}, 2, '0') 
-		AND EXTRACT(YEAR FROM showDay) = EXTRACT(YEAR FROM SYSDATE) 
-		AND SHOW = 'y'  
+		WHERE EXTRACT(MONTH FROM showDay) = #{curMonth}
+		  AND EXTRACT(YEAR FROM showDay) = EXTRACT(YEAR FROM SYSDATE)
+		  AND SHOW = 'Y'  
 		ORDER BY showNum
 	</select>
 	
@@ -20,7 +20,7 @@
 	<select id="ResDetailPageView" parameterType="int" resultType="com.spring.ict03_fastiCat.dto.ShowDTO">
 		SELECT showNum, showName,showPlace, showPrice,showTime,showAge,showBene,curCapacity, maxCapacity, showDay,showImage ,show, showCategory 
 		FROM show_tbl 
-		WHERE SHOW LIKE 'y' 
+		WHERE SHOW LIKE 'Y' 
 		AND showNum = #{showNum}  
 		ORDER BY showNum
 	</select>
@@ -30,7 +30,7 @@
 		SELECT *  
 		FROM show_tbl 
 		WHERE showName LIKE #{ShowName} 
-		AND SHOW LIKE 'y' 
+		AND SHOW LIKE 'Y' 
 		ORDER BY SHOWNUM
 	</select>
 	
