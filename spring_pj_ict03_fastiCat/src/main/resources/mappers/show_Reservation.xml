@@ -12,7 +12,7 @@
 		FROM show_tbl 
 		WHERE EXTRACT(MONTH FROM showDay) = #{curMonth}
 		  AND EXTRACT(YEAR FROM showDay) = EXTRACT(YEAR FROM SYSDATE)
-		  AND SHOW = 'Y'  
+		  AND SHOW = 'y'  
 		ORDER BY showNum
 	</select>
 	
@@ -20,7 +20,7 @@
 	<select id="ResDetailPageView" parameterType="int" resultType="com.spring.ict03_fastiCat.dto.ShowDTO">
 		SELECT showNum, showName,showPlace, showPrice,showTime,showAge,showBene,curCapacity, maxCapacity, showDay,showImage ,show, showCategory 
 		FROM show_tbl 
-		WHERE SHOW LIKE 'Y' 
+		WHERE SHOW LIKE 'y' 
 		AND showNum = #{showNum}  
 		ORDER BY showNum
 	</select>
@@ -30,7 +30,7 @@
 		SELECT *  
 		FROM show_tbl 
 		WHERE showName LIKE #{ShowName} 
-		AND SHOW LIKE 'Y' 
+		AND SHOW LIKE 'y' 
 		ORDER BY SHOWNUM
 	</select>
 	
