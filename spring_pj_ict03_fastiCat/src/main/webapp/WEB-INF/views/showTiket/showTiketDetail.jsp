@@ -76,7 +76,7 @@
 				</tr>
 				<tr>
 					<td>관람연령</td>
-					<td colspan="2">${dto.showAge}세이상</td>
+					<td colspan="2">${dto.showAge}</td>
 				</tr>
 				<tr>
 					<td>가격</td>

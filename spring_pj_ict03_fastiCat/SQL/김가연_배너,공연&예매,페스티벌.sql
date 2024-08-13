@@ -32,9 +32,6 @@ CREATE TABLE show_tbl(
 );
 SELECT * FROM show_tbl;
 
- INSERT INTO show_tbl(showNum, showName, showCategory, showIndate, showPlace, showPrice, showTime, showAge, showBene,  showDay, showImage)
- VALUES((SELECT NVL(MAX(showNum)+1, 1) FROM show_tbl), '콘서트이름1', '케이팝', sysdate, '체조경기장', 154000, 120,  '전체관람가', '혜택', '2024-01-01', '/ict03_fastiCat/resources/upload/박혜신.jpg'); 
-COMMIT;
 
 -- show_tbl 시퀀스 생성
 DROP SEQUENCE SHOW_TBL_SEQ;
@@ -77,9 +74,7 @@ CREATE TABLE show_tbl_fes(
 );
 SELECT * FROM show_tbl_fes;
 
- INSERT INTO show_tbl_fes(showNum, showName, showCategory, showIndate, showPlace, showPrice, showTime, showAge, showBene,  showDay, showImage)
- VALUES((SELECT NVL(MAX(showNum)+1, 1) FROM show_tbl_fes), '콘서트이름1', '케이팝', sysdate, '체조경기장', 154000, 120,  '전체관람가', '혜택', '2024-01-01', '/ict03_fastiCat/resources/upload/박혜신.jpg'); 
-COMMIT;
+
 
 -- show_tbl_fes 시퀀스 생성
 DROP SEQUENCE SHOW_TBL_FES_SEQ;
@@ -100,3 +95,84 @@ BEGIN
 END;
 /
 COMMIT;
+
+--============ show_tbl 더미데이터 (예매 캘린더 & 국내공연 공통) ================
+DECLARE
+    start_date DATE := TO_DATE('2024-07-01', 'YYYY-MM-DD'); 
+    end_date DATE := TO_DATE('2024-09-30', 'YYYY-MM-DD');   
+    current_day DATE := start_date;
+    show_names SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
+        '나상현씨밴드 콘서트', '엔믹스콘서트', '볼빨간사춘기콘서트', 
+        '아이유콘서트', '데이식스콘서트', '송가인콘서트', '오마이걸콘서트',
+        '세븐틴콘서트', '잔나비콘서트'
+    );
+    show_places SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
+        '잠실실내체육관', '올림픽공원', '체조경기장', '코엑스'
+    );
+    show_benes SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
+        '무이자할부', '조조할인', '회원할인'
+    );
+    show_categories SYS.ODCIVARCHAR2LIST := SYS.ODCIVARCHAR2LIST(
+        '콘서트', '트로트', '인디'
+    );
+    selected_show_name VARCHAR2(150);
+    selected_show_image VARCHAR2(150);
+    
+    row_count NUMBER := 0;  -- 총 삽입된 레코드 수 추적
+
+BEGIN
+    WHILE current_day <= end_date LOOP
+        IF row_count < 150 THEN  -- 최대 150개의 레코드만 삽입
+            FOR i IN 1..TRUNC(DBMS_RANDOM.VALUE(1, 4)) LOOP
+                selected_show_name := show_names(TRUNC(DBMS_RANDOM.VALUE(1, show_names.COUNT + 1)));
+                
+                selected_show_image := CASE 
+                    WHEN selected_show_name = '나상현씨밴드 콘서트' THEN '/ict03_fastiCat/resources/images/contents/나상현씨밴드.jfif'
+                    WHEN selected_show_name = '엔믹스콘서트' THEN '/ict03_fastiCat/resources/upload/엔믹스.jpg'
+                    WHEN selected_show_name = '볼빨간사춘기콘서트 ' THEN '/ict03_fastiCat/resources/images/contents/볼빨간사춘기_l.jpg'
+                    WHEN selected_show_name = '아이유콘서트' THEN '/ict03_fastiCat/resources/images/contents/아이유포스터.jpg'
+                    WHEN selected_show_name = '데이식스콘서트' THEN '/ict03_fastiCat/resources/images/contents/데이식스.jpg'
+                    WHEN selected_show_name = '송가인콘서트' THEN '/ict03_fastiCat/resources/images/contents/송가인.jpg'
+                    WHEN selected_show_name = '오마이걸콘서트' THEN '/ict03_fastiCat/resources/images/contents/오마이걸.jpg'
+                    WHEN selected_show_name = '세븐틴콘서트' THEN '/ict03_fastiCat/resources/images/contents/세븐틴.jpg'
+                    WHEN selected_show_name = '잔나비콘서트' THEN '/ict03_fastiCat/resources/images/contents/잔나비.webp'
+                    ELSE '/ict03_fastiCat/resources/upload/정아로.gif'
+                END;
+
+                INSERT INTO show_tbl(
+                    showNum, showName, showPlace, showPrice, curCapacity, maxCapacity, showDay, show, showBene, showAge, showTime, showImage, showCategory
+                )
+                VALUES(
+                    show_tbl_seq.NEXTVAL,
+                    selected_show_name,
+                    show_places(TRUNC(DBMS_RANDOM.VALUE(1, show_places.COUNT + 1))),
+                    200000 + TRUNC(DBMS_RANDOM.VALUE(1, 6)) * 10000,  
+                    CASE
+                        WHEN EXTRACT(MONTH FROM current_day) = 7 THEN 150 
+                        WHEN EXTRACT(MONTH FROM current_day) = 8 THEN 0   
+                        WHEN EXTRACT(MONTH FROM current_day) = 9 THEN 350 
+                    END,
+                    35000,
+                    current_day,  -- 현재 날짜로 showDay 설정
+                    'y',
+                    show_benes(TRUNC(DBMS_RANDOM.VALUE(1, show_benes.COUNT + 1))),
+                    전체관람가,             
+                    120,
+                    selected_show_image,  
+                    show_categories(TRUNC(DBMS_RANDOM.VALUE(1, show_categories.COUNT + 1)))
+                );
+
+                row_count := row_count + 1;
+
+                EXIT WHEN row_count >= 150;
+            END LOOP;
+        END IF;
+
+        current_day := current_day + 1;
+    END LOOP;
+END;
+/
+COMMIT;
+
+SELECT * FROM show_tbl
+ORDER BY showNum;
