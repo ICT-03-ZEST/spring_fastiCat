@@ -159,44 +159,45 @@ DECLARE
     i NUMBER:=1; 
 BEGIN
     WHILE i<=20 LOOP
-       INSERT INTO show_tbl(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-        VALUES(i, '트로트', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/미스터트롯2 진선미.gif', '체조경기장', 120, '2024/07/07', '7세이상',  115000); 
+       INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
+        VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/신라힙합페스티벌.png', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
         i:=i+1;
-         INSERT INTO show_tbl(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-         VALUES(i, '케이팝', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/더보이즈.jpg', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
+         INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
+         VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/부산락페스티벌.jpg', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
         i:=i+1; 
-         INSERT INTO show_tbl(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, '케이팝', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/블랙핑크.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
+         INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/서재페.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
-         INSERT INTO show_tbl(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, '인디', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/나상현씨밴드.jfif', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
+         INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/세종센트럴파크.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
-         INSERT INTO show_tbl(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, '케이팝', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/데이식스.jpg', '체조경기장', 120, '2024/07/07', '전체연령관람', 115000); 
+         INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/부산락페스티벌.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
     END LOOP;
 END;
 /
 
+delete from show_tbl_fes;
 --show_tbl_fes(페스티벌)
 DECLARE 
     i NUMBER:=1; 
 BEGIN
     WHILE i<=20 LOOP
        INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-        VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/미스터트롯2 진선미.gif', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
+        VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/신라힙합페스티벌.png', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
         i:=i+1;
          INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-         VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/더보이즈.jpg', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
+         VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/부산락페스티벌.jpg', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
         i:=i+1; 
          INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/블랙핑크.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/서재페.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
          INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/나상현씨밴드.jfif', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/세종센트럴파크.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
          INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/contents/데이식스.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/부산락페스티벌.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
     END LOOP;
 END;
