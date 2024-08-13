@@ -185,19 +185,19 @@ DECLARE
 BEGIN
     WHILE i<=20 LOOP
        INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-        VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/신라힙합페스티벌.png', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
+        VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/신라힙합페스티벌.png', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
         i:=i+1;
          INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-         VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/부산락페스티벌.jpg', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
+         VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/부산락페스티벌.jpg', '체조경기장', 120, '2024/07/07', '15세이상',  115000); 
         i:=i+1; 
          INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/서재페.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/서재페.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
          INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/세종센트럴파크.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/세종센트럴파크.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
          INSERT INTO show_tbl_fes(showNum, showCategory, showName, showImage, showPlace, showTime, showDay, showAge, showPrice)
-          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/images/upload/부산락페스티벌.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
+          VALUES(i, 'festival', '콘서트이름'||i, '/ict03_fastiCat/resources/upload/부산락페스티벌.jpg', '체조경기장', 120, '2024/07/07', '15세이상', 115000); 
         i:=i+1;
     END LOOP;
 END;
