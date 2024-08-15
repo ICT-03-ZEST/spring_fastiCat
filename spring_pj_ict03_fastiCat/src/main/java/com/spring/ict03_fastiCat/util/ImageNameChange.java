@@ -28,8 +28,6 @@ public class ImageNameChange {
 			throws ServletException, IOException {
 		System.out.println("ImageNameChange - imageName");
 		
-		String category = request.getParameter("board_category");
-		System.out.println("category: " + category);
 		//추가 : JSP의 ImageUploadHandler.java 기능
 		MultipartFile file = request.getFile("board_image");
 		System.out.println("file: " + file);

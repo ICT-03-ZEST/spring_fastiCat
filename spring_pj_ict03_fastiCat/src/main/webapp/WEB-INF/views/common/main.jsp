@@ -23,7 +23,18 @@
 
 <script src="${path}/resources/js/customer/main.js" defer></script>
 <title>main</title>
-
+<script>
+//공연예매 성공/실패
+	let cnt = ${reservCnt};
+	if(cnt == 1) {
+    	alert('공연예매가 완료되었습니다.');
+    	location.href="${path}/main.do";
+    }
+    else if(cnt != 1 && cnt != null){
+    	alert('공연예매에 실패하였습니다.');
+    	location.href="${path}/main.do";
+    } 
+</script>
 </head>
 <body>
 	
@@ -32,12 +43,15 @@
 		<%@include file="header.jsp"%>
 		<!-- header 끝 -->
 		
+		
+		
 		<!--  서큐리티 - UserLoginFailureHandler 에서 넘긴 msg 받기 -->
 		<c:if test="${msg != null }">
 			<script type="text/javascript">
 				alert("${msg}");
 			</script>
 		</c:if>
+		
 		
 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		
@@ -116,7 +130,7 @@
 			</div>
 			<div id="calendarDates"></div>
 		</div>
-
+		
 		<!-- footer 시작 -->
 		<%@include file="footer.jsp"%>
 		<!-- footer 끝 -->
@@ -140,12 +154,9 @@
 
         // 4초마다 슬라이드 전환
         setInterval(nextSlide, 4000);
-    </script>
-	
-	
-	
-	<script>
-	  var shows = [
+        
+        //shows
+        var shows = [
 	        <c:forEach var="item" items="${list}" varStatus="status">
 	            {
 	                "showNum": "${item.showNum}",
@@ -160,7 +171,9 @@
 	    ];
 	    
 	    let path = "<c:out value='${path}'/>";
-	</script>
+	    
+    </script>
+	
 	<script src="${path}/resources/js/calender/calendar.js"></script>
 </body>
 </html>

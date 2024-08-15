@@ -6,6 +6,7 @@ public class ReservationDTO {
    
    private int show_ResId;
    private int showNum;
+   private String showName;
    private String userID;
    private int totalPrice;
    private Date reservation_date;
@@ -15,19 +16,22 @@ public class ReservationDTO {
    
    public ReservationDTO() {}
 
-	public ReservationDTO(int show_ResId, int showNum, String userID, int totalPrice, Date reservation_date,
-			String reservation_check, Date reservation_dateNow, int reserv_count) {
-		super();
-		this.show_ResId = show_ResId;
-		this.showNum = showNum;
-		this.userID = userID;
-		this.totalPrice = totalPrice;
-		this.reservation_date = reservation_date;
-		this.reservation_check = reservation_check;
-		this.reservation_dateNow = reservation_dateNow;
-		this.reserv_count = reserv_count;
-	}
 	
+	public ReservationDTO(int show_ResId, int showNum, String showName, String userID, int totalPrice,
+		Date reservation_date, String reservation_check, Date reservation_dateNow, int reserv_count) {
+	super();
+	this.show_ResId = show_ResId;
+	this.showNum = showNum;
+	this.showName = showName;
+	this.userID = userID;
+	this.totalPrice = totalPrice;
+	this.reservation_date = reservation_date;
+	this.reservation_check = reservation_check;
+	this.reservation_dateNow = reservation_dateNow;
+	this.reserv_count = reserv_count;
+	}
+
+
 	public int getShow_ResId() {
 		return show_ResId;
 	}
@@ -44,6 +48,14 @@ public class ReservationDTO {
 		this.showNum = showNum;
 	}
 	
+	public String getShowName() {
+		return showName;
+	}
+
+	public void setShowName(String showName) {
+		this.showName = showName;
+	}
+
 	public String getUserID() {
 		return userID;
 	}

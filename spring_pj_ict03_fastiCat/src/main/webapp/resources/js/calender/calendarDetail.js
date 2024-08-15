@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     // alert("디테일 스크립트 진입 확인 shows:" + shows); // 페이지 로드 시 shows 배열 내용 확인
-
     const calendarDates = document.getElementById("calendarDates"); // 캘린더 날짜 요소
     const currentMonthElement = document.getElementById("currentMonth"); // 현재 월 표시 요소
     const prevBtn = document.getElementById("prevBtn"); // 이전 달 버튼
@@ -20,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalBookButton = document.getElementById("modalBookButton"); // 모달 내 예약 버튼
     const ticketQuantity = document.getElementById("ticketQuantity"); // 티켓 수량 입력 요소
     const reserveButton = document.getElementById("reserveButton"); // 예약 버튼
-
+    
     const listdata = []; // 공연 데이터 배열 초기화
 
     shows.forEach(item => {
@@ -167,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function() {
         modalShowCapacity.textContent = `${show.curCapacity} / ${show.maxCapacity}`; // 수용 인원
 
         let totalTicketPrice = show.showPrice * (parseInt(ticketQuantity.value) || 1); // 총 티켓 가격 계산
-        modalShowTicketListTotal.textContent = `총 ${totalTicketPrice}원`; // 총 가격 표시
+        modalShowTicketListTotal.textContent = `${totalTicketPrice}`; // 총 가격 표시
 
         modalShowCapacity.classList.toggle("full-capacity", show.curCapacity >= show.maxCapacity); // 매진 여부에 따른 클래스 추가/제거
         showModal.style.display = "block"; // 모달 창 표시
@@ -179,12 +178,19 @@ document.addEventListener("DOMContentLoaded", function() {
         if (showModal.style.display === "block") {
             let showPrice = listdata.find(show => show.showName === modalShowName.textContent).showPrice; // 현재 모달에 표시된 공연의 가격 찾기
             let quantity = parseInt(ticketQuantity.value) || 1; // 수량 값 가져오기
-            modalShowTicketListTotal.textContent = `총 ${showPrice * quantity}원`; // 총 가격 업데이트
+            modalShowTicketListTotal.textContent = `${showPrice * quantity}`; // 총 가격 업데이트
         }
     });
  
     reserveButton.addEventListener("click", () => {
-        // 예약 로직 추가 필요
-        alert("예약 기능은 추가 개발이 필요합니다.");
+    	
+    	// inputData의 값을 form의 hidden input 필드에 설정
+        document.getElementById("showNumInput").value = document.getElementById("modalShowName").dataset.showNum;
+        document.getElementById("totalPriceInput").value = modalShowTicketListTotal.textContent;
+        document.getElementById("reservationDateInput").value = modalShowDay.textContent;
+        document.getElementById("showNameInput").value = modalShowName.textContent;
+        // form 제출
+        document.reservationForm.action = "reservation.do";
+        document.reservationForm.submit();
     });
 });

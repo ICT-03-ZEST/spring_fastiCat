@@ -11,6 +11,7 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
+<meta name="_csrf" content="${_csrf.token}">
 <title>달력 및 데이터 처리 예제</title>
 <link rel="stylesheet" href="${path}/resources/css/calender/detail.css" />
 <link rel="stylesheet"
@@ -53,6 +54,7 @@
 
 	<div>
 		<%@ include file="../common/header.jsp"%></div>
+	
 	<div class="content-container">
 		<div class="content-left">
 			<table>
@@ -108,58 +110,70 @@
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<div class="modaa-left">
-				<table>
-					<tr>
-						<th colspan="8">
-							<h3 id="modalShowName" data-showNum=""></h3>
-						</th>
-					</tr>
-					<tr>
-						<td rowspan="6" colspan="3"><img id="modalShowImage"
-							class="table-img" alt="Show Image"></td>
-						<td class="table-header">장소</td>
-						<td colspan="4" id="modalShowPlace"></td>
-					</tr>
-					<tr>
-						<td class="table-header">공연일</td>
-						<td colspan="4" id="modalShowDay"></td>
-					</tr>
-					<tr>
-						<td class="table-header">공연시간</td>
-						<td colspan="4" id="modalShowTime">분</td>
-					</tr>
-					<tr>
-						<td class="table-header">관람연령</td>
-						<td colspan="4" id="modalShowAge"></td>
-					</tr>
-					<tr>
-						<td class="table-header">가격</td>
-						<td colspan="4" id="modalShowPrice"></td>
-					</tr>
-					<tr>
-						<td class="table-header">혜택</td>
-						<td colspan="4" id="modalShowBene"></td>
-					</tr>
-					<tr>
-						<td colspan="3" id="reserveButton">예약 하기</td>
-						<td colspan="3" class="table-header">인원현황<br>[현인원/최대인원]
-						</td>
-						<td colspan="2" id="modalShowCapacity"></td>
-					</tr>
-					<tr>
-						<td class="table-header">가격</td>
-						<td colspan="3" id="modalShowTicketPrice">
-							<label for="ticketQuantity">매수:</label> 
-							<input type="number" id="ticketQuantity" name="ticketQuantity" min="1" value="1">
-						</td>
-						<td class="table-header">합계</td>
-						<td colspan="3" id="modalShowTicketListTotal"></td>
-					</tr>
-				</table>
-
+				<form name="reservationForm" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+					<input type="hidden" name="hiddenShowNum" id="showNumInput">
+				    <input type="hidden" name="hiddenTotalPrice" id="totalPriceInput">
+				    <input type="hidden" name="hiddenReservation_date" id="reservationDateInput">
+					<input type="hidden" name="hiddenShowName" id="showNameInput">
+					<table>
+						<tr>
+							<th colspan="8">
+								<h3 id="modalShowName" data-show-num="${dto.showNum}"></h3>
+							</th>
+						</tr>
+						<tr>
+							<td rowspan="6" colspan="3"><img id="modalShowImage"
+								class="table-img" alt="Show Image"></td>
+							<td class="table-header">장소</td>
+							<td colspan="4" id="modalShowPlace"></td>
+						</tr>
+						<tr>
+							<td class="table-header">공연일</td>
+							<td colspan="4" id="modalShowDay"></td>
+						</tr>
+						<tr>
+							<td class="table-header">공연시간</td>
+							<td colspan="4" id="modalShowTime">분</td>
+						</tr>
+						<tr>
+							<td class="table-header">관람연령</td>
+							<td colspan="4" id="modalShowAge"></td>
+						</tr>
+						<tr>
+							<td class="table-header">가격</td>
+							<td colspan="4" id="modalShowPrice"></td>
+						</tr>
+						<tr>
+							<td class="table-header">혜택</td>
+							<td colspan="4" id="modalShowBene"></td>
+						</tr>
+						<tr>
+						<c:if test="${selectCnt < 2}">
+							<td colspan="3" id="reserveButton">예약 하기</td>
+						</c:if>
+						<c:if test="${selectCnt >= 2}">
+							<td colspan="3">예매불가(공연당 2매까지 예매가능)</td>
+						</c:if>
+							<td colspan="3" class="table-header">인원현황<br>[현인원/최대인원]
+							</td>
+							<td colspan="2" id="modalShowCapacity"></td>
+						</tr>
+						<tr>
+							<td class="table-header">가격</td>
+							<td colspan="3" id="modalShowTicketPrice">
+								<label for="ticketQuantity">매수:</label> 
+								<input type="number" id="ticketQuantity" name="ticketQuantity" min="1" value="1">
+							</td>
+							<td class="table-header">합계</td>
+							<td colspan="3">총<span id="modalShowTicketListTotal"></span>원</td>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
 	</div>
+	
 	<!-- footer 시작 -->
 	<%@include file="../common/footer.jsp"%>
 	<!-- footer 끝 -->
@@ -183,6 +197,9 @@ var shows = [
     </c:forEach>
 ];
 var path = '<c:out value="${path}" />';
+
+	alert(${selectCnt});
+	
 </script>
 </body>
 </html>

@@ -24,6 +24,12 @@ public interface ReservationService {
 	//달력날짜 예약 : 상세페이지 ticket 모달 구입페이지 insert
 	public void showTicketInsert(HttpServletRequest request,Model model)
 			throws ServletException, IOException; 
-
-
+	
+	
+	//ksy 예약
+	public void showReservation(HttpServletRequest request,Model model)
+			throws ServletException, IOException; 
+	//1 인당 예매 2매 제한
+	public void showBuyChk(HttpServletRequest request, Model model)
+			throws ServletException, IOException; 
 }

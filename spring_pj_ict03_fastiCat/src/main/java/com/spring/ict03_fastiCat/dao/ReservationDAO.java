@@ -3,6 +3,7 @@ package com.spring.ict03_fastiCat.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.spring.ict03_fastiCat.dto.ReservationDTO;
 import com.spring.ict03_fastiCat.dto.ShowDTO;
 
 public interface ReservationDAO {
@@ -21,6 +22,12 @@ public interface ReservationDAO {
 	
 	// 공연에 구입자가 쓴 비용 Insert
 	public int ticketInsert(Map<String, Object> params_ticketInsert);
+
+	//공연예매
+	public int addReservation(ReservationDTO dto);
+	
+	//1 인당 예매 2매 제한
+	public int selectById(Map<String, Object> map);
 
 
 }

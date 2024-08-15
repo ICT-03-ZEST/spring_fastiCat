@@ -45,6 +45,18 @@
 	    INSERT INTO show_Reservation (show_ResId, showNum, userID, totalPrice, Reservation_date) 
 	    VALUES (show_Reservation_seq.NEXTVAL, #{showNum, jdbcType=INTEGER}, #{userID, jdbcType=VARCHAR}, #{totalPrice, jdbcType=INTEGER}, #{showDay, jdbcType=DATE})
 	</insert> 
-
+	
+	<!-- 공연예매 -->
+	<insert id="addReservation" parameterType="com.spring.ict03_fastiCat.dto.ReservationDTO">
+		INSERT INTO show_Reservation(show_ResId, showNum, showName, userID, totalPrice, reservation_date)
+		VALUES ((SELECT NVL(MAX(show_ResId)+1,1) FROM show_Reservation), #{showNum, jdbcType=INTEGER}, #{showName, jdbcType=VARCHAR},  #{userID, jdbcType=VARCHAR}, #{totalPrice, jdbcType=INTEGER}, #{reservation_date, jdbcType=DATE})
+	</insert>
+	
+	<!-- 1 인당 예매 2매 제한 -->
+	<select id="selectById" parameterType="java.util.Map" resultType="int">
+		SELECT COUNT(*) AS cnt FROM SHOW_RESERVATION
+		 WHERE showName = #{showName, jdbcType=VARCHAR}
+		   AND userID = #{userID, jdbcType=VARCHAR}
+	</select>
 </mapper>
   

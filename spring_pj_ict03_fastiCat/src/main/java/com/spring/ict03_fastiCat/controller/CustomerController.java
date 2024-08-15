@@ -114,6 +114,7 @@ public class CustomerController {
 		logger.info("<<< url ==>  /showTicket_Detail.do >>>");
 		serviceCal.showTicketDetail(request, model);
 		serviceCal.showTicketDetailList(request, model);
+		serviceCal.showBuyChk(request, model); //ksy_공연수량제한
 		return "showTiket/showTiketDetail";
 	}
 

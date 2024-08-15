@@ -1,6 +1,6 @@
 package com.spring.ict03_fastiCat.service;
 
-import java.io.IOException;
+import java.io.IOException; 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 
 import com.spring.ict03_fastiCat.dao.CustomerDAO;
 import com.spring.ict03_fastiCat.dao.ReservationDAO;
+import com.spring.ict03_fastiCat.dto.ReservationDTO;
 import com.spring.ict03_fastiCat.dto.ShowDTO;
 
 @Service
@@ -31,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService{
 	
 	@Override
 	public void reservationListAction(HttpServletRequest request, Model model) throws ServletException, IOException {
-		System.out.println("CustomerServiceImpl - reservationListAction");
+		System.out.println("ReservationServiceImpl - reservationListAction");
 
 		// 현재 날짜를 가져옴
 		LocalDate currentDate = LocalDate.now(); // 현재 날짜 가져오기
@@ -129,6 +130,57 @@ public class ReservationServiceImpl implements ReservationService{
 		model.addAttribute("sendShowDay", dto.getShowDay());
 
 	}
+
+	//공연예매 (calenderDetail.js)
+	@Override
+	public void showReservation(HttpServletRequest request, Model model) throws ServletException, IOException {
+		System.out.println("CustomerServiceImpl - showReservation");
+		
+		int showNum = Integer.parseInt(request.getParameter("hiddenShowNum"));
+		int totalPrice = Integer.parseInt(request.getParameter("hiddenTotalPrice"));
+		Date showDate = Date.valueOf(request.getParameter("hiddenReservation_date"));
+		String showName = request.getParameter("hiddenShowName");
+		String userID = (String)request.getSession().getAttribute("sessionID");
+		
+		System.out.println("showNum: " + showNum);
+		System.out.println("totalPrice: " + totalPrice);
+		System.out.println("showDate: " + showDate);
+		System.out.println("showName: " + showName);
+		System.out.println("userID: " + userID);
+		
+		ReservationDTO dto = new ReservationDTO();
+		dto.setShowNum(showNum);
+		dto.setTotalPrice(totalPrice);
+		dto.setReservation_date(showDate);
+		dto.setShowName(showName);
+		dto.setUserID(userID);
+		
+		int reservCnt = dao.addReservation(dto);
+		model.addAttribute("reservCnt", reservCnt);
+	}
+	
+	//1 인당 예매 2매 제한 (calender.js)
+	public void showBuyChk(HttpServletRequest request, Model model) {
+		System.out.println("CustomerServiceImpl - showBuyChk");
+		String userID = (String)request.getSession().getAttribute("sessionID");
+		String showName = request.getParameter("showName");
+		
+		System.out.println("userID: " + userID);
+		System.out.println("showName: " + showName);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userID", userID);
+		map.put("showName", showName);
+		
+		int selectCnt = dao.selectById(map);
+		System.out.println("selectCnt: " +  selectCnt);
+		model.addAttribute("selectCnt", selectCnt);
+	}
+	
+	
+	
+	
+	
 	
 	
 

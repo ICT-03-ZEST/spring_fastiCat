@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.spring.ict03_fastiCat.dto.ReservationDTO;
 import com.spring.ict03_fastiCat.dto.ShowDTO;
 
 @Repository
@@ -57,4 +58,25 @@ public class ReservationDAOImpl implements ReservationDAO{
 		return insertCnt;
 	}
 
+	//공연예매
+	@Override
+	public int addReservation(ReservationDTO dto) {
+		System.out.println("ReservationDAOImpl - addReservation");
+		ReservationDAO dao = sqlSession.getMapper(ReservationDAO.class);
+		int addCnt = dao.addReservation(dto);
+		
+		return addCnt;
+	}
+	
+	//1 인당 예매 2매 제한
+	@Override
+	public int selectById(Map<String, Object> map) {
+		System.out.println("ReservationDAOImpl - selectById");
+		ReservationDAO dao = sqlSession.getMapper(ReservationDAO.class);
+		int cnt = dao.selectById(map);
+		return cnt;
+	}
+
+	
+	
 }

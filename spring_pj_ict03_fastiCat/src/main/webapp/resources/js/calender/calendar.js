@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function openModal(show) {
-        const url = path + `/showTicket_Detail.do?showNum=${show.showNum}&sendShowDay=${show.showDay}`;
+        const url = path + `/showTicket_Detail.do?showNum=${show.showNum}&sendShowDay=${show.showDay}&showName=${show.showName}`;
         window.location.href = url;
     }
 

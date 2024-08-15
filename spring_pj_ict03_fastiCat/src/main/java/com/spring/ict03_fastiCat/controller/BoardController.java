@@ -1,6 +1,7 @@
 package com.spring.ict03_fastiCat.controller;
 
 import java.io.IOException;
+import java.sql.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.spring.ict03_fastiCat.service.BoardServiceImpl;
-import com.spring.ict03_fastiCat.service.ChartServiceImpl;
 import com.spring.ict03_fastiCat.service.MainShowServiceImpl;
+import com.spring.ict03_fastiCat.service.ReservationServiceImpl;
 
 
 @Controller
@@ -26,6 +27,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardServiceImpl serv;
+	
+	@Autowired
+	private ReservationServiceImpl reserve;
 
 	// 1.게시판 목록조회
 	@RequestMapping("board.bc")
@@ -102,7 +106,7 @@ public class BoardController {
 		
 		
 	// 3-2.게시글 수정 처리
-	@RequestMapping("boardUpdateAction.bc")
+	@RequestMapping("boardUpdateAction.bc") //데이터를 추가할때는 HttpServletResponse가 필요함!
 	public String boardUpdateAction(MultipartHttpServletRequest req, HttpServletResponse response, Model model)
 			throws ServletException, IOException {
 		logger.info("<< url => boardUpdateAction.bc >>");
@@ -192,6 +196,17 @@ public class BoardController {
 		show.MainshowInfo(req, model);
 		
 		return  "customer/show_category/showInfo";
+	}	
+	
+	//ksy-------------공연예약
+	@RequestMapping("reservation.do")
+	public String reservation(HttpServletRequest req, HttpServletResponse res, Model model)
+			throws ServletException, IOException {
+		logger.info("<< url => reservation.do >>");
+		
+		reserve.showReservation(req, model); //공연예약
+		 // 리다이렉트로 main.do 호출
+	    return "forward:/main.do";
 	}	
 	
 //	//--------------------------현황조회-------------------------------------
