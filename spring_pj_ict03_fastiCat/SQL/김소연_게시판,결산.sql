@@ -157,6 +157,15 @@ END;
 --[공연]
 INSERT INTO show_tbl(showNum, showName, showPlace, showPrice, showDay, showAge, showTime, showImage, showCategory) 
 VALUES (1, '아이유 콘서트', '월드컵경기장', 180000, '2024-08-18', '12세 이상', 180, '/ict03_fastiCat/resources/images/contents/아이유포스터.jpg', 'K-pop');
+INSERT INTO show_tbl(showNum, showName, showPlace, showPrice, showDay, showAge, showTime, showImage, showCategory) 
+VALUES (2, '아이유 콘서트', '월드컵경기장', 180000, '2024-08-19', '12세 이상', 180, '/ict03_fastiCat/resources/images/contents/아이유포스터.jpg', 'K-pop');
+
+
+INSERT INTO show_tbl(showNum, showName, showPlace, showPrice, showDay, showAge, showTime, showImage, showCategory) 
+VALUES (3, '세븐틴 콘서트', '월드컵경기장', 180000, '2024-08-30', '12세 이상', 180, '/ict03_fastiCat/resources/images/contents/세븐틴.jpg', 'K-pop');
+INSERT INTO show_tbl(showNum, showName, showPlace, showPrice, showDay, showAge, showTime, showImage, showCategory) 
+VALUES (4, '세븐틴 콘서트', '월드컵경기장', 180000, '2024-08-31', '12세 이상', 180, '/ict03_fastiCat/resources/images/contents/세븐틴.jpg', 'K-pop');
+
 
 --show_tbl(공연)
 --DECLARE 
