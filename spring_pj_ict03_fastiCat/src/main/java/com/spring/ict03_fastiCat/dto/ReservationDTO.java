@@ -8,6 +8,7 @@ public class ReservationDTO {
    private int showNum;
    private String showName;
    private String userID;
+   private int amount;
    private int totalPrice;
    private Date reservation_date;
    private String reservation_check;
@@ -16,14 +17,14 @@ public class ReservationDTO {
    
    public ReservationDTO() {}
 
-	
-	public ReservationDTO(int show_ResId, int showNum, String showName, String userID, int totalPrice,
+	public ReservationDTO(int show_ResId, int showNum, String showName, String userID, int amount, int totalPrice,
 		Date reservation_date, String reservation_check, Date reservation_dateNow, int reserv_count) {
 	super();
 	this.show_ResId = show_ResId;
 	this.showNum = showNum;
 	this.showName = showName;
 	this.userID = userID;
+	this.amount = amount;
 	this.totalPrice = totalPrice;
 	this.reservation_date = reservation_date;
 	this.reservation_check = reservation_check;
@@ -64,6 +65,13 @@ public class ReservationDTO {
 		this.userID = userID;
 	}
 	
+	public int getAmount() {
+		return amount;
+	}
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
 	public int getTotalPrice() {
 		return totalPrice;
 	}

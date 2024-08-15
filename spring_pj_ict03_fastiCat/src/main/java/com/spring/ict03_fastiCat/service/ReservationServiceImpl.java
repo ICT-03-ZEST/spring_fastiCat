@@ -137,12 +137,15 @@ public class ReservationServiceImpl implements ReservationService{
 		System.out.println("CustomerServiceImpl - showReservation");
 		
 		int showNum = Integer.parseInt(request.getParameter("hiddenShowNum"));
+		int amount = Integer.parseInt(request.getParameter("hiddenAmount"));
 		int totalPrice = Integer.parseInt(request.getParameter("hiddenTotalPrice"));
 		Date showDate = Date.valueOf(request.getParameter("hiddenReservation_date"));
 		String showName = request.getParameter("hiddenShowName");
 		String userID = (String)request.getSession().getAttribute("sessionID");
 		
+		
 		System.out.println("showNum: " + showNum);
+		System.out.println("amount: " + amount);
 		System.out.println("totalPrice: " + totalPrice);
 		System.out.println("showDate: " + showDate);
 		System.out.println("showName: " + showName);
@@ -150,6 +153,7 @@ public class ReservationServiceImpl implements ReservationService{
 		
 		ReservationDTO dto = new ReservationDTO();
 		dto.setShowNum(showNum);
+		dto.setAmount(amount);
 		dto.setTotalPrice(totalPrice);
 		dto.setReservation_date(showDate);
 		dto.setShowName(showName);

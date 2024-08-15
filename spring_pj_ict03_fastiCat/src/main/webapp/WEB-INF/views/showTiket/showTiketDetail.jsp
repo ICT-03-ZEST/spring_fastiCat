@@ -107,12 +107,14 @@
 	</div>
 	<!-- 모달 구조 -->
 	<div id="showModal" class="modal">
+	<input type="hidden" id="sessionID" value="${sessionID}">
 		<div class="modal-content">
 			<span class="close">&times;</span>
 			<div class="modaa-left">
 				<form name="reservationForm" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 					<input type="hidden" name="hiddenShowNum" id="showNumInput">
+					<input type="hidden" name="hiddenAmount" id="amountInput"><!-- ticketQuantity -->
 				    <input type="hidden" name="hiddenTotalPrice" id="totalPriceInput">
 				    <input type="hidden" name="hiddenReservation_date" id="reservationDateInput">
 					<input type="hidden" name="hiddenShowName" id="showNameInput">
@@ -163,7 +165,7 @@
 							<td class="table-header">가격</td>
 							<td colspan="3" id="modalShowTicketPrice">
 								<label for="ticketQuantity">매수:</label> 
-								<input type="number" id="ticketQuantity" name="ticketQuantity" min="1" value="1">
+								<input type="number" id="ticketQuantity" name="ticketQuantity" min="1" max="2" value="1">
 							</td>
 							<td class="table-header">합계</td>
 							<td colspan="3">총<span id="modalShowTicketListTotal"></span>원</td>
@@ -198,7 +200,6 @@ var shows = [
 ];
 var path = '<c:out value="${path}" />';
 
-	alert(${selectCnt});
 	
 </script>
 </body>

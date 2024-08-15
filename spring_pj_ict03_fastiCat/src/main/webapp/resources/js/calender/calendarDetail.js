@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const modalBookButton = document.getElementById("modalBookButton"); // 모달 내 예약 버튼
     const ticketQuantity = document.getElementById("ticketQuantity"); // 티켓 수량 입력 요소
     const reserveButton = document.getElementById("reserveButton"); // 예약 버튼
+    const sessionID = document.getElementById("sessionID").value;
     
     const listdata = []; // 공연 데이터 배열 초기화
 
@@ -121,8 +122,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     if (show.curCapacity >= show.maxCapacity) {
                         showNameElement.classList.add("full-capacity");
                     }
-
-                    showNameElement.addEventListener("click", () => openModal(show)); // 클릭 시 모달 열기
+                    
+                   
+                	showNameElement.addEventListener("click", () => {
+                		
+                		 if(sessionID !== "") {
+                			 openModal(show); // 클릭 시 모달 열기
+                		 }
+                		 else {
+                         	if(confirm('공연예매는 로그인이 필요합니다')) {
+                         		location.href="/ict03_fastiCat/login.do";
+                         	}
+                         }
+                	});
+                   
+                    
                     dateContainer.appendChild(showNameElement); // 날짜 컨테이너에 공연 이름 요소 추가
                 });
             }
@@ -169,8 +183,10 @@ document.addEventListener("DOMContentLoaded", function() {
         modalShowTicketListTotal.textContent = `${totalTicketPrice}`; // 총 가격 표시
 
         modalShowCapacity.classList.toggle("full-capacity", show.curCapacity >= show.maxCapacity); // 매진 여부에 따른 클래스 추가/제거
+        
         showModal.style.display = "block"; // 모달 창 표시
-    }
+        }
+       
 
     closeModal.addEventListener("click", () => showModal.style.display = "none"); // 모달 닫기 버튼 클릭 시 모달 창 닫기
 
@@ -189,6 +205,9 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("totalPriceInput").value = modalShowTicketListTotal.textContent;
         document.getElementById("reservationDateInput").value = modalShowDay.textContent;
         document.getElementById("showNameInput").value = modalShowName.textContent;
+        document.getElementById("amountInput").value = document.getElementById("ticketQuantity").value;
+        
+        
         // form 제출
         document.reservationForm.action = "reservation.do";
         document.reservationForm.submit();
