@@ -155,14 +155,26 @@ SELECT * FROM show_tbl ORDER BY SHOWNUM;
 DROP SEQUENCE show_Reservation_seq;
 DROP TABLE show_Reservation CASCADE CONSTRAINTS;
 -- 공연에 대한 예매정보 저장하는 테이블
+--CREATE TABLE show_Reservation (
+--    show_ResId          NUMBER(6)           PRIMARY KEY,
+--    showNum             NUMBER(6)           REFERENCES show_tbl(showNum),
+--    userID              VARCHAR2(20)        REFERENCES mvc_customer_tbl(userid),
+--    totalPrice          NUMBER(20),
+--    Reservation_date    date,
+--    Reservation_check   CHAR(1)             DEFAULT 'y',
+--    Reservation_dateNow date                DEFAULT sysdate
+--);
+*변경 후 테이블
 CREATE TABLE show_Reservation (
     show_ResId          NUMBER(6)           PRIMARY KEY,
     showNum             NUMBER(6)           REFERENCES show_tbl(showNum),
+    showName          VARCHAR2(150),
     userID              VARCHAR2(20)        REFERENCES mvc_customer_tbl(userid),
+    amount            NUMBER(20),
     totalPrice          NUMBER(20),
-    Reservation_date    date,
-    Reservation_check   CHAR(1)             DEFAULT 'y',
-    Reservation_dateNow date                DEFAULT sysdate
+    reservation_date    DATE,
+    reservation_check   CHAR(1)             DEFAULT 'y',
+    reservation_dateNow DATE                DEFAULT sysdate
 );
 -- show_seat_grade 테이블을 위한 시퀀스
 CREATE SEQUENCE show_Reservation_seq

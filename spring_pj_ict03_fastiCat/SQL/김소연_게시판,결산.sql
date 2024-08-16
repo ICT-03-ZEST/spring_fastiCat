@@ -227,10 +227,22 @@ BEGIN
     END LOOP;
 END;
 /
---[공연]
-INSERT INTO show_tbl(showNum, showName, showPlace, showPrice, showDay, showAge, showTime, showImage, showCategory) 
-VALUES (1, '아이유 콘서트', '월드컵경기장', 180000, '2024-08-18', '12세 이상', 180, '/ict03_fastiCat/resources/images/contents/아이유포스터.jpg', 'K-pop');
 
+---------<< 예약 테이블 [show_Reservation] >>---------- 
+DROP SEQUENCE show_Reservation_seq;
+DROP TABLE show_Reservation CASCADE CONSTRAINTS;
+-- 공연에 대한 예매정보 저장하는 테이블
+CREATE TABLE show_Reservation (
+    show_ResId          NUMBER(6)           PRIMARY KEY,
+    showNum             NUMBER(6)           REFERENCES show_tbl(showNum),
+    showName          VARCHAR2(150),
+    userID              VARCHAR2(20)        REFERENCES mvc_customer_tbl(userid),
+    amount            NUMBER(20),
+    totalPrice          NUMBER(20),
+    reservation_date    DATE,
+    reservation_check   CHAR(1)             DEFAULT 'y',
+    reservation_dateNow DATE                DEFAULT sysdate
+);
 
 --=====================================테이블+데이터 끝==========================================
 
