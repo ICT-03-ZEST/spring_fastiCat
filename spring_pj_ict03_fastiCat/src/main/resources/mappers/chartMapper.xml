@@ -13,11 +13,13 @@
 	  <!-- 등록된 공연 및 페스티벌 수 -->
 	  <select id="showCount" resultType="int">
 	  	SELECT SUM(cnt)AS total 
-	      FROM (
-				SELECT COUNT(*) AS cnt FROM show_tbl_fes
+  		 FROM (
+				SELECT COUNT(DISTINCT showName) AS cnt 
+				  FROM show_tbl_fes
 				 WHERE show='y'
 				UNION ALL
-				SELECT COUNT(*) AS cnt FROM show_tbl
+				SELECT COUNT(DISTINCT showName) AS cnt 
+				  FROM show_tbl
 				 WHERE show='y')
 	  </select>
 	  
