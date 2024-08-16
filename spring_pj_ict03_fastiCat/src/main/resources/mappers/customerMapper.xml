@@ -10,23 +10,25 @@
 	<!-- 시큐리티 - 로그인 인증시 호출 -->
    	<!-- UserAuthenticationService - loadUserByUsername(String userid)에서 호출 -->
    	<select id="selectCustomer" parameterType="String" resultType="com.spring.ict03_fastiCat.dto.CustomerDTO">
-      	SELECT * FROM mvc_customer_tbl WHERE userid=#{userid}
+      	SELECT * FROM mvc_customer_tbl WHERE userid=#{userid} AND show = 'y'
    	</select>
    
    	<!-- 시큐리티 - 로그인 성공시  UserLoginSuccessHandler - onAuthenticationSuccess()에서 호출 -->
    	<select id="authorityCheck" parameterType="String" resultType="String">
-      	SELECT authority FROM mvc_customer_tbl WHERE userid=#{userid}
+      	SELECT authority FROM mvc_customer_tbl WHERE userid=#{userid} AND show = 'y'
    	</select>
    
    	<!-- 시큐리티 - 로그인 실패시  UserLoginFailurerHandler - onAuthenticationFailure()에서 호출 -->
    	<select id="userPasswordCheck" parameterType="String" resultType="String">
       	SELECT password FROM mvc_customer_tbl
        	WHERE userid=#{strId}
+       	AND show = 'y'
    	</select>
 
 	<select id="useridCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM mvc_customer_tbl
 		WHERE userid= #{strId}
+		AND show = 'y'
 	</select>
 
 	<!-- 회원가입 처리 호출 -->
