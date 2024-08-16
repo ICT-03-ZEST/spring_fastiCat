@@ -144,7 +144,7 @@ $(function(){	// 상세페이지가 로딩화면
 	        <div class="chk_popup-body"> 
 			    비밀번호가 일치하지 않습니다. 다시 입력해주세요
 			    <div>
-    				<input id="pwd_chk" class="pwd_chk" type="text" placeholder="비밀번호확인">
+    				<input id="pwd_chk" class="pwd_chk" type="password" placeholder="비밀번호확인">
     			</div>
 			</div>
 			<div>

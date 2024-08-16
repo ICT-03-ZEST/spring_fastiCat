@@ -15,7 +15,7 @@
 <div class="chk_popup-body"> 
         비밀번호를 입력해주세요
     <div>
-    	<input id="pwd_chk" class="pwd_chk" type="text" placeholder="비밀번호확인">
+    	<input id="pwd_chk" class="pwd_chk" type="password" placeholder="비밀번호확인">
     </div>
 </div>
 <div>
