@@ -43,7 +43,12 @@ table td{
 }
 
 .inputbutton{
-	weight: 100px;
+	margin: 5px; 
+	padding: 10px 20px; 
+	background-color: orange;
+	border: none; 
+	cursor: pointer; 
+	border-radius: 5px;
 }
 </style>
 <title>공지사항 작성</title>
