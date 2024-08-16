@@ -92,9 +92,7 @@ CREATE TABLE heart_tbl(
      board_num          NUMBER(7) NOT NULL,    -- 글번호
      board_category     VARCHAR2(30) NOT NULL,   -- 카테고리
      userID             VARCHAR2(30) REFERENCES mvc_customer_tbl(userid),   -- 작성자 
-     heart              CHAR(1)   DEFAULT 1,
-     FOREIGN KEY(board_num) REFERENCES reviewBoard_tbl(board_num)ON DELETE CASCADE,
-     FOREIGN KEY(board_num) REFERENCES freeBoard_tbl(board_num)ON DELETE CASCADE
+     heart              CHAR(1)   DEFAULT 1
 );
 
 --<4. 관리자 현황 - 결산차트>
