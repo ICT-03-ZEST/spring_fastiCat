@@ -52,6 +52,7 @@
 	  <select id="bookingCountforWeek" resultType="int">
 	  		SELECT COUNT(*) AS cnt FROM show_Reservation
  			 WHERE Reservation_dateNow BETWEEN SYSDATE - INTERVAL '7' DAY AND SYSDATE
+ 			 AND reservation_check = 'y'
 	  </select>
 	  
 	  <!-- 일일  예매 수량 -->
@@ -59,6 +60,7 @@
 	  		SELECT TRUNC(Reservation_dateNow) AS reservation_date,  
 				   COUNT(Reservation_dateNow) AS reserv_count 
 			  FROM show_Reservation
+			 WHERE reservation_check = 'y'
 			GROUP BY
 			    TRUNC(Reservation_dateNow)
 			ORDER BY
