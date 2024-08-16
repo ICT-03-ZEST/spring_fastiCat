@@ -109,7 +109,7 @@
 			        <tbody>
 	           		<c:forEach var="dto" items="${list}" varStatus="status"> 
 	            		<tr>
-				            <td class="resNum"> ${status.index + 1} </td>
+				            <%-- <td class="resNum"> ${status.index + 1} </td> --%>
 				            <td class="title">${dto.showName}</td>
 				            <td class="resName">${dto.userName}</td>
 				            <td class="showDate">${dto.showDate}</td>

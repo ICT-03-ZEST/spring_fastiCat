@@ -183,7 +183,7 @@
 			SELECT COUNT(*) FROM SHOW_RESERVATION WHERE userid = #{strId, jdbcType=VARCHAR} AND Reservation_check = 'y'
 		</select>
 		
-		<select id="resBoardList" parameterType="java.util.Map" resultType="int">
+		<select id="resBoardList" parameterType="java.util.Map" resultType="com.spring.ict03_fastiCat.dto.MyReservationDTO">
 		SELECT *  
 	        FROM ( 
 	            SELECT A.*, 
@@ -193,15 +193,15 @@
 	                        st.showName showName, 
 	                        mc.username userName, 
 	                        sr.totalPrice totalPrice, 
-	                        sr.Reservation_date showDate, 
-	                        sr.Reservation_dateNow resDate
+	                        sr.reservation_date showDate, 
+	                        sr.reservation_dateNow resDate
 	                    FROM show_Reservation sr 
 	                    JOIN show_tbl st 
 	                        ON sr.showNum = st.showNum 
 	                    JOIN mvc_customer_tbl mc 
 	                        ON sr.userID = mc.userid 
 	                    WHERE sr.userID = #{strId, jdbcType=VARCHAR} 
-	                    AND sr.Reservation_check = 'y' 
+	                    AND sr.reservation_check = 'y' 
 	                    ORDER BY sr.show_ResId DESC 
 	                ) A 
 	            ) 
