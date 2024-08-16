@@ -9,9 +9,11 @@
 			SELECT COUNT(*) FROM mvc_customer_tbl WHERE userid=#{strId, jdbcType=VARCHAR} and password=#{strPwd}
 		</select>
 		
-		<delete id="deleteUser" parameterType="String">
-			DELETE FROM mvc_customer_tbl WHERE userid = #{strId, jdbcType=VARCHAR}
-		</delete>
+		<update id="deleteUser" parameterType="String">
+         UPDATE mvc_customer_tbl
+         SET show='n'
+         WHERE userid= #{strId, jdbcType=VARCHAR}
+      	</update>
 		
 		<select id="getUserDetail" parameterType="String" resultType="com.spring.ict03_fastiCat.dto.MyPageDTO">
 			SELECT * FROM mvc_customer_tbl WHERE userid= #{strId, jdbcType=VARCHAR}
@@ -209,7 +211,10 @@
 		</select>
 		
 		<update id="resDelete" parameterType="java.util.Map">
-			UPDATE SHOW_RESERVATION SET reservation_check = 'n' WHERE show_resid = #{strId, jdbcType=VARCHAR} AND userid = #{resNum}
+			UPDATE SHOW_RESERVATION 
+			SET reservation_check = 'n' 
+			WHERE show_resid = #{resNum} 
+			AND userid = #{strId, jdbcType=VARCHAR}
 		</update>
 		
 		<select id="userPasswordCheck" parameterType="String" resultType="String">

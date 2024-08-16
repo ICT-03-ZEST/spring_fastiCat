@@ -66,7 +66,7 @@
           	 	type: 'POST',
             	traditional: true,
             	data: { 'resNum': resNum },
-            	success: function(response) {
+            	success: function() {
                 alert("취소가 완료되었습니다.");
                 
                 $('#hidden_res_num').val('');
@@ -109,7 +109,7 @@
 			        <tbody>
 	           		<c:forEach var="dto" items="${list}" varStatus="status"> 
 	            		<tr>
-				            <%-- <td class="resNum"> ${status.index + 1} </td> --%>
+				            <td class="resNum"> ${status.index + 1} </td>
 				            <td class="title">${dto.showName}</td>
 				            <td class="resName">${dto.userName}</td>
 				            <td class="showDate">${dto.showDate}</td>

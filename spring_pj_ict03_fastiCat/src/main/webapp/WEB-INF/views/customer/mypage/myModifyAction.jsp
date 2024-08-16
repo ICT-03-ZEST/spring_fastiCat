@@ -10,20 +10,6 @@
 <script src="https://kit.fontawesome.com/e3f7bcf3d6.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="${path}/resources/js/customer/join.js" defer></script>
-<script type="text/javascript">
-$(document).ready(function() {
-    alert("로딩 작동");
-    
-    $('select[name="email3"]').change(function() {
-        const selectedValue = $(this).val();
-        if (selectedValue !== '0') {
-            $('#email2').val(selectedValue);
-        } else {
-            $('#email2').val('');
-        }
-    });
-}
-</script>
 </head>
 
 <body>

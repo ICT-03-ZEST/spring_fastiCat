@@ -47,7 +47,7 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int deleteUser(String strId) {
 		System.out.println("DAO - deleteUser");
 		
-		int deleteCnt = sqlSession.delete("com.spring.ict03_fastiCat.dao.MyPageDAO.deleteUser", strId);	
+		int deleteCnt = sqlSession.update("com.spring.ict03_fastiCat.dao.MyPageDAO.deleteUser", strId);	
 		
 		return deleteCnt;
 	}
@@ -162,7 +162,8 @@ public class MyPageDAOImpl implements MyPageDAO{
 	public int resDelete(Map<String, Object> map) {
 		System.out.println("DAO - resDelete");
 		
-		int deleteCnt = sqlSession.selectOne("com.spring.ict03_fastiCat.dao.MyPageDAO.resDelete", map);
+		int deleteCnt = sqlSession.update("com.spring.ict03_fastiCat.dao.MyPageDAO.resDelete", map);
+		System.out.println("deleteCnt : " + deleteCnt );
 		
 		return deleteCnt;
 	}

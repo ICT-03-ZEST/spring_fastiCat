@@ -332,10 +332,8 @@ public class MyPageServiceImpl implements MyPageService {
 			map.put("strId", strId); //아이디
 			map.put("resNum", resNum); //비밀번호
 						
-			// 5단계. 중복확인 처리
 			int deleteCnt = dao.resDelete(map);
-			
-			// 6단계. jsp로 처리결과 전달
+
 			model.addAttribute("deleteCnt", deleteCnt);
 			
 		};
