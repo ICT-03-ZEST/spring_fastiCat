@@ -41,8 +41,6 @@
 	   	 <h3> 자유 게시판</h3>
 	    </c:if>
     </div>
-    <form name="ListForm">
-	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 	<!-- 컨텐츠 시작 -->
     <div class="board_list">
         <ul class="outline" style="display: none">
@@ -99,7 +97,6 @@
 			</c:if>
         </div>
     </div>
-	</form>
      <!-- footer 시작-->
 	<%@ include file="/WEB-INF/views/common/footer.jsp"%>
 	<!-- footer 끝-->
