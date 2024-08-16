@@ -41,12 +41,11 @@ $(function() {
         <div class="info_box" >  
                 <!--포스터&예매버튼-->
             <div class="info_content" >  
+            
 	            <ul>
 	                <li><div class="photo"><img src="${dto.showImage}"></div></li>
-	                <%-- <li><div class="buy_ticket"><a href="${path}/showTicket_Detail.do">예매하기</a></div></li> --%>
-	            	<li class="showName">${dto.showName}</<li>
+	            	<li class="showName"><h3>${dto.showName}</h3><li>
 	            </ul>  
-	             
 				            
 	            <!--상세 정보-->  
 	            <table class="descript" cellspacing="0" cellpadding="0">
@@ -83,6 +82,9 @@ $(function() {
 	    	 <div class="btn_back_box">
 	        	<button class="btn_back" id="btn_back">목록</button>   
 	    	</div>
+	    	 <div class="buy_ticket">
+	    	 	<a href="${path}/showTicket_Detail.do?showNum=${dto.showNum}&sendShowDay=${dto.showDay}&showName=${dto.showName}">예매하기</a>
+	    	 </div>
 	    </div>
 	</div>
     
